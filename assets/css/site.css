@@ -678,7 +678,7 @@ h3 { font-size: var(--fs-h3); }
   right: 6%;
   top: 0;
   height: 100%;
-  width: 520px;
+  width: clamp(220px, 30vw, 520px);
   border: 0;
 }
 
@@ -689,7 +689,7 @@ h3 { font-size: var(--fs-h3); }
   left: 6%;
   top: 50%;
   transform: translateY(-50%);
-  width: 180px;
+  width: clamp(90px, 12vw, 180px);
 }
 
 .ee-intro__photobooth .strip {
@@ -782,7 +782,24 @@ h3 { font-size: var(--fs-h3); }
   color: #000;
   letter-spacing: 1.9px;
   padding: 20px;
-  max-width: 900px;
+  /* Fluid cap, not just a fixed 900px — keeps the text clear of
+     .ee-intro__balloons/.ee-intro__photobooth (also fluid-width, above) as
+     the viewport narrows, instead of the two colliding. */
+  max-width: min(900px, 56vw);
+}
+
+/* Below this width there's no longer room for text + both side images
+   without them overlapping — let the side decoration step aside instead
+   of crowding the text. */
+@media (max-width: 640px) {
+  .ee-intro__balloons,
+  .ee-intro__photobooth {
+    display: none;
+  }
+
+  .ee-intro__text {
+    max-width: 100%;
+  }
 }
 
 /* ===== components/testimonial.css ===== */
