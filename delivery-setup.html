@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery & Setup | Extravaganza Events and Props</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <header class="ee-nav">
+    <div class="container ee-nav__inner">
+      <a href="index.html" class="ee-nav__logo">
+        <img src="assets/img/E-icon-black.svg" alt="Extravaganza" class="ee-nav__logo-img">
+      </a>
+            <button type="button" class="ee-nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="ee-nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="ee-nav__menu" id="ee-nav-menu">
+        <a href="index.html">Home</a>
+        <div class="ee-nav__dropdown">
+          <a href="#">Services</a>
+          <div class="ee-nav__dropdown-menu">
+            <span class="ee-nav__dropdown-label">Event Decor</span>
+            <a href="#">Draping</a> <!-- TODO: no Figma page yet -->
+            <a href="centerpieces.html">Centerpieces</a>
+            <a href="balloons.html">Balloons</a>
+            <a href="prop-rentals.html">Prop Rentals</a>
+            <a href="delivery-setup.html">Delivery &amp; Setup</a>
+            <a href="pickup.html">Pickup</a>
+            <a href="our-process.html">Our Process</a>
+          </div>
+        </div>
+        <a href="events.html">Events</a>
+        <a href="themes.html">Themes</a>
+        <a href="gallery.html">Gallery</a>
+        <div class="ee-nav__dropdown">
+          <a href="#">About</a>
+          <div class="ee-nav__dropdown-menu">
+            <a href="our-story.html">Our Story</a>
+            <a href="meet-the-team.html">Meet the Team</a>
+            <a href="testimonials.html">Testimonials</a>
+          </div>
+        </div>
+        <a href="#">Blog</a> <!-- TODO: no Figma page yet -->
+        <a href="#" class="ee-btn ee-btn--teal ee-nav__menu-cta">Request a Quote</a>
+      </nav>
+      <a href="#" class="ee-btn ee-btn--teal ee-nav__cta">Request a Quote</a>
+    </div>
+  </header>
+
+  <section class="ee-page-hero">
+    <div class="container ee-page-hero__inner">
+      <div class="ee-page-hero__content">
+        <h1 class="ee-page-hero__title">Delivery &amp; Setup</h1>
+        <p class="ee-page-hero__text">Every rental is delivered, installed, and styled by our own team — you never have to lift a piece. We arrive ahead of your event to set the room exactly to plan.</p>
+      </div>
+    </div>
+    <div class="container">
+      <!-- TODO: photo (Figma node 491:384) -->
+      <img src="assets/img/delivery-setup-photo.jpg" alt="Delivery and setup in progress" style="width:100%;display:block;">
+    </div>
+  </section>
+
+  <section class="ee-howitworks">
+    <div class="container">
+      <h2 class="ee-howitworks__title">How it works</h2>
+      <div class="ee-howitworks__steps">
+        <div>
+          <p class="ee-howitworks__number">01</p>
+          <h3 class="ee-howitworks__step-title">Schedule your window</h3>
+          <p class="ee-howitworks__step-desc">Pickup is scheduled around your venue's end time</p>
+        </div>
+        <div>
+          <p class="ee-howitworks__number">02</p>
+          <h3 class="ee-howitworks__step-title">We deliver &amp; Install</h3>
+          <p class="ee-howitworks__step-desc">Our team transports, assembles, and places every piece</p>
+        </div>
+        <div>
+          <p class="ee-howitworks__number">03</p>
+          <h3 class="ee-howitworks__step-title">Final Styling Walkthrough</h3>
+          <p class="ee-howitworks__step-desc">We walk the space with you before we leave, so it's exactly right.</p>
+        </div>
+      </div>
+      <div class="ee-howitworks__footer">
+        <a href="#" class="ee-section-link">Explore our collections <span class="ee-section-link__arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" style="padding-block: var(--space-xl);">
+    <details class="ee-accordion" open>
+      <summary>What's included: <span class="ee-accordion__chevron" aria-hidden="true">⌄</span></summary>
+      <div class="ee-accordion__body">
+        <div class="ee-accordion__list">
+          <div class="ee-accordion__list-item">Delivery to your venue, on your schedule</div>
+          <div class="ee-accordion__list-item">Full assembly &amp; placement by our crew</div>
+          <div class="ee-accordion__list-item">On-site styling to match your layout</div>
+          <div class="ee-accordion__list-item">Coordination with your venue &amp; other vendors</div>
+        </div>
+        <!-- TODO: photo (Figma node 459:273) -->
+        <img src="assets/img/delivery-included-photo.jpg" alt="Our crew setting up an event" style="max-width:400px;">
+      </div>
+    </details>
+    <details class="ee-accordion" open>
+      <summary>Where we deliver: <span class="ee-accordion__chevron" aria-hidden="true">⌄</span></summary>
+      <div class="ee-accordion__body">
+        <!-- TODO: map graphic (Figma node 459:892) -->
+        <img src="assets/img/delivery-map-placeholder.jpg" alt="Service area map" style="max-width:600px;">
+        <p class="ee-accordion__text">Based in Charlotte, NC we can travel as far as ____ to _______ . If your location is not on this map still reach out - depending on availability we may still be able to work together.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="ee-cta-band ee-cta-band--purple">
+    <div class="container ee-cta-band__inner">
+      <h2 class="ee-cta-band__heading">Local to Charlotte?</h2>
+      <p class="ee-cta-band__text">If your rental is small enough or you have the space to transport yourself, local pickup is available!</p>
+      <a href="pickup.html" class="ee-btn ee-cta-band__btn" style="background: var(--color-purple-dark); color: #fff;">Pickup</a>
+    </div>
+  </section>
+
+  <footer class="ee-footer">
+    <div class="container ee-footer__inner">
+      <div class="ee-footer__brand">
+        <img src="assets/img/footer-logo.svg" alt="Extravaganza" class="ee-footer__logo">
+        <p class="ee-footer__wordmark">Extravaganza</p>
+        <p class="ee-footer__tagline">Event design &amp; Props</p>
+        <p class="ee-footer__desc">Event decor and prop rentals — delivered and set up — for weddings, corporate events, and social celebrations.</p>
+      </div>
+      <div class="ee-footer__columns">
+        <div class="ee-footer__col">
+          <p>Services</p>
+          <p><a href="#">Event Decor</a></p>
+          <p><a href="prop-rentals.html">Prop Rentals</a></p>
+          <p><a href="delivery-setup.html">Delivery &amp; Setup</a></p>
+          <p><a href="our-process.html">Our Process</a></p>
+        </div>
+        <div class="ee-footer__col">
+          <p>Company</p>
+          <p><a href="our-story.html">Our Story</a></p>
+          <p><a href="meet-the-team.html">Meet the Team</a></p>
+          <p><a href="testimonials.html">Testimonials</a></p>
+          <p><a href="#">FAQs</a></p>
+        </div>
+        <div class="ee-footer__col">
+          <p>Contact</p>
+          <p><a href="#">Request a Quote</a></p>
+          <p><a href="#">Schedule a Consultation</a></p>
+          <p><a href="#">General Inquiries</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

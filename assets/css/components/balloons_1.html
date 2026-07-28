@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Balloon release</title>
+<style>
+html, body { margin:0; height:100%; }
+
+/* The section the balloons live in. Needs position:relative + overflow:hidden.
+   Height/background are yours — the balloons add no background of their own. */
+.exb-section{
+  position:relative;
+  overflow:hidden;
+  min-height:100%;
+}
+
+.exb{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+
+  --exb-travel:100vh;  /* how far up they go */
+  --exb-dur:3s;        /* base flight time — lower is faster */
+  --exb-scale:0.5;     /* overall size */
+}
+
+.exb-b{
+  position:absolute;
+  width:calc(var(--exb-w) * var(--exb-scale));
+  will-change:transform,opacity;
+}
+
+.exb-drift,.exb-sway{will-change:transform}
+
+/* At rest: bunched, each leaning out from the shared hold point. */
+.exb-b svg{
+  display:block;
+  width:100%;
+  height:auto;
+  transform-origin:50% 72%;
+  rotate:var(--exb-r1);
+}
+
+/* Released. The .exb--go class is added by the observer at the bottom. */
+.exb--go .exb-b       {animation:exb-rise  var(--exb-t) var(--exb-delay) both}
+.exb--go .exb-drift   {animation:exb-drift var(--exb-t) cubic-bezier(.2,.6,.35,1) var(--exb-delay) both}
+.exb--go .exb-sway    {animation:exb-sway  var(--exb-sd) ease-in-out infinite}
+.exb--go .exb-b svg   {animation:exb-tilt  var(--exb-td) ease-in-out infinite alternate}
+
+/* Per-balloon character. Largest sits in front and lowest; the smaller two are
+   raised and offset so they clear its silhouette. Lean matches drift direction. */
+.exb-1{
+  --exb-w:110px; --exb-t:calc(var(--exb-dur) * 1);    --exb-delay:0s;
+  --exb-x:115px; --exb-s:5px; --exb-sd:.9s; --exb-td:.85s;
+  --exb-r1:2deg; --exb-r2:9deg;
+  left:calc(50% - 60px); bottom:calc(14px * var(--exb-scale));
+  color:#684D9F; z-index:3;
+}
+.exb-2{
+  --exb-w:88px;  --exb-t:calc(var(--exb-dur) * 1.06); --exb-delay:.04s;
+  --exb-x:-130px; --exb-s:6px; --exb-sd:1.05s; --exb-td:1s;
+  --exb-r1:-11deg; --exb-r2:-4deg;
+  left:calc(50% - 118px); bottom:calc(66px * var(--exb-scale));
+  color:#B43DB4; z-index:2;
+}
+.exb-3{
+  --exb-w:70px;  --exb-t:calc(var(--exb-dur) * 1.12); --exb-delay:.09s;
+  --exb-x:40px;  --exb-s:4px; --exb-sd:.8s; --exb-td:.75s;
+  --exb-r1:1deg; --exb-r2:7deg;
+  left:calc(50% + 2px); bottom:calc(104px * var(--exb-scale));
+  color:#9B86C4; z-index:1;
+}
+
+/* The release. Every segment starts and ends at matching velocity so there's
+   no kink — the curve at 0% has a flat lead-in, which is what kills the snap. */
+@keyframes exb-rise{
+  0%   {opacity:1; transform:translateY(0);     animation-timing-function:cubic-bezier(.4,0,.6,1)}
+  18%  {transform:translateY(-16px);            animation-timing-function:cubic-bezier(.45,0,.8,.75)}
+  62%  {opacity:1}
+  100% {opacity:0; transform:translateY(calc(var(--exb-travel) * -1))}
+}
+
+/* Lateral spread stays at zero until 18% — that pause is the hand opening.
+   The curve leaves from a standstill so there's no sideways jerk on release. */
+@keyframes exb-drift{
+  0%,18% {transform:translateX(0); animation-timing-function:cubic-bezier(.3,0,.4,1)}
+  100%   {transform:translateX(var(--exb-x))}
+}
+
+/* Full cycle through zero rather than alternating from an offset, so the
+   resting pose and the first animated frame are the same position. */
+@keyframes exb-sway{
+  0%,100% {transform:translateX(0)}
+  25%     {transform:translateX(var(--exb-s))}
+  75%     {transform:translateX(calc(var(--exb-s) * -1))}
+}
+
+@keyframes exb-tilt{
+  from {rotate:var(--exb-r1)}
+  to   {rotate:var(--exb-r2)}
+}
+
+/* Narrower spread on phones so they don't clip off the sides. */
+@media (max-width:640px){
+  .exb-1{--exb-x:66px}
+  .exb-2{--exb-x:-74px}
+  .exb-3{--exb-x:23px}
+}
+
+/* Reduced motion: leave the bunch sitting there, no flight. */
+@media (prefers-reduced-motion:reduce){
+  .exb--go .exb-b,
+  .exb--go .exb-drift,
+  .exb--go .exb-sway,
+  .exb--go .exb-b svg{animation:none}
+}
+
+</style>
+</head>
+<body>
+
+<section class="exb-section">
+
+  <div class="exb" aria-hidden="true">
+    <div class="exb-b exb-1"><div class="exb-drift"><div class="exb-sway">
+      <svg viewBox="0 0 40 67" xmlns="http://www.w3.org/2000/svg" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M26.8843 55.5765C19.5272 55.5765 18.6087 53.8387 18.4962 53.4953C18.0369 52.0213 20.8104 48.8765 22.9806 47.1638L22.8591 46.9921C32.5394 44.1991 40 28.0102 40 18.6302C40 8.3415 31.0401 0 20 0C8.95993 0 0 8.3415 0 18.6302C0 28.4708 8.1855 45.7903 18.5547 47.3104C16.7852 49.245 15.0113 51.9418 15.8037 54.4375C16.6907 57.2599 20.2161 58.5747 26.8933 58.5747C27.4471 58.5747 27.7037 59.1903 27.1995 59.8519C25.7046 61.7656 16.3059 63.0035 15.403 64.0018C14.5 65 14.2067 65.5 15.8037 66.5C17.4007 67.5 30.5943 62.1048 30.5943 58.7213C30.5943 57.7498 30.1801 56.8956 29.4462 56.3261C28.7888 55.8319 27.9289 55.5765 26.8843 55.5765ZM7.276 19.4635C7.276 22.3445 4.59253 21.1217 4.59253 16.9342C4.59253 9.86575 10.5898 4.12887 18.0009 4.12887C22.4043 4.12887 23.7145 6.69581 20.6799 6.69581C13.2823 6.7 7.276 12.3908 7.276 19.4635Z" fill="currentColor"/></svg>
+    </div></div></div>
+
+    <div class="exb-b exb-2"><div class="exb-drift"><div class="exb-sway">
+      <svg viewBox="0 0 40 67" xmlns="http://www.w3.org/2000/svg" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M26.8843 55.5765C19.5272 55.5765 18.6087 53.8387 18.4962 53.4953C18.0369 52.0213 20.8104 48.8765 22.9806 47.1638L22.8591 46.9921C32.5394 44.1991 40 28.0102 40 18.6302C40 8.3415 31.0401 0 20 0C8.95993 0 0 8.3415 0 18.6302C0 28.4708 8.1855 45.7903 18.5547 47.3104C16.7852 49.245 15.0113 51.9418 15.8037 54.4375C16.6907 57.2599 20.2161 58.5747 26.8933 58.5747C27.4471 58.5747 27.7037 59.1903 27.1995 59.8519C25.7046 61.7656 16.3059 63.0035 15.403 64.0018C14.5 65 14.2067 65.5 15.8037 66.5C17.4007 67.5 30.5943 62.1048 30.5943 58.7213C30.5943 57.7498 30.1801 56.8956 29.4462 56.3261C28.7888 55.8319 27.9289 55.5765 26.8843 55.5765ZM7.276 19.4635C7.276 22.3445 4.59253 21.1217 4.59253 16.9342C4.59253 9.86575 10.5898 4.12887 18.0009 4.12887C22.4043 4.12887 23.7145 6.69581 20.6799 6.69581C13.2823 6.7 7.276 12.3908 7.276 19.4635Z" fill="currentColor"/></svg>
+    </div></div></div>
+
+    <div class="exb-b exb-3"><div class="exb-drift"><div class="exb-sway">
+      <svg viewBox="0 0 40 67" xmlns="http://www.w3.org/2000/svg" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M26.8843 55.5765C19.5272 55.5765 18.6087 53.8387 18.4962 53.4953C18.0369 52.0213 20.8104 48.8765 22.9806 47.1638L22.8591 46.9921C32.5394 44.1991 40 28.0102 40 18.6302C40 8.3415 31.0401 0 20 0C8.95993 0 0 8.3415 0 18.6302C0 28.4708 8.1855 45.7903 18.5547 47.3104C16.7852 49.245 15.0113 51.9418 15.8037 54.4375C16.6907 57.2599 20.2161 58.5747 26.8933 58.5747C27.4471 58.5747 27.7037 59.1903 27.1995 59.8519C25.7046 61.7656 16.3059 63.0035 15.403 64.0018C14.5 65 14.2067 65.5 15.8037 66.5C17.4007 67.5 30.5943 62.1048 30.5943 58.7213C30.5943 57.7498 30.1801 56.8956 29.4462 56.3261C28.7888 55.8319 27.9289 55.5765 26.8843 55.5765ZM7.276 19.4635C7.276 22.3445 4.59253 21.1217 4.59253 16.9342C4.59253 9.86575 10.5898 4.12887 18.0009 4.12887C22.4043 4.12887 23.7145 6.69581 20.6799 6.69581C13.2823 6.7 7.276 12.3908 7.276 19.4635Z" fill="currentColor"/></svg>
+    </div></div></div>
+  </div>
+
+</section>
+
+<script>
+// No auto-play here. Listens for a postMessage from the parent page instead
+// of using its own IntersectionObserver — a scroll observer in here can't
+// tell that the embed is sitting at opacity: 0 until the parent says it's
+// actually visible (postMessage works across frames even under the
+// file:// same-origin restrictions that block direct contentDocument
+// access between separate local files).
+window.addEventListener('message', function (e) {
+  if (e.data === 'exb-play') {
+    document.querySelectorAll('.exb').forEach(function (el) {
+      el.classList.add('exb--go');
+    });
+  }
+  if (e.data === 'exb-reset') {
+    document.querySelectorAll('.exb').forEach(function (el) {
+      el.classList.remove('exb--go');
+    });
+  }
+});
+</script>
+
+</body>
+</html>
