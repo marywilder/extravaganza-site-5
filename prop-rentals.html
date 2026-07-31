@@ -5,23 +5,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prop Rentals | Extravaganza Events and Props</title>
   <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elsie:wght@400;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap">
+  <link rel="stylesheet" href="assets/css/pages-timeless.css">
+  <style>
+    /* .ee-howitworks is shared with delivery-setup.html, so this background
+       removal + heading weight is scoped to this page only. */
+    .ee-howitworks {
+      background: none;
+      box-shadow: none;
+    }
+    .ee-howitworks__title {
+      font-weight: 400;
+    }
+
+    /* Staggers this page's own stat row + props grid, same idea as the
+       shared .ee-howitworks__steps stagger in site.css. */
+    .ee-stats-row > div:nth-child(1):not(.is-visible) { transition-delay: 0s; }
+    .ee-stats-row > div:nth-child(2):not(.is-visible) { transition-delay: 0.15s; }
+    .ee-stats-row > div:nth-child(3):not(.is-visible) { transition-delay: 0.3s; }
+
+    .ee-props-grid > div:nth-child(1):not(.is-visible) { transition-delay: 0s; }
+    .ee-props-grid > div:nth-child(2):not(.is-visible) { transition-delay: 0.08s; }
+    .ee-props-grid > div:nth-child(3):not(.is-visible) { transition-delay: 0.16s; }
+    .ee-props-grid > div:nth-child(4):not(.is-visible) { transition-delay: 0.24s; }
+
+    .ee-page-hero__intro-line {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 20px;
+      letter-spacing: 1.2px;
+    }
+
+    /* Photo + buttons centered as a column, vertically matching the
+       text column next to it (site.css's default align-items: center
+       on .ee-page-hero__inner already does the vertical part — this
+       just centers the buttons under the photo horizontally too,
+       instead of them sitting flush right). */
+    .ee-page-hero__actions {
+      justify-content: center;
+    }
+
+    /* Match "Explore our props collection" (.ee-section-title, 46px on
+       this "Timeless" page set) instead of pages-timeless.css's shared
+       72px bump for .ee-howitworks__title — that's sized for pages where
+       it's the only other heading on the page; here it's competing with
+       the section title above it and read oversized next to it. */
+    .ee-howitworks__title {
+      font-size: 46px;
+      text-align: center;
+    }
+
+    /* Row instead of stacked column, so the steps load left-to-right
+       like "What We Do" on the homepage (same .ee-reveal + nth-child
+       stagger already driving that page, reused here via
+       .ee-howitworks__steps' shared stagger rules in site.css). */
+    .ee-howitworks__steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+
+    .ee-howitworks__step-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+    }
+
+    .ee-howitworks__step-header .ee-howitworks__step-title {
+      margin-bottom: 0;
+    }
+
+    .ee-howitworks__step-icon {
+      flex-shrink: 0;
+    }
+  </style>
 </head>
 <body>
   <header class="ee-nav">
     <div class="container ee-nav__inner">
-      <a href="index.html" class="ee-nav__logo">
+      <a href="index4.html" class="ee-nav__logo">
         <img src="assets/img/E-icon-black.svg" alt="Extravaganza" class="ee-nav__logo-img">
       </a>
             <button type="button" class="ee-nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="ee-nav-menu">
         <span></span><span></span><span></span>
       </button>
       <nav class="ee-nav__menu" id="ee-nav-menu">
-        <a href="index.html">Home</a>
+        <a href="index4.html">Home</a>
         <div class="ee-nav__dropdown">
           <a href="#">Services</a>
           <div class="ee-nav__dropdown-menu">
-            <span class="ee-nav__dropdown-label">Event Decor</span>
-            <a href="#">Draping</a> <!-- TODO: no Figma page yet -->
+            <a href="draping.html">Draping</a>
             <a href="centerpieces.html">Centerpieces</a>
             <a href="balloons.html">Balloons</a>
             <a href="prop-rentals.html">Prop Rentals</a>
@@ -41,7 +116,7 @@
             <a href="testimonials.html">Testimonials</a>
           </div>
         </div>
-        <a href="#">Blog</a> <!-- TODO: no Figma page yet -->
+        <a href="blog.html">Blog</a>
         <a href="#" class="ee-btn ee-btn--teal ee-nav__menu-cta">Request a Quote</a>
       </nav>
       <a href="#" class="ee-btn ee-btn--teal ee-nav__cta">Request a Quote</a>
@@ -50,33 +125,37 @@
 
   <section class="ee-page-hero">
     <div class="container ee-page-hero__inner">
-      <div class="ee-page-hero__content">
+      <div class="ee-page-hero__content ee-reveal">
+        <span class="ee-page-hero__intro-line">Props do more than decorate a space; they create an experience.</span>
         <h1 class="ee-page-hero__title">Prop Rentals</h1>
-        <p class="ee-page-hero__text">Props aren't just decor — they're set pieces. Larger-than-life, one-of-a-kind, built to transform a room the way a stage crew transforms a theater. Whether your theme is casino, Hollywood, enchanted forest, or something no one's asked for yet, our warehouse has it — or our in-house studio will build it. Need an entire scene, or just one show-stopping piece? We rent both — there's no minimum.</p>
-        <div class="ee-page-hero__actions">
+        <p class="ee-page-hero__text"><br>
+          From larger-than-life statement pieces to one-of-a-kind set elements, our props are designed to <b>transform any venue into an immersive environment.</b> <br><br> Whether you're creating a glamorous casino, classic Hollywood, an enchanted forest, or a completely original concept, our <b>extensive inventory</b> has what you need. If it doesn't, our in-house fabrication studio can bring your vision to life with <b>custom-built creations.</b>
+          <br><br> If you're just looking for a single show-stopping prop or everything needed to complete the scene, we offer flexible rentals that work with any budget.
+</p>
+      </div>
+      <div class="ee-page-hero__media">
+        <!-- TODO: photo (Figma node 495:2813) -->
+        <img src="assets/img/casino display dice chips cards.jpg" alt="Prop rentals">
+        <div class="ee-page-hero__actions" style="margin-top: var(--space-md);">
           <a href="#" class="ee-btn ee-btn--dark">Request a Quote</a>
           <a href="#" class="ee-btn ee-btn--teal">Explore Collections</a>
         </div>
       </div>
-      <div class="ee-page-hero__media">
-        <!-- TODO: photo (Figma node 495:2813) -->
-        <img src="assets/img/prop-rentals-hero.jpg" alt="Prop rentals">
-      </div>
     </div>
   </section>
 
-  <section class="container" style="padding-block: var(--space-lg); display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-lg);">
-    <div>
+  <section class="container ee-stats-row" style="padding-block: var(--space-lg); display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-lg);">
+    <div class="ee-reveal">
       <p class="ee-stat__number" style="font-size:32px;">THOUSANDS</p>
       <p class="ee-stat__label" style="margin-bottom:8px;">Pieces in Inventory</p>
       <p class="ee-info-card__desc">The largest prop collection east of the Mississippi, spanning every theme imaginable.</p>
     </div>
-    <div>
+    <div class="ee-reveal">
       <p class="ee-stat__number" style="font-size:32px;">30+</p>
       <p class="ee-stat__label" style="margin-bottom:8px;">Themes Covered</p>
       <p class="ee-info-card__desc">Casino, Hollywood, enchanted, tropical, roaring 20s, and more — built and ready to go.</p>
     </div>
-    <div>
+    <div class="ee-reveal">
       <p class="ee-stat__number" style="font-size:32px;">1 PIECE</p>
       <p class="ee-stat__label" style="margin-bottom:8px;">Or the Whole Room</p>
       <p class="ee-info-card__desc">Rent a single statement prop or an entire themed environment — your call.</p>
@@ -84,33 +163,63 @@
   </section>
 
   <section class="container" style="padding-block: var(--space-xl);">
-    <h2 class="ee-section-title" style="display:block; margin-bottom: var(--space-xl);">Explore our props collection</h2>
-    <div style="display:grid; grid-template-columns: repeat(4,1fr); gap: var(--space-md);">
+    <h2 class="ee-section-title ee-reveal" style="display:block; margin-bottom: var(--space-xl);">Explore our props collection</h2>
+    <div class="ee-props-grid" style="display:grid; grid-template-columns: repeat(4,1fr); gap: var(--space-md);">
       <!-- TODO: photos (Figma nodes 495:2832, 2834, 2836, 2838) -->
-      <img src="assets/img/prop-collection-1.jpg" alt="Prop collection" style="width:100%; aspect-ratio: 329/507; object-fit:cover;">
-      <img src="assets/img/prop-collection-2.jpg" alt="Prop collection" style="width:100%; aspect-ratio: 329/507; object-fit:cover;">
-      <img src="assets/img/prop-collection-3.jpg" alt="Prop collection" style="width:100%; aspect-ratio: 329/507; object-fit:cover;">
-      <img src="assets/img/prop-collection-4.jpg" alt="Prop collection" style="width:100%; aspect-ratio: 329/507; object-fit:cover;">
+      <div class="ee-gallery__item ee-reveal" style="aspect-ratio: 329/507;">
+        <img src="assets/img/eiffel-tower.JPG" alt="Prop collection">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Paris Nights</p>
+          <p class="ee-gallery__caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+        </div>
+      </div>
+      <div class="ee-gallery__item ee-reveal" style="aspect-ratio: 329/507;">
+        <img src="assets/img/Hollywood clapboard with red drape and Oscar profiles (1).jpg" alt="Prop collection">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Hollywood Nights</p>
+          <p class="ee-gallery__caption-desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+      </div>
+      <div class="ee-gallery__item ee-reveal" style="aspect-ratio: 329/507;">
+        <img src="assets/img/enchanted-flowers.png" alt="Prop collection">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Enchanted Garden</p>
+          <p class="ee-gallery__caption-desc">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+        </div>
+      </div>
+      <div class="ee-gallery__item ee-reveal" style="aspect-ratio: 329/507;">
+        <img src="assets/img/tropical-theme.jpg" alt="Prop collection">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Tropical Paradise</p>
+          <p class="ee-gallery__caption-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui.</p>
+        </div>
+      </div>
     </div>
     <div style="display:flex; justify-content:flex-end; margin-top: var(--space-md);">
-      <a href="#" class="ee-section-link">View Full Prop Catalog <span class="ee-section-link__arrow" aria-hidden="true">→</span></a>
+      <a href="#" class="ee-section-link">View All Themes <span class="ee-section-link__arrow" aria-hidden="true">→</span></a>
     </div>
   </section>
 
   <section class="ee-howitworks">
     <div class="container">
-      <h2 class="ee-howitworks__title">How it works</h2>
-      <div style="display:flex; flex-direction:column; gap: var(--space-lg);">
-        <div>
-          <h3 class="ee-howitworks__step-title">Tell us your vision</h3>
+<h2 class="ee-howitworks__title ee-reveal">How it works</h2>
+      <div class="ee-howitworks__steps">
+        <div class="ee-reveal">
+          <div class="ee-howitworks__step-header">
+            <h3 class="ee-howitworks__step-title">Tell us your vision</h3>
+          </div>
           <p class="ee-howitworks__step-desc">One prop or a full scene — share your theme, date, and venue.</p>
         </div>
-        <div>
-          <h3 class="ee-howitworks__step-title">We pull the pieces</h3>
+        <div class="ee-reveal">
+          <div class="ee-howitworks__step-header">
+            <h3 class="ee-howitworks__step-title">We pull the pieces</h3>
+          </div>
           <p class="ee-howitworks__step-desc">Our team curates props from inventory — or builds new ones.</p>
         </div>
-        <div>
-          <h3 class="ee-howitworks__step-title">We deliver &amp; set up</h3>
+        <div class="ee-reveal">
+          <div class="ee-howitworks__step-header">
+            <h3 class="ee-howitworks__step-title">We deliver &amp; set up</h3>
+          </div>
           <p class="ee-howitworks__step-desc">Installed and styled before you arrive.</p>
         </div>
       </div>
@@ -118,24 +227,22 @@
   </section>
 
   <section class="container" style="padding-block: var(--space-xl); display:flex; align-items:center; gap: var(--space-xl); flex-wrap:wrap;">
-    <div style="flex:1 1 450px;">
+    <div class="ee-reveal" style="flex:1 1 450px;">
       <!-- TODO: photo of Doug (Figma node 495:2916) -->
-      <img src="assets/img/doug-photo.jpg" alt="Doug, in-house prop artist" style="width:100%; display:block;">
+      <img src="assets/img/photo-placeholder.png" alt="Doug, in-house prop artist" style="width:500px; height:500px; max-width:100%; aspect-ratio: 1 / 1; object-fit:cover; display:block;">
     </div>
-    <div style="flex:1 1 400px;">
-      <p class="ee-timeline__kicker" style="text-transform:uppercase; font-family: var(--font-body); font-size:14px;">In-House Custom Props Workshop</p>
+    <div class="ee-reveal" style="flex:1 1 400px;">
+      <p class="ee-timeline__kicker" style=" font-family: 'Instrument Serif', serif; font-size:24px; letter-spacing: .2rem;">In-House Custom Props Workshop</p>
       <h2 class="ee-timeline__title">Meet Doug - the artist behind it all</h2>
       <p class="ee-timeline__desc" style="max-width: none;">If it exists in your imagination, Doug can build it. For over 20 years, he's been the creative force behind thousands of the props and set pieces in our inventory — designing and building each one by hand in our in-house studio. Have an idea nobody's built before? Doug's eye for design turns it into a showstopping, one-of-a-kind piece — and he's also the mastermind behind our casino nights, personally running the gaming setups from table to table.</p>
-      <a href="#" class="ee-btn ee-btn--dark" style="margin-top: var(--space-md);">Ask Doug to Build something Custom</a>
+      <a href="#" class="ee-btn ee-btn--teal" style="margin-top: var(--space-md);">Ask Doug to Build something Custom</a>
     </div>
   </section>
 
   <footer class="ee-footer">
     <div class="container ee-footer__inner">
       <div class="ee-footer__brand">
-        <img src="assets/img/footer-logo.svg" alt="Extravaganza" class="ee-footer__logo">
-        <p class="ee-footer__wordmark">Extravaganza</p>
-        <p class="ee-footer__tagline">Event design &amp; Props</p>
+        <iframe src="assets/css/components/extravaganza-logo-v1.html" class="ee-hero__logo-anim" title="Extravaganza logo animation" scrolling="no" frameborder="0"></iframe>
         <p class="ee-footer__desc">Event decor and prop rentals — delivered and set up — for weddings, corporate events, and social celebrations.</p>
       </div>
       <div class="ee-footer__columns">

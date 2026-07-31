@@ -78,6 +78,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Home page: full-screen logo intro on load. After ~4.4s — the burst
+  // animation's own runtime (see extravaganza-logo-v3.html) plus a small
+  // buffer — fade the overlay out and reveal the hero content AND the
+  // in-page hero logo together. The in-page logo is a separate instance
+  // of the same animation that started at the same moment on load, so
+  // it's already resting at its own finished frame once revealed — it
+  // stays hidden (opacity: 0, see index4.css) until this exact moment so
+  // it doesn't show through as a second copy playing behind/beside the
+  // full-screen one in the meantime.
+  const heroIntro = document.querySelector('.ee-hero-intro');
+  const heroContent = document.querySelector('.ee-hero__content');
+  const heroLogo = document.querySelector('.ee-hero .ee-hero__logo-anim');
+
+  if (heroIntro && heroContent) {
+    if (reduceMotion) {
+      heroIntro.remove();
+      heroContent.classList.add('is-visible');
+      if (heroLogo) heroLogo.classList.add('is-visible');
+    } else {
+      window.setTimeout(() => {
+        heroIntro.classList.add('is-done');
+        heroContent.classList.add('is-visible');
+        if (heroLogo) heroLogo.classList.add('is-visible');
+      }, 4500);
+    }
+  }
+
   // Home page: each major section "shoots in" toward its resting position
   // every time it scrolls into view, and resets when it scrolls back out —
   // so it replays each time, scrolling either direction.
@@ -235,5 +262,80 @@ document.addEventListener('DOMContentLoaded', () => {
       }, { passive: true });
       window.addEventListener('resize', updateStage);
     }
+  }
+
+  // Accordions (delivery-setup.html "What's included" / "Where we deliver"):
+  // intercept the native instant open/close so it can slide smoothly
+  // instead. The [open] attribute is still what CSS keys off of, so this
+  // stays a progressive enhancement — with JS off, <details> just toggles
+  // instantly as normal.
+  document.querySelectorAll('.ee-accordion').forEach((acc) => {
+    const summary = acc.querySelector('summary');
+    const body = acc.querySelector('.ee-accordion__body');
+    if (!summary || !body) return;
+
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      if (acc.hasAttribute('open')) {
+        body.style.height = body.scrollHeight + 'px';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => { body.style.height = '0px'; });
+        });
+        body.addEventListener('transitionend', function onEnd(ev) {
+          if (ev.propertyName !== 'height') return;
+          body.removeEventListener('transitionend', onEnd);
+          acc.removeAttribute('open');
+          body.style.height = '';
+        });
+      } else {
+        acc.setAttribute('open', '');
+        const targetHeight = body.scrollHeight;
+        body.style.height = '0px';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => { body.style.height = targetHeight + 'px'; });
+        });
+        body.addEventListener('transitionend', function onEnd(ev) {
+          if (ev.propertyName !== 'height') return;
+          body.removeEventListener('transitionend', onEnd);
+          body.style.height = '';
+        });
+      }
+    });
+  });
+
+  // Gallery page: category filter + sort. Sorting re-orders the actual DOM
+  // nodes (rather than CSS order) so the dense grid re-tiles cleanly around
+  // whichever items the filter has hidden.
+  const galleryGrid = document.getElementById('galleryGrid');
+  const galleryFilter = document.getElementById('galleryFilter');
+  const gallerySort = document.getElementById('gallerySort');
+
+  if (galleryGrid && galleryFilter && gallerySort) {
+    const items = Array.from(galleryGrid.querySelectorAll('.ee-gallery__item'));
+
+    const applyFilter = () => {
+      const value = galleryFilter.value;
+      items.forEach((item) => {
+        const matches = value === 'all' || item.dataset.category === value;
+        item.classList.toggle('is-hidden', !matches);
+      });
+    };
+
+    const applySort = () => {
+      const value = gallerySort.value;
+      const sorted = [...items].sort((a, b) => {
+        if (value === 'recent') return b.dataset.date.localeCompare(a.dataset.date);
+        if (value === 'oldest') return a.dataset.date.localeCompare(b.dataset.date);
+        const titleA = a.querySelector('.ee-gallery__caption-title').textContent;
+        const titleB = b.querySelector('.ee-gallery__caption-title').textContent;
+        return value === 'az' ? titleA.localeCompare(titleB) : titleB.localeCompare(titleA);
+      });
+      sorted.forEach((item) => galleryGrid.appendChild(item));
+    };
+
+    galleryFilter.addEventListener('change', applyFilter);
+    gallerySort.addEventListener('change', applySort);
+    applySort();
   }
 });

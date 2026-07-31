@@ -5,23 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Balloons | Extravaganza Events and Props</title>
   <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elsie:wght@400;900&display=swap">
+  <link rel="stylesheet" href="assets/css/pages-timeless.css">
+  <style>
+    /* .ee-theme-card is shared across every page's "Featured" grid, so this
+       flip (full brightness normally, dims on hover) is scoped to this page
+       only, same treatment as the gallery grid above. */
+    .ee-theme-card__img {
+      filter: brightness(1);
+    }
+    .ee-theme-card:hover .ee-theme-card__img {
+      filter: brightness(0.75);
+    }
+  </style>
 </head>
 <body>
   <header class="ee-nav">
     <div class="container ee-nav__inner">
-      <a href="index.html" class="ee-nav__logo">
+      <a href="index4.html" class="ee-nav__logo">
         <img src="assets/img/E-icon-black.svg" alt="Extravaganza" class="ee-nav__logo-img">
       </a>
             <button type="button" class="ee-nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="ee-nav-menu">
         <span></span><span></span><span></span>
       </button>
       <nav class="ee-nav__menu" id="ee-nav-menu">
-        <a href="index.html">Home</a>
+        <a href="index4.html">Home</a>
         <div class="ee-nav__dropdown">
           <a href="#">Services</a>
           <div class="ee-nav__dropdown-menu">
-            <span class="ee-nav__dropdown-label">Event Decor</span>
-            <a href="#">Draping</a> <!-- TODO: no Figma page yet -->
+            <a href="draping.html">Draping</a>
             <a href="centerpieces.html">Centerpieces</a>
             <a href="balloons.html">Balloons</a>
             <a href="prop-rentals.html">Prop Rentals</a>
@@ -41,57 +53,87 @@
             <a href="testimonials.html">Testimonials</a>
           </div>
         </div>
-        <a href="#">Blog</a> <!-- TODO: no Figma page yet -->
+        <a href="blog.html">Blog</a>
         <a href="#" class="ee-btn ee-btn--teal ee-nav__menu-cta">Request a Quote</a>
       </nav>
       <a href="#" class="ee-btn ee-btn--teal ee-nav__cta">Request a Quote</a>
     </div>
   </header>
 
-  <section class="container" style="padding-block: var(--space-xl) var(--space-md); text-align:center;">
-    <h1 class="ee-page-hero__title">Balloons</h1>
+  <section class="container ee-reveal" style="padding-block: var(--space-xl) var(--space-2xl); text-align:center;">
+    <h1 class="ee-page-hero__title" style="margin-bottom: var(--space-lg);">Balloons</h1>
     <!-- TODO: Figma still has lorem ipsum placeholder copy here -->
     <p class="ee-page-hero__text" style="max-width: 800px; margin-inline:auto;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud.</p>
   </section>
 
-  <!-- TODO: photos — Figma shows a varied-size masonry gallery here -->
-  <section class="container" style="columns: 3 260px; column-gap: var(--space-md); padding-bottom: var(--space-lg);">
-    <img src="assets/img/balloons-full-1.jpg" alt="Balloons" style="width:100%; display:block; margin-bottom: var(--space-md);">
-    <img src="assets/img/balloons-full-2.jpg" alt="Balloons" style="width:100%; display:block; margin-bottom: var(--space-md);">
-    <img src="assets/img/balloons-full-3.jpg" alt="Balloons" style="width:100%; display:block; margin-bottom: var(--space-md);">
-    <img src="assets/img/balloons-full-4.jpg" alt="Balloons" style="width:100%; display:block; margin-bottom: var(--space-md);">
+  <section class="container ee-gallery__grid" style="margin-bottom: var(--space-lg);">
+    <div class="ee-gallery__item ee-gallery__item--tall ee-reveal">
+      <img src="assets/img/69a5355d-d709-4fcc-88b2-948ac8d770ff.png" alt="Balloon display">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Statement Balloon Display</p>
+        <p class="ee-gallery__caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-reveal">
+      <img src="assets/img/Balloon Pool enterence.jpg" alt="Balloon pool entrance">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Pool Entrance Arch</p>
+        <p class="ee-gallery__caption-desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-reveal">
+      <img src="assets/img/Barbie-Box-with-balloon-display.jpg" alt="Barbie box with balloon display">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Barbie Box Display</p>
+        <p class="ee-gallery__caption-desc">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-reveal">
+      <img src="assets/img/carnival photo op4.JPG" alt="Carnival balloon photo op">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Carnival Photo Op</p>
+        <p class="ee-gallery__caption-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-reveal">
+      <img src="assets/img/Marquee with balloons (2).jpg" alt="Marquee with balloons">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Marquee &amp; Balloons</p>
+        <p class="ee-gallery__caption-desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
+      </div>
+    </div>
   </section>
   <div class="container" style="display:flex; justify-content:flex-end; padding-bottom: var(--space-xl);">
     <a href="gallery.html" class="ee-section-link">View Gallery <span class="ee-section-link__arrow" aria-hidden="true">→</span></a>
   </div>
 
   <section class="container" style="padding-bottom: var(--space-xl);">
-    <h2 class="ee-section-title" style="display:block; margin-bottom: var(--space-lg);">Featured Balloons</h2>
+    <h2 class="ee-section-title ee-reveal" style="display:block; margin-bottom: var(--space-lg);">Featured Balloons</h2>
     <div class="ee-themes__grid" style="grid-template-columns: repeat(4, 1fr);">
-      <a href="#" class="ee-theme-card">
-        <img src="assets/img/balloons-1.jpg" alt="Balloons style 1" class="ee-theme-card__img">
+      <a href="#" class="ee-theme-card ee-reveal">
+        <img src="assets/img/photo-placeholder.png" alt="Balloons style 1" class="ee-theme-card__img">
         <span class="ee-theme-card__label"></span>
       </a>
-      <a href="#" class="ee-theme-card">
-        <img src="assets/img/balloons-2.jpg" alt="Balloons style 2" class="ee-theme-card__img">
+      <a href="#" class="ee-theme-card ee-reveal">
+        <img src="assets/img/photo-placeholder.png" alt="Balloons style 2" class="ee-theme-card__img">
         <span class="ee-theme-card__label"></span>
       </a>
-      <a href="#" class="ee-theme-card">
-        <img src="assets/img/balloons-3.jpg" alt="Balloons style 3" class="ee-theme-card__img">
+      <a href="#" class="ee-theme-card ee-reveal">
+        <img src="assets/img/photo-placeholder.png" alt="Balloons style 3" class="ee-theme-card__img">
         <span class="ee-theme-card__label"></span>
       </a>
-      <a href="#" class="ee-theme-card">
-        <img src="assets/img/balloons-4.jpg" alt="Balloons style 4" class="ee-theme-card__img">
+      <a href="#" class="ee-theme-card ee-reveal">
+        <img src="assets/img/photo-placeholder.png" alt="Balloons style 4" class="ee-theme-card__img">
         <span class="ee-theme-card__label"></span>
       </a>
     </div>
-    <div style="display:flex; justify-content:flex-end; margin-top: var(--space-md);">
+    <div style="display:flex; justify-content:flex-end; margin-top: var(--space-lg);">
       <a href="prop-rentals.html" class="ee-section-link">View Full Prop Catalog <span class="ee-section-link__arrow" aria-hidden="true">→</span></a>
     </div>
   </section>
 
-  <section class="ee-cta-band ee-cta-band--purple">
-    <div class="container ee-cta-band__inner">
+  <section class="ee-cta-band">
+    <div class="container ee-cta-band__inner ee-reveal">
       <h2 class="ee-cta-band__heading">Ready to bring your vision to life?</h2>
       <p class="ee-cta-band__text">Schedule a consultation and let's talk through your event, your space, and your style.</p>
       <a href="#" class="ee-btn ee-btn--teal ee-cta-band__btn">Schedule a Consultation</a>
@@ -99,7 +141,7 @@
   </section>
 
   <section class="ee-testimonial">
-    <div class="container ee-testimonial__inner">
+    <div class="container ee-testimonial__inner ee-reveal">
       <div class="ee-testimonial__quote">
         <p class="ee-testimonial__text">
           "Extravaganza transformed our ballroom into something our guests are
@@ -127,9 +169,7 @@
   <footer class="ee-footer">
     <div class="container ee-footer__inner">
       <div class="ee-footer__brand">
-        <img src="assets/img/footer-logo.svg" alt="Extravaganza" class="ee-footer__logo">
-        <p class="ee-footer__wordmark">Extravaganza</p>
-        <p class="ee-footer__tagline">Event design &amp; Props</p>
+        <iframe src="assets/css/components/extravaganza-logo-v1.html" class="ee-hero__logo-anim" title="Extravaganza logo animation" scrolling="no" frameborder="0"></iframe>
         <p class="ee-footer__desc">Event decor and prop rentals — delivered and set up — for weddings, corporate events, and social celebrations.</p>
       </div>
       <div class="ee-footer__columns">

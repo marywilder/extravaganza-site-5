@@ -5,23 +5,110 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Testimonials | Extravaganza Events and Props</title>
   <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elsie:wght@400;900&display=swap">
+  <link rel="stylesheet" href="assets/css/pages-timeless.css">
+  <style>
+    /* Testimonial carousel: a scroll-snap track (native touch/trackpad
+       scrolling for free) driven by prev/next arrows + autoplay, rather
+       than the previous static grid. */
+    .ee-quotes__carousel {
+      position: relative;
+    }
+
+    .ee-quotes__track {
+      display: flex;
+      gap: var(--space-lg);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding-bottom: var(--space-sm);
+      scrollbar-width: none;
+    }
+
+    .ee-quotes__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ee-quotes__track .ee-quote-card {
+      scroll-snap-align: start;
+      flex: 0 0 calc((100% - var(--space-lg) * 2) / 3);
+      min-width: 280px;
+    }
+
+    @media (max-width: 900px) {
+      .ee-quotes__track .ee-quote-card { flex-basis: calc((100% - var(--space-lg)) / 2); }
+    }
+    @media (max-width: 600px) {
+      .ee-quotes__track .ee-quote-card { flex-basis: 88%; }
+    }
+
+    .ee-quotes__controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .ee-quotes__arrow {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      background: #fff;
+      color: var(--color-purple-deep);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .ee-quotes__arrow:hover {
+      background: #B43DB4;
+      border-color: #B43DB4;
+      color: #fff;
+    }
+
+    .ee-quotes__dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .ee-quotes__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-border);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .ee-quotes__dot.is-active {
+      background: #B43DB4;
+      transform: scale(1.3);
+    }
+  </style>
 </head>
 <body>
   <header class="ee-nav">
     <div class="container ee-nav__inner">
-      <a href="index.html" class="ee-nav__logo">
+      <a href="index4.html" class="ee-nav__logo">
         <img src="assets/img/E-icon-black.svg" alt="Extravaganza" class="ee-nav__logo-img">
       </a>
             <button type="button" class="ee-nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="ee-nav-menu">
         <span></span><span></span><span></span>
       </button>
       <nav class="ee-nav__menu" id="ee-nav-menu">
-        <a href="index.html">Home</a>
+        <a href="index4.html">Home</a>
         <div class="ee-nav__dropdown">
           <a href="#">Services</a>
           <div class="ee-nav__dropdown-menu">
-            <span class="ee-nav__dropdown-label">Event Decor</span>
-            <a href="#">Draping</a> <!-- TODO: no Figma page yet -->
+            <a href="draping.html">Draping</a>
             <a href="centerpieces.html">Centerpieces</a>
             <a href="balloons.html">Balloons</a>
             <a href="prop-rentals.html">Prop Rentals</a>
@@ -41,7 +128,7 @@
             <a href="testimonials.html">Testimonials</a>
           </div>
         </div>
-        <a href="#">Blog</a> <!-- TODO: no Figma page yet -->
+        <a href="blog.html">Blog</a>
         <a href="#" class="ee-btn ee-btn--teal ee-nav__menu-cta">Request a Quote</a>
       </nav>
       <a href="#" class="ee-btn ee-btn--teal ee-nav__cta">Request a Quote</a>
@@ -49,32 +136,64 @@
   </header>
 
   <section class="ee-quotes">
-    <div class="container">
+    <div class="container ee-reveal">
       <p class="ee-page-hero__eyebrow" style="text-align:center;">kind words</p>
       <h1 class="ee-page-hero__title" style="text-align:center;">Testimonials</h1>
-      <div class="ee-quotes__grid" style="margin-top: var(--space-xl);">
-        <div class="ee-quote-card">
-          <span class="ee-quote-card__mark" aria-hidden="true">&ldquo;</span>
-          <p class="ee-quote-card__text">We wanted a full casino night and the Extravaganza team basically built us a mini Vegas. Our guests didn't want to leave.</p>
-          <span class="ee-quote-card__attribution">Private Event Host</span>
+      <div class="ee-quotes__carousel" style="margin-top: var(--space-xl);">
+        <div class="ee-quotes__track" id="quotesTrack">
+          <div class="ee-quote-card">
+            <span class="ee-quote-card__mark" aria-hidden="true">&ldquo;</span>
+            <p class="ee-quote-card__text">We wanted a full casino night and the Extravaganza team basically built us a mini Vegas. Our guests didn't want to leave.</p>
+            <span class="ee-quote-card__attribution">Private Event Host</span>
+          </div>
+          <div class="ee-quote-card">
+            <span class="ee-quote-card__mark" aria-hidden="true">&ldquo;</span>
+            <p class="ee-quote-card__text">Extravaganza transformed our ballroom into something our guests are still talking about a year later.</p>
+            <span class="ee-quote-card__attribution">Corporate Events Client</span>
+          </div>
+          <div class="ee-quote-card">
+            <span class="ee-quote-card__mark" aria-hidden="true">&ldquo;</span>
+            <p class="ee-quote-card__text">Self pickup saved us so much on the budget, and their team still helped us load the truck. Painless.</p>
+            <span class="ee-quote-card__attribution">Wedding Client</span>
+          </div>
+          <div class="ee-quote-card">
+            <span class="ee-quote-card__mark" aria-hidden="true">&ldquo;</span>
+            <p class="ee-quote-card__text">Our backyard wedding felt like a five-star ballroom by the time their team was done draping it.</p>
+            <span class="ee-quote-card__attribution">Backyard Wedding Client</span>
+          </div>
+          <div class="ee-quote-card">
+            <span class="ee-quote-card__mark" aria-hidden="true">&ldquo;</span>
+            <p class="ee-quote-card__text">They turned our warehouse into a tropical paradise overnight — literally overnight.</p>
+            <span class="ee-quote-card__attribution">Corporate Retreat Planner</span>
+          </div>
+          <div class="ee-quote-card">
+            <span class="ee-quote-card__mark" aria-hidden="true">&ldquo;</span>
+            <p class="ee-quote-card__text">The prom committee said it best: "best theme we've ever had." Extravaganza delivered every piece of it.</p>
+            <span class="ee-quote-card__attribution">High School Prom Committee</span>
+          </div>
+          <div class="ee-quote-card">
+            <span class="ee-quote-card__mark" aria-hidden="true">&ldquo;</span>
+            <p class="ee-quote-card__text">From the first call to the final teardown, everything was handled. We didn't lift a finger.</p>
+            <span class="ee-quote-card__attribution">Gala Chairperson</span>
+          </div>
+          <div class="ee-quote-card">
+            <span class="ee-quote-card__mark" aria-hidden="true">&ldquo;</span>
+            <p class="ee-quote-card__text">Our centerpieces alone got more compliments than the band.</p>
+            <span class="ee-quote-card__attribution">Anniversary Party Host</span>
+          </div>
         </div>
-        <div class="ee-quote-card">
-          <span class="ee-quote-card__mark" aria-hidden="true">&ldquo;</span>
-          <p class="ee-quote-card__text">Extravaganza transformed our ballroom into something our guests are still talking about a year later.</p>
-          <span class="ee-quote-card__attribution">Corporate Events Client</span>
-        </div>
-        <div class="ee-quote-card">
-          <span class="ee-quote-card__mark" aria-hidden="true">&ldquo;</span>
-          <p class="ee-quote-card__text">Self pickup saved us so much on the budget, and their team still helped us load the truck. Painless.</p>
-          <span class="ee-quote-card__attribution">Wedding Client</span>
+        <div class="ee-quotes__controls">
+          <button type="button" class="ee-quotes__arrow ee-quotes__arrow--prev" aria-label="Previous testimonials">‹</button>
+          <div class="ee-quotes__dots" id="quotesDots"></div>
+          <button type="button" class="ee-quotes__arrow ee-quotes__arrow--next" aria-label="Next testimonials">›</button>
         </div>
       </div>
 
       <!-- TODO: Figma reuses the same placeholder quote/name for these two
            featured cards — swap in real, distinct client testimonials -->
-      <div class="ee-featured-quote">
+      <div class="ee-featured-quote ee-reveal">
         <div class="ee-featured-quote__media">
-          <img src="assets/img/testimonial-featured-1.jpg" alt="Client event">
+          <img src="assets/img/photo-placeholder.png" alt="Client event">
         </div>
         <div class="ee-featured-quote__content">
           <p class="ee-featured-quote__client">Recognizable Client</p>
@@ -82,9 +201,9 @@
           <p class="ee-featured-quote__text">"Extravaganza transformed our ballroom into something our guests are still talking about a year later."</p>
         </div>
       </div>
-      <div class="ee-featured-quote ee-featured-quote--reverse">
+      <div class="ee-featured-quote ee-featured-quote--reverse ee-reveal">
         <div class="ee-featured-quote__media">
-          <img src="assets/img/testimonial-featured-2.jpg" alt="Client event">
+          <img src="assets/img/photo-placeholder.png" alt="Client event">
         </div>
         <div class="ee-featured-quote__content">
           <p class="ee-featured-quote__client">Recognizable Client</p>
@@ -95,8 +214,8 @@
     </div>
   </section>
 
-  <section class="ee-cta-band ee-cta-band--purple">
-    <div class="container ee-cta-band__inner">
+  <section class="ee-cta-band">
+    <div class="container ee-cta-band__inner ee-reveal">
       <h2 class="ee-cta-band__heading">Ready to have your own success story?</h2>
       <p class="ee-cta-band__text">Let's start planning your event.</p>
       <a href="#" class="ee-btn ee-btn--dark ee-cta-band__btn">Consultation</a>
@@ -106,9 +225,7 @@
   <footer class="ee-footer">
     <div class="container ee-footer__inner">
       <div class="ee-footer__brand">
-        <img src="assets/img/footer-logo.svg" alt="Extravaganza" class="ee-footer__logo">
-        <p class="ee-footer__wordmark">Extravaganza</p>
-        <p class="ee-footer__tagline">Event design &amp; Props</p>
+        <iframe src="assets/css/components/extravaganza-logo-v1.html" class="ee-hero__logo-anim" title="Extravaganza logo animation" scrolling="no" frameborder="0"></iframe>
         <p class="ee-footer__desc">Event decor and prop rentals — delivered and set up — for weddings, corporate events, and social celebrations.</p>
       </div>
       <div class="ee-footer__columns">
@@ -137,5 +254,104 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+
+  <!-- Testimonial carousel: page-local since .ee-quotes__track only exists
+       here. Scroll-snap does the actual sliding; this just drives it via
+       arrows, dots, and autoplay. -->
+  <script>
+    (function () {
+      var track = document.getElementById('quotesTrack');
+      var dotsWrap = document.getElementById('quotesDots');
+      var prevBtn = document.querySelector('.ee-quotes__arrow--prev');
+      var nextBtn = document.querySelector('.ee-quotes__arrow--next');
+      if (!track || !dotsWrap || !prevBtn || !nextBtn) return;
+
+      var cards = Array.from(track.children);
+
+      var cardsPerView = function () {
+        if (window.matchMedia('(max-width: 600px)').matches) return 1;
+        if (window.matchMedia('(max-width: 900px)').matches) return 2;
+        return 3;
+      };
+
+      var pageCount = function () {
+        return Math.ceil(cards.length / cardsPerView());
+      };
+
+      var currentPage = function () {
+        var perView = cardsPerView();
+        var pageWidth = track.clientWidth;
+        return Math.round(track.scrollLeft / pageWidth);
+      };
+
+      var goToPage = function (page) {
+        var total = pageCount();
+        var target = (page + total) % total;
+        track.scrollTo({ left: target * track.clientWidth, behavior: 'smooth' });
+      };
+
+      var renderDots = function () {
+        dotsWrap.innerHTML = '';
+        var total = pageCount();
+        for (var i = 0; i < total; i++) {
+          var dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'ee-quotes__dot';
+          dot.setAttribute('aria-label', 'Go to testimonial page ' + (i + 1));
+          (function (page) {
+            dot.addEventListener('click', function () {
+              goToPage(page);
+            });
+          })(i);
+          dotsWrap.appendChild(dot);
+        }
+        updateActiveDot();
+      };
+
+      var updateActiveDot = function () {
+        var active = currentPage();
+        Array.from(dotsWrap.children).forEach(function (dot, i) {
+          dot.classList.toggle('is-active', i === active);
+        });
+      };
+
+      prevBtn.addEventListener('click', function () { goToPage(currentPage() - 1); });
+      nextBtn.addEventListener('click', function () { goToPage(currentPage() + 1); });
+
+      var scrollTicking = false;
+      track.addEventListener('scroll', function () {
+        if (!scrollTicking) {
+          window.requestAnimationFrame(function () {
+            updateActiveDot();
+            scrollTicking = false;
+          });
+          scrollTicking = true;
+        }
+      }, { passive: true });
+
+      window.addEventListener('resize', renderDots);
+
+      // Autoplay: advance one page every 5s, looping back to the start.
+      // Pauses while the pointer/keyboard focus is inside the carousel.
+      var autoplayId = null;
+      var startAutoplay = function () {
+        stopAutoplay();
+        autoplayId = window.setInterval(function () { goToPage(currentPage() + 1); }, 5000);
+      };
+      var stopAutoplay = function () {
+        if (autoplayId) window.clearInterval(autoplayId);
+      };
+
+      track.addEventListener('mouseenter', stopAutoplay);
+      track.addEventListener('mouseleave', startAutoplay);
+      track.addEventListener('focusin', stopAutoplay);
+      track.addEventListener('focusout', startAutoplay);
+
+      renderDots();
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        startAutoplay();
+      }
+    })();
+  </script>
 </body>
 </html>

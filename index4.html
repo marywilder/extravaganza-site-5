@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extravaganza Events and Props | Event Decor &amp; Prop Rentals</title>
+
+    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elsie:wght@400;900&display=swap">
+    <link rel="stylesheet" href="assets/css/index4.css">
+</head>
+<body>
+
+  <!-- Full-screen logo intro: plays once on load, covering the whole
+       viewport (nav included), then fades out via main.js once the burst
+       animation has run its course — revealing the hero underneath, which
+       has been sitting invisible (.ee-hero__content starts at opacity: 0)
+       until that same moment. The in-page hero logo just below is a
+       second, independent instance of the same animation file, started at
+       the same moment on load, so it's already resting at its own
+       finished frame by the time this overlay clears — no synchronization
+       between the two is needed beyond starting together. -->
+  <div class="ee-hero-intro" id="heroIntro" aria-hidden="true">
+    <iframe src="assets/css/components/extravaganza-logo-v3.html" class="ee-hero-intro__anim" title="" scrolling="no" frameborder="0"></iframe>
+  </div>
+
+  <div class="ee-home-topbg">
+  <div class="ee-home-topbg__img-clip">
+    <div class="ee-home-topbg__panel" aria-hidden="true"></div>
+  </div>
+  <!--
+    Matches Figma node 491:181 (Nav).
+    Logo is an icon mark (no wordmark in the nav itself — that's only in the
+    footer). White variant here since this page's nav sits over the dark
+    wavy background photo; other pages use the black variant.
+  -->
+  <header class="ee-nav">
+    <div class="container ee-nav__inner">
+      <a href="index4.html" class="ee-nav__logo">
+        <img src="assets/img/E-icon-white.svg" alt="Extravaganza" class="ee-nav__logo-img">
+      </a>
+            <button type="button" class="ee-nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="ee-nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="ee-nav__menu" id="ee-nav-menu">
+        <a href="index4.html">Home</a>
+        <div class="ee-nav__dropdown">
+          <a href="#">Services</a>
+          <div class="ee-nav__dropdown-menu">
+            <a href="draping.html">Draping</a>
+            <a href="centerpieces.html">Centerpieces</a>
+            <a href="balloons.html">Balloons</a>
+            <a href="prop-rentals.html">Prop Rentals</a>
+            <a href="delivery-setup.html">Delivery &amp; Setup</a>
+            <a href="pickup.html">Pickup</a>
+            <a href="our-process.html">Our Process</a>
+          </div>
+        </div>
+        <a href="events.html">Events</a>
+        <a href="themes.html">Themes</a>
+        <a href="gallery.html">Gallery</a>
+        <div class="ee-nav__dropdown">
+          <a href="#">About</a>
+          <div class="ee-nav__dropdown-menu">
+            <a href="our-story.html">Our Story</a>
+            <a href="meet-the-team.html">Meet the Team</a>
+            <a href="testimonials.html">Testimonials</a>
+          </div>
+        </div>
+        <a href="blog.html">Blog</a>
+        <a href="#" class="ee-btn ee-btn--teal ee-nav__menu-cta">Request a Quote</a>
+      </nav>
+      <a href="#" class="ee-btn ee-btn--teal ee-nav__cta">Request a Quote</a>
+    </div>
+  </header>
+
+  <!--
+    Matches Figma node 491:225 inside the Home frame (491:169). "Timeless"
+    variant (assets/css/index3-timeless.css): the wavy photo backdrop is
+    replaced by a solid deep-indigo panel (.ee-home-topbg__panel) sized to
+    cover just the nav+hero region.
+
+    .ee-hero-stage is tall (extra scroll runway); .ee-hero-stage__pin sticks
+    to the top of the viewport (just below the sticky nav) for that whole
+    range. Inside it, the hero content and the intro text occupy the exact
+    same spot and crossfade via scroll progress (main.js) — the intro text
+    is invisible at page load and only appears by replacing the hero
+    content in place, still over the indigo panel background. Once you've
+    scrolled through the stage's height, the pin releases and the page
+    continues scrolling normally from the intro's resting position.
+
+    This must stay OUTSIDE .ee-home-body: that wrapper has overflow:hidden
+    (kept in case future decoration needs clipping), and any overflow value
+    other than visible on an ancestor silently disables position:sticky —
+    which is exactly what was breaking the pin here before.
+  -->
+  <div class="ee-hero-stage">
+    <div class="ee-hero-stage__pin">
+      <section class="ee-hero">
+        <div class="container ee-hero__inner">
+          <iframe src="assets/css/components/extravaganza-logo-v3.html" class="ee-hero__logo-anim" title="Extravaganza logo animation" scrolling="no" frameborder="0"></iframe>
+          <div class="ee-hero__content">
+            <h1 class="ee-hero__heading">
+              Extraordinary events,
+              <span class="ee-hero__accent">imagined</span> with artistry and <span class="ee-hero__accent">delivered</span> with ease.
+            </h1>
+            <!--
+            <h1 class="ee-hero__heading">
+              Extraordinary events,
+              <span class="ee-hero__accent">effortlessly</span> delivered.
+            </h1>-->
+            <div class="ee-hero__actions">
+              <a href="#" class="ee-btn ee-btn--teal">Explore Themes</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Matches Figma node 491:241. -->
+      <div class="ee-intro-overlay">
+        <!-- Inlined (not iframed) per the source file's own note: an
+             <img src="..."> can't render this, and keeping it inline here
+             is simpler than an iframe for a static, non-interactive SVG. -->
+        <div class="ee-intro__photobooth" aria-hidden="true">
+          <svg class="strip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 720" role="img" aria-labelledby="strip-title">
+
+            <title id="strip-title">Photobooth film strip with three photos</title>
+
+            <defs>
+              <!-- Drawn once, placed twice, so both edges match by construction.
+                   No fill set — used only inside the mask below to punch
+                   transparent holes through the strip (default mask fill is
+                   black = fully transparent), rather than drawing opaque
+                   rectangles on top of it. -->
+              <g id="perf-column">
+                  <rect x="0" y="11" width="12" height="18" rx="3"/>
+                  <rect x="0" y="51" width="12" height="18" rx="3"/>
+                  <rect x="0" y="91" width="12" height="18" rx="3"/>
+                  <rect x="0" y="131" width="12" height="18" rx="3"/>
+                  <rect x="0" y="171" width="12" height="18" rx="3"/>
+                  <rect x="0" y="211" width="12" height="18" rx="3"/>
+                  <rect x="0" y="251" width="12" height="18" rx="3"/>
+                  <rect x="0" y="291" width="12" height="18" rx="3"/>
+                  <rect x="0" y="331" width="12" height="18" rx="3"/>
+                  <rect x="0" y="371" width="12" height="18" rx="3"/>
+                  <rect x="0" y="411" width="12" height="18" rx="3"/>
+                  <rect x="0" y="451" width="12" height="18" rx="3"/>
+                  <rect x="0" y="491" width="12" height="18" rx="3"/>
+                  <rect x="0" y="531" width="12" height="18" rx="3"/>
+                  <rect x="0" y="571" width="12" height="18" rx="3"/>
+                  <rect x="0" y="611" width="12" height="18" rx="3"/>
+                  <rect x="0" y="651" width="12" height="18" rx="3"/>
+                  <rect x="0" y="691" width="12" height="18" rx="3"/>
+              </g>
+
+              <mask id="windows">
+                <rect x="0" y="0" width="260" height="720" rx="6" fill="#ffffff"/>
+                <rect x="30" y="30"  width="200" height="200" rx="3" fill="#000000"/>
+                <rect x="30" y="260" width="200" height="200" rx="3" fill="#000000"/>
+                <rect x="30" y="490" width="200" height="200" rx="3" fill="#000000"/>
+                <use href="#perf-column" x="8" fill="#000000"/>
+                <use href="#perf-column" x="240" fill="#000000"/>
+              </mask>
+
+              <clipPath id="frame-1"><rect x="30" y="30"  width="200" height="200" rx="3"/></clipPath>
+              <clipPath id="frame-2"><rect x="30" y="260" width="200" height="200" rx="3"/></clipPath>
+              <clipPath id="frame-3"><rect x="30" y="490" width="200" height="200" rx="3"/></clipPath>
+            </defs>
+
+            <rect x="0" y="0" width="260" height="720" rx="6" fill="#593F8E" mask="url(#windows)"/>
+
+            <image class="ee-intro__photo ee-intro__photo--1" href="assets/img/western casino 039.jpg" x="30" y="30"  width="200" height="200" preserveAspectRatio="xMidYMid slice" clip-path="url(#frame-1)"/>
+            <image class="ee-intro__photo ee-intro__photo--2" href="assets/img/Floral centerpiece with fan .jpg" x="30" y="260" width="200" height="200" preserveAspectRatio="xMidYMid slice" clip-path="url(#frame-2)"/>
+            <image class="ee-intro__photo ee-intro__photo--3" href="assets/img/GastonCountryClub-49.jpg" x="30" y="490" width="200" height="200" preserveAspectRatio="xMidYMid slice" clip-path="url(#frame-3)"/>
+
+          </svg>
+        </div>
+        <p class="container ee-intro__text">
+          From timeless statement pieces to unexpected treasures, our prop collection brings depth, character, and wonder to every event.
+        </p>
+        <iframe src="assets/css/components/balloons_1.html" class="ee-intro__balloons" title="Balloon release animation" scrolling="no" frameborder="0" aria-hidden="true"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wraps everything below the hero stage — must stay outside
+       .ee-hero-stage, whose sticky pin (see above) would otherwise break. -->
+  <div class="ee-home-body">
+
+  <!-- Matches Figma node 491:242. Translucent purple wash over the page
+       background texture, quote + attribution left, stat trio right. -->
+  <section class="ee-testimonial">
+    <div class="container ee-testimonial__inner ee-reveal">
+      <div class="ee-testimonial__quote">
+        <p class="ee-testimonial__text">
+          "Extravaganza transformed our ballroom into something our guests are
+          still talking about a year later."
+        </p>
+        <p class="ee-testimonial__attribution">— Corporate Events Client</p>
+      </div>
+      <div class="ee-testimonial__stats">
+        <div class="ee-stat">
+          <p class="ee-stat__number">18+</p>
+          <p class="ee-stat__label">Years in business</p>
+        </div>
+        <div class="ee-stat">
+          <p class="ee-stat__number">2,400+</p>
+          <p class="ee-stat__label">Events Produced</p>
+        </div>
+        <div class="ee-stat">
+          <p class="ee-stat__number">30+</p>
+          <p class="ee-stat__label">Signature Themes</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Matches Figma node 491:256 ("What we do") -->
+  <section class="ee-process">
+    <div class="container ee-process__header ee-reveal">
+      <h2 class="ee-section-title">What we do</h2>
+      <a href="#" class="ee-section-link">
+        Our Process <span class="ee-section-link__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+    <div class="container ee-process__grid">
+      <div class="ee-process__step ee-reveal">
+        <p class="ee-process__number">01</p>
+        <h3 class="ee-process__title">Decor &amp; Prop Rentals</h3>
+        <p class="ee-process__desc">Our inventory consists of draping, centerpieces, props, linens, lighting, balloon design and more tailored to your vision and theme.</p>
+      </div>
+      <div class="ee-process__step ee-reveal">
+        <p class="ee-process__number">02</p>
+        <h3 class="ee-process__title">Delivery &amp; Setup</h3>
+        <p class="ee-process__desc">We deliver, install, and break down every item we provide - no lifting required on your end.</p>
+      </div>
+      <div class="ee-process__step ee-reveal">
+        <p class="ee-process__number">03</p>
+        <h3 class="ee-process__title">Pick Up Rentals</h3>
+        <p class="ee-process__desc">Pick up and return the items of your choice from our warehouse.</p>
+      </div>
+      <div class="ee-process__step ee-reveal">
+        <p class="ee-process__number">04</p>
+        <h3 class="ee-process__title">Custom Event Design</h3>
+        <p class="ee-process__desc">Bespoke concepts built around your vision, venue, and budget.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Matches Figma node 491:283 ("Explore by theme") -->
+  <section class="ee-themes">
+    <div class="container ee-themes__header ee-reveal">
+      <h2 class="ee-section-title">Explore by theme</h2>
+      <a href="#" class="ee-section-link">
+        View All Collections <span class="ee-section-link__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+    <div class="container ee-themes__grid">
+      <a href="#" class="ee-theme-card ee-reveal">
+        <img src="assets/img/theme-casino.jpg" alt="Casino theme" class="ee-theme-card__img">
+        <span class="ee-theme-card__label">Casino</span>
+      </a>
+      <a href="#" class="ee-theme-card ee-reveal">
+        <img src="assets/img/enchanted-arch.png" alt="Enchanted theme" class="ee-theme-card__img">
+        <span class="ee-theme-card__label">Enchanted</span>
+      </a>
+      <a href="#" class="ee-theme-card ee-reveal">
+        <img src="assets/img/red-carpet.jpeg" alt="Hollywood theme" class="ee-theme-card__img">
+        <span class="ee-theme-card__label">Hollywood</span>
+      </a>
+      <a href="#" class="ee-theme-card ee-reveal">
+        <img src="assets/img/20s_screen_display.jpg" alt="Roaring 20s theme" class="ee-theme-card__img">
+        <span class="ee-theme-card__label">Roaring 20s</span>
+      </a>
+      <a href="#" class="ee-theme-card ee-reveal">
+        <img src="assets/img/tropical-theme.jpg" alt="Tropical theme" class="ee-theme-card__img">
+        <span class="ee-theme-card__label">Tropical</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Matches Figma node 491:305. Translucent purple wash over the page
+       background texture, like the testimonial section. -->
+  <section class="ee-cta">
+    <div class="container ee-cta__inner ee-reveal">
+      <h2 class="ee-cta__heading">Ready to bring your vision to life?</h2>
+      <p class="ee-cta__subtext">Schedule a consultation and let's talk through your event, your space, and your style.</p>
+      <a href="#" class="ee-btn ee-btn--teal ee-cta__btn">Schedule a Consultation</a>
+    </div>
+  </section>
+
+  <!-- Matches Figma node 491:310 ("Recent Work"). Staggered/masonry layout:
+       one tall image on the left, a 2x2 offset grid on the right. -->
+  <section class="ee-gallery">
+    <div class="container ee-gallery__header ee-reveal">
+      <h2 class="ee-section-title">Recent Work</h2>
+      <a href="#" class="ee-section-link">
+        Gallery <span class="ee-section-link__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+    <div class="container ee-gallery__grid">
+      <div class="ee-gallery__item ee-gallery__item--tall ee-reveal">
+        <img src="assets/img/Barbie-Box-with-balloon-display.jpg" alt="Recent event setup">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Barbie Box Display</p>
+          <p class="ee-gallery__caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+        </div>
+      </div>
+      <div class="ee-gallery__item ee-reveal">
+        <img src="assets/img/vases-with-flower-stems.png" alt="Recent event setup">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Floral Vase Accents</p>
+          <p class="ee-gallery__caption-desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+      </div>
+      <div class="ee-gallery__item ee-reveal">
+        <img src="assets/img/eiffel-tower.JPG" alt="Recent event setup">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Paris Nights</p>
+          <p class="ee-gallery__caption-desc">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+        </div>
+      </div>
+      <div class="ee-gallery__item ee-reveal">
+        <img src="assets/img/enchanted-flowers.png" alt="Recent event setup">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Enchanted Garden</p>
+          <p class="ee-gallery__caption-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui.</p>
+        </div>
+      </div>
+      <div class="ee-gallery__item ee-reveal">
+        <img src="assets/img/Yacht Centerpiece.jpg" alt="Recent event setup">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Yacht Club Affair</p>
+          <p class="ee-gallery__caption-desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Matches Figma node 491:322 -->
+  <footer class="ee-footer">
+    <div class="container ee-footer__inner">
+      <div class="ee-footer__brand">
+        <iframe src="assets/css/components/extravaganza-logo-v1.html" class="ee-hero__logo-anim" title="Extravaganza logo animation" scrolling="no" frameborder="0"></iframe>
+        
+        <p class="ee-footer__desc">Event decor and prop rentals — delivered and set up — for weddings, corporate events, and social celebrations.</p>
+      </div>
+      <div class="ee-footer__columns">
+        <div class="ee-footer__col">
+          <p>Services</p>
+          <p><a href="#">Event Decor</a></p>
+          <p><a href="prop-rentals.html">Prop Rentals</a></p>
+          <p><a href="delivery-setup.html">Delivery &amp; Setup</a></p>
+          <p><a href="our-process.html">Our Process</a></p>
+        </div>
+        <div class="ee-footer__col">
+          <p>Company</p>
+          <p><a href="our-story.html">Our Story</a></p>
+          <p><a href="meet-the-team.html">Meet the Team</a></p>
+          <p><a href="testimonials.html">Testimonials</a></p>
+          <p><a href="#">FAQs</a></p>
+        </div>
+        <div class="ee-footer__col">
+          <p>Contact</p>
+          <p><a href="#">Request a Quote</a></p>
+          <p><a href="#">Schedule a Consultation</a></p>
+          <p><a href="#">General Inquiries</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  </div>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+
+  <!-- TIMELESS VARIANT: main.js's sticky-nav light/dark toggle looks for
+       .ee-home-topbg__img (the wavy photo) to compute its scroll threshold;
+       this page swapped that photo for .ee-home-topbg__panel, so main.js's
+       version of this logic silently no-ops. Reimplemented here against the
+       panel instead, rather than editing the shared main.js used by every
+       other page. -->
+  <script>
+    (function () {
+      var panel = document.querySelector('.ee-home-topbg__panel');
+      var nav = document.querySelector('.ee-nav');
+      var navLogo = document.querySelector('.ee-nav__logo-img');
+      if (!panel || !nav || !navLogo) return;
+
+      var panelTop = window.scrollY + panel.getBoundingClientRect().top;
+      var ticking = false;
+
+      var updateNavMode = function () {
+        var threshold = panelTop + panel.offsetHeight * 0.6;
+        var isLight = window.scrollY > threshold;
+        nav.classList.toggle('ee-nav--light', isLight);
+        navLogo.src = isLight ? 'assets/img/E-icon-black.svg' : 'assets/img/E-icon-white.svg';
+        ticking = false;
+      };
+
+      updateNavMode();
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          window.requestAnimationFrame(updateNavMode);
+          ticking = true;
+        }
+      }, { passive: true });
+    })();
+  </script>
+
+</body>
+</html>

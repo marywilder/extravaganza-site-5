@@ -5,23 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Events | Extravaganza Events and Props</title>
   <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elsie:wght@400;900&display=swap">
+  <link rel="stylesheet" href="assets/css/pages-timeless.css">
+  <style>
+    /* .ee-timeline__media is shared with our-process.html/our-story.html/
+       meet-the-team.html/prop-rentals.html, so this square crop is scoped
+       to this page only — any image dropped in here (any aspect ratio)
+       gets cropped to a 1:1 square instead of showing at its native ratio. */
+    .ee-timeline__media img {
+      width: 500px;
+      height: 500px;
+      max-width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+  </style>
 </head>
 <body>
   <header class="ee-nav">
     <div class="container ee-nav__inner">
-      <a href="index.html" class="ee-nav__logo">
+      <a href="index4.html" class="ee-nav__logo">
         <img src="assets/img/E-icon-black.svg" alt="Extravaganza" class="ee-nav__logo-img">
       </a>
             <button type="button" class="ee-nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="ee-nav-menu">
         <span></span><span></span><span></span>
       </button>
       <nav class="ee-nav__menu" id="ee-nav-menu">
-        <a href="index.html">Home</a>
+        <a href="index4.html">Home</a>
         <div class="ee-nav__dropdown">
           <a href="#">Services</a>
           <div class="ee-nav__dropdown-menu">
-            <span class="ee-nav__dropdown-label">Event Decor</span>
-            <a href="#">Draping</a> <!-- TODO: no Figma page yet -->
+            <a href="draping.html">Draping</a>
             <a href="centerpieces.html">Centerpieces</a>
             <a href="balloons.html">Balloons</a>
             <a href="prop-rentals.html">Prop Rentals</a>
@@ -41,7 +55,7 @@
             <a href="testimonials.html">Testimonials</a>
           </div>
         </div>
-        <a href="#">Blog</a> <!-- TODO: no Figma page yet -->
+        <a href="blog.html">Blog</a>
         <a href="#" class="ee-btn ee-btn--teal ee-nav__menu-cta">Request a Quote</a>
       </nav>
       <a href="#" class="ee-btn ee-btn--teal ee-nav__cta">Request a Quote</a>
@@ -49,102 +63,102 @@
   </header>
 
   <section class="ee-page-hero">
-    <div class="container">
+    <div class="container ee-reveal">
       <p class="ee-page-hero__eyebrow">we do it all</p>
       <h1 class="ee-page-hero__title">Any Event, Any time.</h1>
-      <p class="ee-page-hero__text">From high school proms, to corporate retreats, to weddings - there's not many events we don't do!</p>
+      <p class="ee-page-hero__text">From high school proms to corporate retreats, weddings, and everything in between—we're here to make every event unforgettable.</p>
     </div>
   </section>
 
   <div class="ee-timeline container">
-    <div class="ee-timeline__row">
+    <div class="ee-timeline__row ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/events-1.jpg" alt="Weddings">
+        <img src="assets/img/wedding-reception.png" alt="Weddings">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Weddings</h2>
         <!-- TODO: Figma still has lorem ipsum placeholder copy here -->
-        <p class="ee-timeline__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud.</p>
+        <p class="ee-timeline__desc">Romantic décor, elegant rentals, and timeless details that create a celebration as unique as your love story.</p>
         <a href="gallery.html" class="ee-timeline__link">View Wedding Gallery <span aria-hidden="true">→</span></a>
       </div>
     </div>
-    <div class="ee-timeline__row ee-timeline__row--reverse">
+    <div class="ee-timeline__row ee-timeline__row--reverse ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/events-2.jpg" alt="Corporate Events">
+        <img src="assets/img/discount tire room set up (1) .jpg" alt="Corporate Events">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Corporate Events</h2>
         <!-- TODO: Figma still has lorem ipsum placeholder copy here -->
-        <p class="ee-timeline__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud.</p>
+        <p class="ee-timeline__desc">Professional, polished environments that elevate meetings, conferences, galas, product launches, and company celebrations.</p>
         <a href="gallery.html" class="ee-timeline__link">View Corporate Gallery <span aria-hidden="true">→</span></a>
       </div>
     </div>
-    <div class="ee-timeline__row">
+    <div class="ee-timeline__row ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/events-3.jpg" alt="Casino">
+        <img src="assets/img/busch craps table.jpg" alt="Casino">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Casino</h2>
         <!-- TODO: Figma still has lorem ipsum placeholder copy here -->
-        <p class="ee-timeline__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud.</p>
+        <p class="ee-timeline__desc">Bring the excitement of Vegas to your event with authentic casino décor, gaming tables, themed props, and dazzling accents.</p>
         <a href="gallery.html" class="ee-timeline__link">View Casino Gallery <span aria-hidden="true">→</span></a>
       </div>
     </div>
-    <div class="ee-timeline__row ee-timeline__row--reverse">
+    <div class="ee-timeline__row ee-timeline__row--reverse ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/events-4.jpg" alt="Holiday Events">
+        <img src="assets/img/DSC_0076.JPG" alt="Holiday Events">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Holiday Events</h2>
         <!-- TODO: Figma still has lorem ipsum placeholder copy here -->
-        <p class="ee-timeline__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud.</p>
+        <p class="ee-timeline__desc">Celebrate the season with festive décor, themed props, and immersive displays for every holiday and winter celebration.</p>
         <a href="gallery.html" class="ee-timeline__link">View Holiday Gallery <span aria-hidden="true">→</span></a>
       </div>
     </div>
-    <div class="ee-timeline__row">
+    <div class="ee-timeline__row ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/events-5.jpg" alt="Proms">
+        <img src="assets/img/Hollywood clapboard with red drape and Oscar profiles (1).jpg" alt="Proms">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Proms</h2>
         <!-- TODO: Figma still has lorem ipsum placeholder copy here -->
-        <p class="ee-timeline__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud.</p>
+        <p class="ee-timeline__desc">Transform your venue with dramatic backdrops, custom themes, lighting, and larger-than-life décor for an unforgettable night.</p>
         <a href="gallery.html" class="ee-timeline__link">View Prom Gallery <span aria-hidden="true">→</span></a>
       </div>
     </div>
-    <div class="ee-timeline__row ee-timeline__row--reverse">
+    <div class="ee-timeline__row ee-timeline__row--reverse ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/events-6.jpg" alt="Galas">
+        <img src="assets/img/CRC_Gala_2015-2444.jpg" alt="Galas">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Galas</h2>
         <!-- TODO: Figma still has lorem ipsum placeholder copy here -->
-        <p class="ee-timeline__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud.</p>
+        <p class="ee-timeline__desc">Sophisticated décor, statement pieces, and luxurious details designed to create an elegant, memorable guest experience.</p>
         <a href="gallery.html" class="ee-timeline__link">View Gala Gallery <span aria-hidden="true">→</span></a>
       </div>
     </div>
-    <div class="ee-timeline__row">
+    <div class="ee-timeline__row ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/events-7.jpg" alt="Social Events">
+        <img src="assets/img/50_Shades_of_Kaye-36.jpg" alt="Social Events">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Social Events</h2>
         <!-- TODO: Figma still has lorem ipsum placeholder copy here -->
-        <p class="ee-timeline__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud.</p>
+        <p class="ee-timeline__desc">From birthdays and anniversaries to milestone celebrations and private parties, we provide décor that brings every gathering to life.</p>
         <a href="gallery.html" class="ee-timeline__link">View Social Event Gallery <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
 
-  <section class="ee-cta-band ee-cta-band--teal-tint">
-    <div class="container ee-cta-band__inner">
+  <section class="ee-cta-band">
+    <div class="container ee-cta-band__inner ee-reveal">
       <h2 class="ee-cta-band__heading">What event are you planning?</h2>
       <p class="ee-cta-band__text">We'd love to hear your vision</p>
       <a href="#" class="ee-btn ee-btn--dark ee-cta-band__btn">Book a consultation</a>
@@ -152,7 +166,7 @@
   </section>
 
   <section class="ee-testimonial">
-    <div class="container ee-testimonial__inner">
+    <div class="container ee-testimonial__inner ee-reveal">
       <div class="ee-testimonial__quote">
         <p class="ee-testimonial__text">
           "Extravaganza transformed our ballroom into something our guests are
@@ -180,9 +194,7 @@
   <footer class="ee-footer">
     <div class="container ee-footer__inner">
       <div class="ee-footer__brand">
-        <img src="assets/img/footer-logo.svg" alt="Extravaganza" class="ee-footer__logo">
-        <p class="ee-footer__wordmark">Extravaganza</p>
-        <p class="ee-footer__tagline">Event design &amp; Props</p>
+        <iframe src="assets/css/components/extravaganza-logo-v1.html" class="ee-hero__logo-anim" title="Extravaganza logo animation" scrolling="no" frameborder="0"></iframe>
         <p class="ee-footer__desc">Event decor and prop rentals — delivered and set up — for weddings, corporate events, and social celebrations.</p>
       </div>
       <div class="ee-footer__columns">

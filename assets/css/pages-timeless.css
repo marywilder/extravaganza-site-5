@@ -1,0 +1,132 @@
+/* ============================================================
+   Shared by every non-homepage page (balloons, centerpieces,
+   delivery-setup, events, gallery, meet-the-team, our-process, our-story,
+   pickup, prop-rentals, testimonials, themes) — brings them in line with
+   index4.html's "Timeless" look: deep indigo + magenta accent palette,
+   Elsie display font (with matching size bumps), paper-texture body
+   background, recolored testimonial/CTA bands. No hero photo banner here
+   — these pages only ever had the small text page-hero, not the
+   homepage's big image, so there's nothing to strip.
+   ============================================================ */
+
+:root {
+  --color-bg: #F5F3FA;
+  --color-text: #1C1533;
+  --color-text-muted: #665F80;
+  --color-accent: #E7E2F5;
+  --color-btn-dark: #1E1740;
+  --color-btn-magenta: #4B3384;
+  --color-purple: #7C63A8;
+  --color-purple-deep: #3B2A67;
+  --color-purple-dark: #241A42;
+  --color-bg-alt: #EFECF8;
+  /* --color-green intentionally left as-is — lime stays a sparing accent */
+  --font-display: 'Elsie', serif;
+
+  /* .ee-howitworks and .ee-cta-band--purple both wash over the page bg in
+     translucent purple by default — shifted to indigo to match the
+     homepage's testimonial/CTA panels. */
+  --testimonial-bg: rgba(46, 35, 96, 0.35);
+  --cta-bg: rgba(46, 35, 96, 0.28);
+}
+
+/* Paper-grain texture across the whole page, same treatment as
+   index4.html's body background. */
+body {
+  background-image:
+    linear-gradient(rgba(245, 243, 250, 0.7), rgba(245, 243, 250, 0.5)),
+    url('../img/paper-texture-background.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Buttons: kept separate from --color-btn-magenta (which the footer also
+   uses) so this only recolors the buttons, not the footer. */
+.ee-btn--teal {
+  background: #B43DB4;
+}
+
+.ee-btn--teal:hover {
+  background: #8C308C;
+}
+
+/* .ee-btn--dark ("Request a Quote", "Contact Us", etc.): flipped from
+   site.css's default var(--color-btn-dark) so the lighter shade reads as
+   the resting state and the deeper indigo shows on hover, instead of the
+   other way around. */
+.ee-btn--dark {
+  background: #583B93;
+}
+
+.ee-btn--dark:hover {
+  background: #1E1740;
+}
+
+/* .ee-section-link's arrow hover reused --color-btn-magenta directly in
+   site.css — now that variable means "footer indigo," so pin the arrow's
+   hover to the same magenta accent as the buttons instead. */
+.ee-section-link:hover .ee-section-link__arrow {
+  color: #B43DB4;
+}
+
+/* Same fix, same reason, for the timeline "View ___ Gallery" links
+   (events.html/themes.html). */
+.ee-timeline__link:hover span {
+  color: #B43DB4;
+}
+
+/* Accordion chevron (delivery-setup.html): pink/magenta on hover to match
+   this theme's other hover accents, instead of site.css's default purple. */
+.ee-accordion summary:hover .ee-accordion__chevron {
+  color: #B43DB4;
+}
+
+/* centerpieces.html's gallery grid: flipped from site.css's default
+   (dimmed normally, full brightness on hover) — full brightness normally,
+   dims on hover instead. */
+.ee-gallery__item img {
+  filter: brightness(1);
+}
+
+.ee-gallery__item:hover img {
+  filter: brightness(0.75);
+}
+
+/* Testimonial panel (reused on several of these pages): solid deep indigo
+   card instead of translucent magenta wash, matching index4.html. */
+.ee-testimonial__inner {
+  background: linear-gradient(135deg, #2E2360, #3B2A67);
+  box-shadow: 0px 4px 16px rgba(28, 21, 51, 0.25);
+}
+
+.ee-testimonial__text,
+.ee-testimonial__inner .ee-stat__number {
+  color: #fff;
+}
+
+.ee-testimonial__attribution {
+  color: #C9BEEA;
+}
+
+.ee-testimonial__inner .ee-stat__label {
+  color: #B7A9E0;
+}
+
+/* Elsie renders noticeably smaller than Boldonse at the same font-size —
+   bumped every --font-display element used on these pages, at the same
+   ratio applied to the homepage variants. */
+.ee-page-hero__title { font-size: 72px; }
+.ee-section-title { font-size: 46px; }
+.ee-howitworks__title { font-size: 72px; }
+.ee-howitworks__number { font-size: 34px; }
+.ee-howitworks__step-title { font-size: 24px; }
+.ee-accordion summary { font-size: 46px; }
+.ee-timeline__title { font-size: 46px; }
+.ee-cta-band__heading { font-size: 56px; }
+.ee-info-grid__title { font-size: 46px; }
+.ee-info-card__title { font-size: 34px; }
+.ee-quote-card__mark { font-size: 64px; }
+.ee-quote-card__text { font-size: 27px; }
+.ee-featured-quote__client { font-size: 46px; }
+.ee-featured-quote__text { font-size: 27px; }

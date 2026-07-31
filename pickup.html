@@ -5,23 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pickup | Extravaganza Events and Props</title>
   <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elsie:wght@400;900&display=swap">
+  <link rel="stylesheet" href="assets/css/pages-timeless.css">
+  <style>
+    /* .ee-info-card is only used on this page. The cards already stagger
+       in via .ee-reveal + the nth-child delays in site.css; this adds a
+       lime-green -> black color flash on each title as it lands, timed to
+       land just after the card itself has faded in. */
+    .ee-info-card__title {
+      color: var(--color-green);
+      transition: color 0.7s ease 0.35s;
+    }
+
+    .ee-info-card.is-visible .ee-info-card__title {
+      color: #000;
+    }
+
+    /* Bolder/darker than the site default (muted gray), plus a green
+       underline that grows in on load like .ee-section-link's hover
+       underline — except this one plays automatically once, then fades
+       out instead of waiting for a hover. */
+    .ee-page-hero__eyebrow {
+      position: relative;
+      display: inline-block;
+      font-weight: 700;
+      color: #1C1533;
+    }
+
+    .ee-page-hero__eyebrow::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      height: 2px;
+      width: 0;
+      background: var(--color-green);
+      animation: ee-eyebrow-underline 2.4s ease forwards;
+    }
+
+    @keyframes ee-eyebrow-underline {
+      0%   { width: 0; opacity: 1; }
+      35%  { width: 100%; opacity: 1; }
+      75%  { width: 100%; opacity: 1; }
+      100% { width: 100%; opacity: 0; }
+    }
+  </style>
 </head>
 <body>
   <header class="ee-nav">
     <div class="container ee-nav__inner">
-      <a href="index.html" class="ee-nav__logo">
+      <a href="index4.html" class="ee-nav__logo">
         <img src="assets/img/E-icon-black.svg" alt="Extravaganza" class="ee-nav__logo-img">
       </a>
             <button type="button" class="ee-nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="ee-nav-menu">
         <span></span><span></span><span></span>
       </button>
       <nav class="ee-nav__menu" id="ee-nav-menu">
-        <a href="index.html">Home</a>
+        <a href="index4.html">Home</a>
         <div class="ee-nav__dropdown">
           <a href="#">Services</a>
           <div class="ee-nav__dropdown-menu">
-            <span class="ee-nav__dropdown-label">Event Decor</span>
-            <a href="#">Draping</a> <!-- TODO: no Figma page yet -->
+            <a href="draping.html">Draping</a>
             <a href="centerpieces.html">Centerpieces</a>
             <a href="balloons.html">Balloons</a>
             <a href="prop-rentals.html">Prop Rentals</a>
@@ -41,7 +85,7 @@
             <a href="testimonials.html">Testimonials</a>
           </div>
         </div>
-        <a href="#">Blog</a> <!-- TODO: no Figma page yet -->
+        <a href="blog.html">Blog</a>
         <a href="#" class="ee-btn ee-btn--teal ee-nav__menu-cta">Request a Quote</a>
       </nav>
       <a href="#" class="ee-btn ee-btn--teal ee-nav__cta">Request a Quote</a>
@@ -50,37 +94,37 @@
 
   <section class="ee-page-hero">
     <div class="container ee-page-hero__inner">
-      <div class="ee-page-hero__content">
+      <div class="ee-page-hero__content ee-reveal">
         <p class="ee-page-hero__eyebrow">save on delivery</p>
         <h1 class="ee-page-hero__title">Pickup</h1>
-        <p class="ee-page-hero__text">Skip the delivery fee - swing by our warehouse and pick up your rentals yourself, then bring them back when you're done. Simple, self-serve, and on your own time.</p>
+        <p class="ee-page-hero__text">We offer convenient pick-up options for smaller orders or clients who just prefer to pick up and set up themselves.  Simply schedule your order, visit our warehouse in Matthews and pick up the rentals, then bring them back when you're done. Easy and on your own time!</p>
         <div class="ee-page-hero__actions">
-          <a href="#" class="ee-btn ee-btn--dark">Reserve for Pickup</a>
+          <a href="#" class="ee-btn ee-btn--dark">Request Pickup Reservation</a>
         </div>
       </div>
       <div class="ee-page-hero__media">
         <!-- TODO: photo (Figma node 491:502) -->
-        <img src="assets/img/pickup-photo.jpg" alt="Warehouse pickup">
+        <img src="assets/img/warehouse.png" alt="Warehouse pickup">
       </div>
     </div>
   </section>
 
   <section class="container" style="padding-block: var(--space-xl);">
-    <h2 class="ee-section-title" style="display:block; margin-bottom: var(--space-xl);">How it works</h2>
+    <h2 class="ee-section-title ee-reveal" style="display:block; margin-bottom: var(--space-xl);">How it works</h2>
     <div class="ee-howitworks__steps">
-      <div>
+      <div class="ee-reveal">
         <p class="ee-howitworks__number">01</p>
         <h3 class="ee-howitworks__step-title">Reserve your items</h3>
         <p class="ee-howitworks__step-desc">Fill out our pickup request form or reserve by phone.</p>
       </div>
-      <div>
+      <div class="ee-reveal">
         <p class="ee-howitworks__number">02</p>
         <h3 class="ee-howitworks__step-title">Select a pickup window</h3>
-        <p class="ee-howitworks__step-desc">Choose a time slot before your event — our team will have everything staged and ready.</p>
+        <p class="ee-howitworks__step-desc">Choose a time slot before your event — our team will have everything ready when you arrive.</p>
       </div>
-      <div>
+      <div class="ee-reveal">
         <p class="ee-howitworks__number">03</p>
-        <h3 class="ee-howitworks__step-title">Load up &amp; return it</h3>
+        <h3 class="ee-howitworks__step-title">Load up &amp; return your items</h3>
         <p class="ee-howitworks__step-desc">Bring your own vehicle (or a truck — we'll tell you what fits). Return items during our drop-off hours.</p>
       </div>
     </div>
@@ -90,41 +134,39 @@
   </section>
 
   <section class="ee-info-grid container">
-    <h2 class="ee-info-grid__title">Pickup details:</h2>
+    <h2 class="ee-info-grid__title ee-reveal">Pickup details:</h2>
     <div class="ee-info-grid__grid">
-      <div class="ee-info-card">
+      <div class="ee-info-card ee-reveal">
         <h3 class="ee-info-card__title">Warehouse Hours</h3>
-        <p class="ee-info-card__desc">Pickup &amp; return available Mon–Sat, by scheduled window. Closed Sundays.</p>
+        <p class="ee-info-card__desc">Pickup &amp; return available Monday – Friday from 9AM – 3PM. </p>
       </div>
-      <div class="ee-info-card">
+      <div class="ee-info-card ee-reveal">
         <h3 class="ee-info-card__title">What Fits Pickup</h3>
-        <p class="ee-info-card__desc">Most small-to-mid props, centerpieces, linens, and lighting. Large builds &amp; installs still require delivery.</p>
+        <p class="ee-info-card__desc">Most small-to-mid props, centerpieces, linens, and lighting. Large builds &amp; installations still require delivery.</p>
       </div>
-      <div class="ee-info-card">
+      <div class="ee-info-card ee-reveal">
         <h3 class="ee-info-card__title">Loading Help</h3>
         <p class="ee-info-card__desc">Our team will help load your vehicle — just let us know what you're driving when you book.</p>
       </div>
-      <div class="ee-info-card">
+      <div class="ee-info-card ee-reveal">
         <h3 class="ee-info-card__title">Damage &amp; Late Returns</h3>
         <p class="ee-info-card__desc">Standard damage &amp; late-return policies apply, outlined in your rental agreement.</p>
       </div>
     </div>
   </section>
 
-  <section class="ee-cta-band ee-cta-band--teal-tint">
-    <div class="container ee-cta-band__inner">
+  <section class="ee-cta-band">
+    <div class="container ee-cta-band__inner ee-reveal">
       <h2 class="ee-cta-band__heading">Skip the delivery fee</h2>
       <p class="ee-cta-band__text">Reserve your rentals for self pickup and save on delivery.</p>
-      <a href="#" class="ee-btn ee-btn--teal ee-cta-band__btn">Reserve for pickup</a>
+      <a href="#" class="ee-btn ee-btn--teal ee-cta-band__btn">Request Pickup Reservation</a>
     </div>
   </section>
 
   <footer class="ee-footer">
     <div class="container ee-footer__inner">
       <div class="ee-footer__brand">
-        <img src="assets/img/footer-logo.svg" alt="Extravaganza" class="ee-footer__logo">
-        <p class="ee-footer__wordmark">Extravaganza</p>
-        <p class="ee-footer__tagline">Event design &amp; Props</p>
+        <iframe src="assets/css/components/extravaganza-logo-v1.html" class="ee-hero__logo-anim" title="Extravaganza logo animation" scrolling="no" frameborder="0"></iframe>
         <p class="ee-footer__desc">Event decor and prop rentals — delivered and set up — for weddings, corporate events, and social celebrations.</p>
       </div>
       <div class="ee-footer__columns">

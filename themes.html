@@ -5,23 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Themes | Extravaganza Events and Props</title>
   <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elsie:wght@400;900&display=swap">
+  <link rel="stylesheet" href="assets/css/pages-timeless.css">
+  <style>
+    /* .ee-timeline__media is shared with our-process.html/our-story.html/
+       meet-the-team.html/prop-rentals.html, so this square crop is scoped
+       to this page only — any image dropped in here (any aspect ratio)
+       gets cropped to a 1:1 square instead of showing at its native ratio. */
+    .ee-timeline__media img {
+      width: 500px;
+      height: 500px;
+      max-width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+  </style>
 </head>
 <body>
   <header class="ee-nav">
     <div class="container ee-nav__inner">
-      <a href="index.html" class="ee-nav__logo">
+      <a href="index4.html" class="ee-nav__logo">
         <img src="assets/img/E-icon-black.svg" alt="Extravaganza" class="ee-nav__logo-img">
       </a>
             <button type="button" class="ee-nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="ee-nav-menu">
         <span></span><span></span><span></span>
       </button>
       <nav class="ee-nav__menu" id="ee-nav-menu">
-        <a href="index.html">Home</a>
+        <a href="index4.html">Home</a>
         <div class="ee-nav__dropdown">
           <a href="#">Services</a>
           <div class="ee-nav__dropdown-menu">
-            <span class="ee-nav__dropdown-label">Event Decor</span>
-            <a href="#">Draping</a> <!-- TODO: no Figma page yet -->
+            <a href="draping.html">Draping</a>
             <a href="centerpieces.html">Centerpieces</a>
             <a href="balloons.html">Balloons</a>
             <a href="prop-rentals.html">Prop Rentals</a>
@@ -41,7 +55,7 @@
             <a href="testimonials.html">Testimonials</a>
           </div>
         </div>
-        <a href="#">Blog</a> <!-- TODO: no Figma page yet -->
+        <a href="blog.html">Blog</a>
         <a href="#" class="ee-btn ee-btn--teal ee-nav__menu-cta">Request a Quote</a>
       </nav>
       <a href="#" class="ee-btn ee-btn--teal ee-nav__cta">Request a Quote</a>
@@ -49,7 +63,7 @@
   </header>
 
   <section class="ee-page-hero">
-    <div class="container">
+    <div class="container ee-reveal">
       <p class="ee-page-hero__eyebrow">party-planning made easy</p>
       <h1 class="ee-page-hero__title">Your Vision, Our Passion</h1>
       <p class="ee-page-hero__text">With our large collection of props and decor, we can bring almost any vision to life! Explore our most popular curated themes.</p>
@@ -57,10 +71,10 @@
   </section>
 
   <div class="ee-timeline container">
-    <div class="ee-timeline__row ee-timeline__row--reverse">
+    <div class="ee-timeline__row ee-timeline__row--reverse ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/themes-1.jpg" alt="Casino theme">
+        <img src="assets/img/western casino 039.jpg" alt="Casino theme">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Casino</h2>
@@ -69,10 +83,10 @@
         <a href="gallery.html" class="ee-timeline__link">View Casino Gallery <span aria-hidden="true">→</span></a>
       </div>
     </div>
-    <div class="ee-timeline__row">
+    <div class="ee-timeline__row ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/themes-2.jpg" alt="Roaring 20s theme">
+        <img src="assets/img/GastonCountryClub-49.jpg" alt="Roaring 20s theme">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Roaring 20s</h2>
@@ -81,10 +95,10 @@
         <a href="gallery.html" class="ee-timeline__link">View Roaring 20s Gallery <span aria-hidden="true">→</span></a>
       </div>
     </div>
-    <div class="ee-timeline__row ee-timeline__row--reverse">
+    <div class="ee-timeline__row ee-timeline__row--reverse ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/themes-3.jpg" alt="Hollywood theme">
+        <img src="assets/img/Hollywood clapboard with red drape and Oscar profiles (1).jpg" alt="Hollywood theme">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Hollywood</h2>
@@ -93,10 +107,10 @@
         <a href="gallery.html" class="ee-timeline__link">View Hollywood Gallery <span aria-hidden="true">→</span></a>
       </div>
     </div>
-    <div class="ee-timeline__row">
+    <div class="ee-timeline__row ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/themes-4.jpg" alt="Enchanted theme">
+        <img src="assets/img/enchanted-arch.png" alt="Enchanted theme">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Enchanted</h2>
@@ -105,10 +119,10 @@
         <a href="gallery.html" class="ee-timeline__link">View Enchanted Gallery <span aria-hidden="true">→</span></a>
       </div>
     </div>
-    <div class="ee-timeline__row ee-timeline__row--reverse">
+    <div class="ee-timeline__row ee-timeline__row--reverse ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/themes-5.jpg" alt="Christmas theme">
+        <img src="assets/img/20251219_224121000_iOS.jpg" alt="Christmas theme">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Christmas</h2>
@@ -117,10 +131,10 @@
         <a href="gallery.html" class="ee-timeline__link">View Christmas Gallery <span aria-hidden="true">→</span></a>
       </div>
     </div>
-    <div class="ee-timeline__row">
+    <div class="ee-timeline__row ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/themes-6.jpg" alt="Tropical theme">
+        <img src="assets/img/tropical-theme.jpg" alt="Tropical theme">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Tropical</h2>
@@ -129,10 +143,10 @@
         <a href="gallery.html" class="ee-timeline__link">View Tropical Gallery <span aria-hidden="true">→</span></a>
       </div>
     </div>
-    <div class="ee-timeline__row ee-timeline__row--reverse">
+    <div class="ee-timeline__row ee-timeline__row--reverse ee-reveal">
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/themes-7.jpg" alt="Halloween theme">
+        <img src="assets/img/Clown mirror room .JPG" alt="Halloween theme">
       </div>
       <div class="ee-timeline__content">
         <h2 class="ee-timeline__title">Halloween</h2>
@@ -143,12 +157,8 @@
     </div>
   </div>
 
-  <div class="container" style="text-align:center; padding-bottom: var(--space-xl);">
-    <a href="gallery.html" class="ee-section-link">View More <span class="ee-section-link__arrow" aria-hidden="true">→</span></a>
-  </div>
-
-  <section class="ee-cta-band ee-cta-band--teal-tint">
-    <div class="container ee-cta-band__inner">
+  <section class="ee-cta-band">
+    <div class="container ee-cta-band__inner ee-reveal">
       <h2 class="ee-cta-band__heading">What event are you planning?</h2>
       <p class="ee-cta-band__text">We'd love to hear your vision</p>
       <a href="#" class="ee-btn ee-btn--dark ee-cta-band__btn">Book a consultation</a>
@@ -156,7 +166,7 @@
   </section>
 
   <section class="ee-testimonial">
-    <div class="container ee-testimonial__inner">
+    <div class="container ee-testimonial__inner ee-reveal">
       <div class="ee-testimonial__quote">
         <p class="ee-testimonial__text">
           "Extravaganza transformed our ballroom into something our guests are
@@ -184,9 +194,7 @@
   <footer class="ee-footer">
     <div class="container ee-footer__inner">
       <div class="ee-footer__brand">
-        <img src="assets/img/footer-logo.svg" alt="Extravaganza" class="ee-footer__logo">
-        <p class="ee-footer__wordmark">Extravaganza</p>
-        <p class="ee-footer__tagline">Event design &amp; Props</p>
+        <iframe src="assets/css/components/extravaganza-logo-v1.html" class="ee-hero__logo-anim" title="Extravaganza logo animation" scrolling="no" frameborder="0"></iframe>
         <p class="ee-footer__desc">Event decor and prop rentals — delivered and set up — for weddings, corporate events, and social celebrations.</p>
       </div>
       <div class="ee-footer__columns">

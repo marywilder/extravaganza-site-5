@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Extravaganza Events and Props</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elsie:wght@400;900&display=swap">
+  <link rel="stylesheet" href="assets/css/pages-timeless.css">
+  <style>
+    /* Blog components are only used on this page, so they're kept
+       page-local rather than added to site.css. */
+    .ee-blog-tag {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #B43DB4;
+      background: rgba(180, 61, 180, 0.1);
+      border-radius: 999px;
+      padding: 6px 14px;
+    }
+
+    .ee-blog-meta {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--color-text-muted);
+      letter-spacing: 0.4px;
+    }
+
+    /* Featured post */
+    .ee-blog-featured {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xl);
+      flex-wrap: wrap;
+      background: #fff;
+      box-shadow: 0px 4px 16px rgba(28, 21, 51, 0.1);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .ee-blog-featured__media {
+      flex: 1 1 460px;
+      align-self: stretch;
+    }
+
+    .ee-blog-featured__media img {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ee-blog-featured__content {
+      flex: 1 1 400px;
+      padding: var(--space-lg) var(--space-xl) var(--space-lg) 0;
+    }
+
+    .ee-blog-featured__title {
+      font-family: var(--font-display);
+      font-size: 40px;
+      color: #000;
+      margin: var(--space-md) 0;
+    }
+
+    .ee-blog-featured__excerpt {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* Post grid */
+    .ee-blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-xl) var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .ee-blog-card {
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .ee-blog-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0px 10px 24px rgba(28, 21, 51, 0.16);
+    }
+
+    .ee-blog-card__media {
+      overflow: hidden;
+    }
+
+    .ee-blog-card__media img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .ee-blog-card:hover .ee-blog-card__media img {
+      transform: scale(1.06);
+    }
+
+    .ee-blog-card__body {
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .ee-blog-card__title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: #000;
+      margin: var(--space-sm) 0 var(--space-sm);
+    }
+
+    .ee-blog-card__excerpt {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-md);
+      flex: 1;
+    }
+
+    .ee-blog-card__link {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--color-purple-deep);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .ee-blog-card__link:hover {
+      color: #B43DB4;
+    }
+
+    /* Newsletter strip */
+    .ee-blog-newsletter {
+      background: var(--testimonial-bg);
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      padding: var(--space-xl);
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .ee-blog-newsletter__title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: #000;
+      margin-bottom: var(--space-sm);
+    }
+
+    .ee-blog-newsletter__text {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-lg);
+    }
+
+    .ee-blog-newsletter__form {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .ee-blog-newsletter__form input {
+      font-family: var(--font-body);
+      font-size: 15px;
+      padding: 12px 18px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-base);
+      min-width: 280px;
+    }
+
+    @media (max-width: 900px) {
+      .ee-blog-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .ee-blog-grid { grid-template-columns: 1fr; }
+      .ee-blog-featured__content { padding: 0 var(--space-lg) var(--space-lg); }
+    }
+  </style>
+</head>
+<body>
+  <header class="ee-nav">
+    <div class="container ee-nav__inner">
+      <a href="index4.html" class="ee-nav__logo">
+        <img src="assets/img/E-icon-black.svg" alt="Extravaganza" class="ee-nav__logo-img">
+      </a>
+            <button type="button" class="ee-nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="ee-nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="ee-nav__menu" id="ee-nav-menu">
+        <a href="index4.html">Home</a>
+        <div class="ee-nav__dropdown">
+          <a href="#">Services</a>
+          <div class="ee-nav__dropdown-menu">
+            <a href="draping.html">Draping</a>
+            <a href="centerpieces.html">Centerpieces</a>
+            <a href="balloons.html">Balloons</a>
+            <a href="prop-rentals.html">Prop Rentals</a>
+            <a href="delivery-setup.html">Delivery &amp; Setup</a>
+            <a href="pickup.html">Pickup</a>
+            <a href="our-process.html">Our Process</a>
+          </div>
+        </div>
+        <a href="events.html">Events</a>
+        <a href="themes.html">Themes</a>
+        <a href="gallery.html">Gallery</a>
+        <div class="ee-nav__dropdown">
+          <a href="#">About</a>
+          <div class="ee-nav__dropdown-menu">
+            <a href="our-story.html">Our Story</a>
+            <a href="meet-the-team.html">Meet the Team</a>
+            <a href="testimonials.html">Testimonials</a>
+          </div>
+        </div>
+        <a href="blog.html">Blog</a>
+        <a href="#" class="ee-btn ee-btn--teal ee-nav__menu-cta">Request a Quote</a>
+      </nav>
+      <a href="#" class="ee-btn ee-btn--teal ee-nav__cta">Request a Quote</a>
+    </div>
+  </header>
+
+  <section class="container ee-reveal" style="padding-block: var(--space-xl) var(--space-md); text-align:center;">
+    <p class="ee-page-hero__eyebrow">notes from the warehouse</p>
+    <h1 class="ee-page-hero__title">The Blog</h1>
+    <p class="ee-page-hero__text" style="margin-inline:auto;">Behind-the-scenes builds, theme inspiration, and planning tips from the Extravaganza team.</p>
+  </section>
+
+  <section class="container" style="padding-block: var(--space-xl);">
+    <article class="ee-blog-featured ee-reveal">
+      <div class="ee-blog-featured__media">
+        <img src="assets/img/western casino 039.jpg" alt="Casino night build">
+      </div>
+      <div class="ee-blog-featured__content">
+        <span class="ee-blog-tag">Behind the Build</span>
+        <h2 class="ee-blog-featured__title">Inside a Full-Scale Casino Night: From Empty Ballroom to Mini Vegas</h2>
+        <p class="ee-blog-featured__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+        <p class="ee-blog-meta">July 18, 2026 · 6 min read</p>
+      </div>
+    </article>
+
+    <div class="ee-blog-grid">
+      <article class="ee-blog-card ee-reveal">
+        <div class="ee-blog-card__media">
+          <img src="assets/img/tropical-theme.jpg" alt="Tropical theme decor">
+        </div>
+        <div class="ee-blog-card__body">
+          <span class="ee-blog-tag">Theme Inspiration</span>
+          <h3 class="ee-blog-card__title">5 Tropical Theme Ideas That Aren't Just Palm Leaves</h3>
+          <p class="ee-blog-card__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+          <p class="ee-blog-meta" style="margin-bottom: var(--space-sm);">July 10, 2026 · 4 min read</p>
+          <a href="#" class="ee-blog-card__link">Read More →</a>
+        </div>
+      </article>
+      <article class="ee-blog-card ee-reveal">
+        <div class="ee-blog-card__media">
+          <img src="assets/img/Barn wedding draping with lights (1).jpg" alt="Wedding draping with lights">
+        </div>
+        <div class="ee-blog-card__body">
+          <span class="ee-blog-tag">Planning Tips</span>
+          <h3 class="ee-blog-card__title">How Much Draping Does Your Venue Actually Need?</h3>
+          <p class="ee-blog-card__excerpt">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.</p>
+          <p class="ee-blog-meta" style="margin-bottom: var(--space-sm);">June 28, 2026 · 5 min read</p>
+          <a href="#" class="ee-blog-card__link">Read More →</a>
+        </div>
+      </article>
+      <article class="ee-blog-card ee-reveal">
+        <div class="ee-blog-card__media">
+          <img src="assets/img/enchanted-flowers.png" alt="Enchanted floral decor">
+        </div>
+        <div class="ee-blog-card__body">
+          <span class="ee-blog-tag">Theme Inspiration</span>
+          <h3 class="ee-blog-card__title">Building an Enchanted Garden Indoors, Step by Step</h3>
+          <p class="ee-blog-card__excerpt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
+          <p class="ee-blog-meta" style="margin-bottom: var(--space-sm);">June 15, 2026 · 7 min read</p>
+          <a href="#" class="ee-blog-card__link">Read More →</a>
+        </div>
+      </article>
+      <article class="ee-blog-card ee-reveal">
+        <div class="ee-blog-card__media">
+          <img src="assets/img/discount tire room set up (1) .jpg" alt="Corporate event setup">
+        </div>
+        <div class="ee-blog-card__body">
+          <span class="ee-blog-tag">Corporate Events</span>
+          <h3 class="ee-blog-card__title">A Planner's Checklist for Corporate Event Decor</h3>
+          <p class="ee-blog-card__excerpt">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.</p>
+          <p class="ee-blog-meta" style="margin-bottom: var(--space-sm);">June 2, 2026 · 4 min read</p>
+          <a href="#" class="ee-blog-card__link">Read More →</a>
+        </div>
+      </article>
+      <article class="ee-blog-card ee-reveal">
+        <div class="ee-blog-card__media">
+          <img src="assets/img/Marquee with balloons (2).jpg" alt="Marquee balloon display">
+        </div>
+        <div class="ee-blog-card__body">
+          <span class="ee-blog-tag">Behind the Build</span>
+          <h3 class="ee-blog-card__title">The Marquee Balloon Trend, and How We Build Them to Last</h3>
+          <p class="ee-blog-card__excerpt">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.</p>
+          <p class="ee-blog-meta" style="margin-bottom: var(--space-sm);">May 22, 2026 · 3 min read</p>
+          <a href="#" class="ee-blog-card__link">Read More →</a>
+        </div>
+      </article>
+      <article class="ee-blog-card ee-reveal">
+        <div class="ee-blog-card__media">
+          <img src="assets/img/Clown mirror room .JPG" alt="Halloween funhouse decor">
+        </div>
+        <div class="ee-blog-card__body">
+          <span class="ee-blog-tag">Theme Inspiration</span>
+          <h3 class="ee-blog-card__title">Halloween Isn't Just Spooky — It Can Be Genuinely Stunning</h3>
+          <p class="ee-blog-card__excerpt">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia.</p>
+          <p class="ee-blog-meta" style="margin-bottom: var(--space-sm);">May 9, 2026 · 5 min read</p>
+          <a href="#" class="ee-blog-card__link">Read More →</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="ee-blog-newsletter ee-reveal">
+      <p class="ee-blog-newsletter__title">Get new posts in your inbox</p>
+      <p class="ee-blog-newsletter__text">Theme ideas, planning tips, and behind-the-scenes builds — no spam, just the good stuff.</p>
+      <form class="ee-blog-newsletter__form" onsubmit="return false;">
+        <input type="email" placeholder="Your email address" aria-label="Email address" required>
+        <button type="submit" class="ee-btn ee-btn--teal">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="ee-cta-band">
+    <div class="container ee-cta-band__inner ee-reveal">
+      <h2 class="ee-cta-band__heading">Ready to bring your vision to life?</h2>
+      <p class="ee-cta-band__text">Schedule a consultation and let's talk through your event, your space, and your style.</p>
+      <a href="#" class="ee-btn ee-btn--teal ee-cta-band__btn">Schedule a Consultation</a>
+    </div>
+  </section>
+
+  <footer class="ee-footer">
+    <div class="container ee-footer__inner">
+      <div class="ee-footer__brand">
+        <iframe src="assets/css/components/extravaganza-logo-v1.html" class="ee-hero__logo-anim" title="Extravaganza logo animation" scrolling="no" frameborder="0"></iframe>
+        <p class="ee-footer__desc">Event decor and prop rentals — delivered and set up — for weddings, corporate events, and social celebrations.</p>
+      </div>
+      <div class="ee-footer__columns">
+        <div class="ee-footer__col">
+          <p>Services</p>
+          <p><a href="#">Event Decor</a></p>
+          <p><a href="prop-rentals.html">Prop Rentals</a></p>
+          <p><a href="delivery-setup.html">Delivery &amp; Setup</a></p>
+          <p><a href="our-process.html">Our Process</a></p>
+        </div>
+        <div class="ee-footer__col">
+          <p>Company</p>
+          <p><a href="our-story.html">Our Story</a></p>
+          <p><a href="meet-the-team.html">Meet the Team</a></p>
+          <p><a href="testimonials.html">Testimonials</a></p>
+          <p><a href="#">FAQs</a></p>
+        </div>
+        <div class="ee-footer__col">
+          <p>Contact</p>
+          <p><a href="#">Request a Quote</a></p>
+          <p><a href="#">Schedule a Consultation</a></p>
+          <p><a href="#">General Inquiries</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

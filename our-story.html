@@ -5,23 +5,150 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Story | Extravaganza Events and Props</title>
   <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elsie:wght@400;900&display=swap">
+  <link rel="stylesheet" href="assets/css/pages-timeless.css">
+  <style>
+    /* Scroll-progress timeline: a track line down the center with a dot per
+       step, and a filled line that grows to meet each dot as you scroll
+       past it. .ee-timeline is shared with events.html/meet-the-team.html/
+       prop-rentals.html, so all of this is scoped to this page only. */
+    .ee-timeline {
+      position: relative;
+    }
+
+    .ee-timeline__track,
+    .ee-timeline__progress {
+      position: absolute;
+      left: 50%;
+      width: 3px;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    /* top/height are set inline by the script below, spanning exactly from
+       the first dot's center to the last dot's — not the full container,
+       which includes .ee-timeline's padding-block and would overshoot past
+       the last dot. */
+    .ee-timeline__track {
+      background: var(--color-border);
+      z-index: 0;
+    }
+
+    .ee-timeline__progress {
+      background: #B43DB4;
+      z-index: 1;
+    }
+
+    .ee-timeline__row {
+      position: relative;
+      z-index: 2;
+    }
+
+    .ee-timeline__dot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--color-bg);
+      border: 3px solid var(--color-border);
+      transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+      z-index: 3;
+    }
+
+    .ee-timeline__dot.is-active {
+      background: #B43DB4;
+      border-color: #B43DB4;
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+
+    /* Final dot: a "ka-pow" burst graphic (assets/img/burst.svg, inlined
+       so its animation can be driven by CSS) instead of a plain circle —
+       marks the end of the timeline. Sits dim/small until .is-active,
+       then pops. Overrides the plain-dot background/border/scale above
+       (same specificity, defined after, so it wins). */
+    .ee-timeline__dot--final {
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: none;
+    }
+
+    /* .is-active here beats the plain .ee-timeline__dot.is-active rule
+       above on specificity (two classes vs. one) — needed so its
+       background/border reset don't get reinstated once active, which
+       was hiding the burst svg behind a solid magenta circle the same
+       color as the svg itself. */
+    .ee-timeline__dot--final.is-active {
+      transform: translate(-50%, -50%);
+      background: none;
+      border: none;
+    }
+
+    .ee-timeline__burst {
+      display: block;
+      width: 100%;
+      height: 100%;
+      transform: scale(0.35);
+      opacity: 0.5;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .ee-timeline__dot--final.is-active .ee-timeline__burst {
+      animation: ee-timeline-burst 0.6s cubic-bezier(0.25, 0.8, 0.4, 1.4) forwards;
+    }
+
+    @keyframes ee-timeline-burst {
+      0%   { transform: scale(0.35); opacity: 0.5; }
+      55%  { transform: scale(1.35); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* .ee-timeline__media is shared with events.html/themes.html/etc, so
+       this square crop is scoped to this page only. */
+    .ee-timeline__media img {
+      width: 400px;
+      height: 400px;
+      max-width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      /* .ee-timeline__media's flex-basis (450px, site.css) is wider than
+         the image itself, so without this the image just hugged the
+         left edge of its own flex cell — on rows where that cell sits on
+         the right (next to the center dot/line), it read as too close to
+         the timeline instead of centered in its half of the row. */
+      margin-inline: auto;
+    }
+
+    /* Below this width .ee-timeline__row's two halves stack instead of
+       sitting side by side (flex-wrap), so a center line no longer lines
+       up with anything meaningful — hide the whole apparatus. */
+    @media (max-width: 700px) {
+      .ee-timeline__track,
+      .ee-timeline__progress,
+      .ee-timeline__dot {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="ee-nav">
     <div class="container ee-nav__inner">
-      <a href="index.html" class="ee-nav__logo">
+      <a href="index4.html" class="ee-nav__logo">
         <img src="assets/img/E-icon-black.svg" alt="Extravaganza" class="ee-nav__logo-img">
       </a>
             <button type="button" class="ee-nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="ee-nav-menu">
         <span></span><span></span><span></span>
       </button>
       <nav class="ee-nav__menu" id="ee-nav-menu">
-        <a href="index.html">Home</a>
+        <a href="index4.html">Home</a>
         <div class="ee-nav__dropdown">
           <a href="#">Services</a>
           <div class="ee-nav__dropdown-menu">
-            <span class="ee-nav__dropdown-label">Event Decor</span>
-            <a href="#">Draping</a> <!-- TODO: no Figma page yet -->
+            <a href="draping.html">Draping</a>
             <a href="centerpieces.html">Centerpieces</a>
             <a href="balloons.html">Balloons</a>
             <a href="prop-rentals.html">Prop Rentals</a>
@@ -41,7 +168,7 @@
             <a href="testimonials.html">Testimonials</a>
           </div>
         </div>
-        <a href="#">Blog</a> <!-- TODO: no Figma page yet -->
+        <a href="blog.html">Blog</a>
         <a href="#" class="ee-btn ee-btn--teal ee-nav__menu-cta">Request a Quote</a>
       </nav>
       <a href="#" class="ee-btn ee-btn--teal ee-nav__cta">Request a Quote</a>
@@ -49,7 +176,7 @@
   </header>
 
   <section class="ee-page-hero">
-    <div class="container">
+    <div class="container ee-reveal">
       <p class="ee-page-hero__eyebrow">since day one</p>
       <!-- TODO: this heading is an unfinished placeholder left in Figma — needs real copy -->
       <h1 class="ee-page-hero__title">Our Story started with (complete this sentence)</h1>
@@ -57,10 +184,13 @@
   </section>
 
   <div class="ee-timeline container">
+    <div class="ee-timeline__track" aria-hidden="true"></div>
+    <div class="ee-timeline__progress" aria-hidden="true"></div>
     <div class="ee-timeline__row">
+      <span class="ee-timeline__dot" aria-hidden="true"></span>
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/our-story-1998.jpg" alt="Our story in 1998">
+        <img src="assets/img/photo-placeholder.png" alt="Our story in 1998">
       </div>
       <div class="ee-timeline__content">
         <p class="ee-timeline__kicker">1998</p>
@@ -68,9 +198,10 @@
       </div>
     </div>
     <div class="ee-timeline__row ee-timeline__row--reverse">
+      <span class="ee-timeline__dot" aria-hidden="true"></span>
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/our-story-2002.jpg" alt="Our story in 2002">
+        <img src="assets/img/photo-placeholder.png" alt="Our story in 2002">
       </div>
       <div class="ee-timeline__content">
         <p class="ee-timeline__kicker">2002</p>
@@ -79,9 +210,10 @@
       </div>
     </div>
     <div class="ee-timeline__row">
+      <span class="ee-timeline__dot" aria-hidden="true"></span>
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/our-story-2010.jpg" alt="Our story in 2010">
+        <img src="assets/img/photo-placeholder.png" alt="Our story in 2010">
       </div>
       <div class="ee-timeline__content">
         <p class="ee-timeline__kicker">2010</p>
@@ -90,9 +222,10 @@
       </div>
     </div>
     <div class="ee-timeline__row ee-timeline__row--reverse">
+      <span class="ee-timeline__dot" aria-hidden="true"></span>
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/our-story-2019.jpg" alt="Our story in 2019">
+        <img src="assets/img/photo-placeholder.png" alt="Our story in 2019">
       </div>
       <div class="ee-timeline__content">
         <p class="ee-timeline__kicker">2019</p>
@@ -101,12 +234,33 @@
       </div>
     </div>
     <div class="ee-timeline__row">
+      <span class="ee-timeline__dot ee-timeline__dot--final" aria-hidden="true">
+        <svg class="ee-timeline__burst" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.525751 24.3427C0.136941 23.8839 0.638888 23.3005 1.03689 23.0248C2.01167 22.415 3.41753 22.1053 4.58008 21.723C5.42227 21.4686 6.41364 21.1666 7.16839 20.8758C7.77395 20.6438 8.28016 20.4354 8.91294 20.2271C10.7249 19.6739 13.0731 18.8519 14.9176 18.3762C16.0644 18.1964 14.2309 19.2071 13.9353 19.3196C11.0303 20.6282 8.11776 21.9885 5.19803 23.2887C4.10192 23.7095 1.52265 25.2293 0.531352 24.3496L0.524959 24.3429L0.525751 24.3427Z" fill="#B43DB4"/>
+          <path d="M19.3326 9.13308C19.2133 10.909 19.0651 12.6899 18.9466 14.4683C18.9002 15.0103 18.7817 16.4697 18.4139 16.5219C18.312 16.4689 18.3013 16.3387 18.2739 16.2236C18.2284 15.9468 18.2424 15.6459 18.24 15.3509C18.2482 12.3833 18.2491 3.76966 18.2656 0.937117C18.2814 0.640437 18.312 0.400111 18.4868 0.193761C18.8687 -0.194905 19.4171 0.018074 19.7046 0.681044C20.1089 1.83876 19.7999 3.18707 19.7294 4.40279C19.5787 5.97072 19.4395 7.55024 19.3351 9.11568V9.13308H19.3326Z" fill="#B43DB4"/>
+          <path d="M12.5804 32.7485C12.5735 32.0955 12.7949 31.3933 12.9981 30.7619C13.4602 29.367 13.9416 27.9319 14.3781 26.5524C15.0249 24.6432 15.6272 22.6785 16.2826 20.7911C16.5759 19.9927 17.18 19.0872 17.0587 20.5703C16.8869 21.7648 16.5707 22.5682 16.3233 23.8826C16.0111 25.5171 15.6929 27.1607 15.2757 28.7528C14.9839 29.9081 14.7293 31.2389 14.3654 32.3874C14.1592 32.9314 13.8342 33.6606 13.233 33.7523C12.8153 33.7914 12.5799 33.2517 12.5817 32.7639L12.5812 32.7486L12.5804 32.7485Z" fill="#B43DB4"/>
+          <path d="M24.171 30.8176C23.2059 30.5723 22.8041 29.2282 22.4189 28.382C22.2549 27.9867 22.0925 27.5914 21.9252 27.1895C21.0263 25.0589 20.0886 22.9871 19.1956 20.8631C18.7507 19.8529 18.5229 18.5237 19.6296 20.2515C20.4141 21.5841 21.1324 22.9606 21.8788 24.2957C22.3477 25.1492 22.8198 26.0011 23.2896 26.8489C23.7286 27.6901 24.3226 28.5851 24.6357 29.5041C24.7997 30.0146 24.8743 30.8922 24.1818 30.8193L24.1718 30.8176H24.171Z" fill="#B43DB4"/>
+          <path d="M19.4098 16.6087C19.3518 16.4311 19.4324 16.0985 19.4921 15.8576C19.634 15.3244 19.8439 14.8083 20.0418 14.2411C20.432 13.1388 20.7754 12.1099 21.1543 11.0415C21.4016 10.3577 21.6034 9.77969 21.8657 9.02567C22.0367 8.54724 22.1957 8.02641 22.4541 7.59037C22.7978 6.95091 23.5615 6.72327 23.5114 7.69954C23.4338 8.4393 22.9991 9.16302 22.7088 9.84439C22.1514 11.0557 21.6419 12.1535 21.1075 13.3431C20.845 13.9284 20.585 14.5241 20.324 15.1124C20.2031 15.3512 19.6386 16.8285 19.4118 16.6124L19.4103 16.6095L19.4098 16.6087Z" fill="#B43DB4"/>
+          <path d="M13.9536 15.4458C11.7641 13.6525 9.50913 11.9055 7.3155 10.1163C6.88556 9.73015 6.46555 9.28182 6.43407 8.74564C6.41585 8.22438 6.92118 8.13985 7.3097 8.33129C7.72888 8.49952 8.27812 9.00669 8.69978 9.42104C9.21753 9.92573 9.76345 10.4652 10.1801 10.8564C11.7997 12.3373 13.5766 14.1339 15.1183 15.6654C15.5847 16.1071 17.0178 17.5814 15.53 16.6532C15.0346 16.3367 14.4489 15.8469 13.9676 15.4582L13.9536 15.4466V15.4458Z" fill="#B43DB4"/>
+          <path d="M18.744 26.1805C18.4805 26.5202 18.0439 26.4532 17.8059 26.1158C17.3636 25.452 17.5797 24.4913 17.6515 23.7403C17.741 23.0416 17.8278 22.3273 17.9173 21.625C17.963 21.3226 18.0192 20.8462 18.2024 20.6486C18.5293 20.4376 18.6405 21.8129 18.6694 22.0298C18.7532 22.7975 18.8484 23.5462 18.9381 24.3083C18.9995 24.9155 19.1267 25.6519 18.7502 26.1731L18.7439 26.181L18.744 26.1805Z" fill="#B43DB4"/>
+          <path d="M16.956 12.6468C16.7027 12.4019 16.5573 11.7475 16.4597 11.3375C16.1152 9.74037 15.7688 8.09264 15.3985 6.50091C15.256 5.87392 15.116 5.24779 14.9804 4.60598C14.8658 4.05398 14.7598 3.37199 14.938 2.85493C15.185 2.16317 15.797 2.23923 16.1345 2.84586C16.5096 3.54089 16.5094 4.40615 16.6114 5.195C16.7335 6.30821 16.8242 7.42261 16.9205 8.54372C16.969 9.08066 17.0199 9.62178 17.0718 10.1538C17.1065 10.4444 17.4037 12.8464 16.9601 12.6502L16.9559 12.6476L16.956 12.6468Z" fill="#B43DB4"/>
+          <path d="M10.6108 28.7058C10.1329 28.2564 10.7328 27.2647 10.9717 26.9551C11.4832 26.256 12.0116 25.5841 12.5289 24.9233C13.0062 24.3484 13.4422 23.6193 13.9554 23.1083C14.4923 22.6433 14.2134 23.4541 14.0568 23.7685C13.5966 24.6657 13.0548 25.5002 12.5636 26.3744C12.3204 26.7889 12.0567 27.2384 11.8006 27.6606C11.5496 28.0472 11.096 28.9254 10.6167 28.71L10.6115 28.7064L10.6108 28.7058Z" fill="#B43DB4"/>
+          <path d="M14.1385 17.035C14.5523 17.3602 12.2871 17.7788 11.9685 17.8445C11.2393 17.9968 10.4829 18.1637 9.74387 18.3237C8.94361 18.4925 8.23243 18.6726 7.67778 18.6972C7.46877 18.7059 7.25287 18.6971 7.06037 18.6332C6.30304 18.3446 6.81737 17.6473 7.4011 17.422C7.72279 17.2788 8.07765 17.1943 8.42577 17.1395C9.17114 17.0253 9.94722 17.0278 10.6734 16.9941C11.3318 16.9728 12.1011 16.9317 12.8217 16.9119C13.2294 16.9118 13.8055 16.8936 14.1325 17.0321L14.1385 17.035Z" fill="#B43DB4"/>
+          <path d="M10.2029 16.1172C7.3948 15.7643 4.556 15.4856 1.7466 15.1385C1.17707 15.0404 0.582874 14.8844 0.270841 14.4472C-0.0220309 14.0156 0.360783 13.6751 0.791593 13.6304C1.236 13.5497 1.97092 13.6867 2.54844 13.8131C3.25538 13.9648 4.0047 14.1309 4.56565 14.2403C6.72495 14.632 9.18556 15.2072 11.3058 15.6832C11.9358 15.8089 13.9338 16.2942 12.1802 16.3003C11.5923 16.296 10.8358 16.1931 10.2214 16.1202L10.2033 16.1179L10.2029 16.1172Z" fill="#B43DB4"/>
+          <path d="M10.8749 24.0597C10.4715 23.9789 10.6235 23.5105 10.8086 23.2176C11.0597 22.8095 11.4681 22.4621 11.8537 22.1617C12.3203 21.7965 12.7966 21.4356 13.2638 21.0814C13.8769 20.6295 14.4727 20.1318 15.1053 19.71C15.3911 19.5058 16.5204 18.9282 16.1054 19.6687C15.5281 20.5394 14.562 21.2391 13.8012 21.9659C13.0496 22.5711 11.8246 24.1102 10.8839 24.0614L10.8748 24.0606L10.8749 24.0597Z" fill="#B43DB4"/>
+          <path d="M35.2543 19.2983C35.4822 18.6967 34.856 18.2503 34.4122 18.0907C33.3438 17.7678 31.9639 17.895 30.7872 17.8688C29.9411 17.8733 28.9444 17.876 28.1684 17.8147C27.5461 17.7669 27.0219 17.7119 26.3813 17.6975C24.5593 17.7011 22.1683 17.5964 20.3383 17.6911C19.2332 17.8706 21.2043 18.336 21.5079 18.3585C24.5481 18.7914 27.6099 19.2757 30.6613 19.6951C31.7878 19.7826 34.5883 20.5392 35.2511 19.3073L35.2551 19.2983H35.2543Z" fill="#B43DB4"/>
+          <path d="M23.4166 14.6516C25.6061 12.8583 27.861 11.1113 30.0546 9.32214C30.4846 8.93596 30.9046 8.48763 30.936 7.95145C30.9543 7.43019 30.4489 7.34566 30.0604 7.5371C29.6412 7.70533 29.092 8.2125 28.6703 8.62685C28.1526 9.13154 27.6067 9.67103 27.19 10.0622C25.5704 11.5431 23.7935 13.3397 22.2518 14.8712C21.7854 15.3129 20.3523 16.7872 21.8401 15.859C22.3355 15.5425 22.9212 15.0527 23.4025 14.664L23.4166 14.6524V14.6516Z" fill="#B43DB4"/>
+          <path d="M22.9982 16.3159C22.6993 16.749 24.9868 16.4782 25.3106 16.4466C26.0522 16.3762 26.8241 16.3117 27.5774 16.2457C28.3917 16.1701 29.1244 16.1316 29.6614 15.9908C29.8636 15.9372 30.0673 15.865 30.2322 15.7469C30.8701 15.247 30.1724 14.7333 29.5481 14.6908C29.1985 14.6493 28.8345 14.6736 28.4858 14.7243C27.74 14.836 26.9995 15.0681 26.2959 15.251C25.6607 15.4255 24.9137 15.614 24.2195 15.8084C23.8301 15.929 23.2744 16.0822 23.0031 16.3113L22.9982 16.3159Z" fill="#B43DB4"/>
+          <path d="M24.8626 24.0562C25.2719 24.014 25.165 23.5333 25.0084 23.2242C24.7972 22.7941 24.4236 22.4096 24.0682 22.074C23.6382 21.6662 23.1983 21.2618 22.7667 20.8649C22.1993 20.3569 21.6534 19.8049 21.0635 19.3251C20.7984 19.0947 19.729 18.4127 20.0719 19.1892C20.564 20.1107 21.4595 20.8988 22.1479 21.6944C22.8388 22.3681 23.9124 24.0165 24.8535 24.0571H24.8626V24.0562Z" fill="#B43DB4"/>
+          <path d="M16.5132 14.0365C16.7141 14.5941 16.9671 15.2273 17.1009 15.7927C17.1572 16.0217 17.3436 16.8507 16.9246 16.4518C16.3356 15.8314 15.6224 14.3128 15.1364 13.4463C14.7024 12.5856 14.0227 11.5869 13.9942 10.6351C13.9846 10.0748 14.3444 9.81957 14.8008 10.2389C15.2942 10.6946 15.5524 11.4172 15.7949 12.067C16.0353 12.7316 16.2562 13.3406 16.5064 14.0185L16.5132 14.0374L16.5132 14.0365Z" fill="#B43DB4"/>
+        </svg>
+      </span>
       <div class="ee-timeline__media">
         <!-- TODO: photo -->
-        <img src="assets/img/our-story-2026.jpg" alt="Our story in 2026">
+        <img src="assets/img/photo-placeholder.png" alt="Our story in 2026">
       </div>
       <div class="ee-timeline__content">
-        <p class="ee-timeline__kicker">2026</p>
+        <p class="ee-timeline__kicker">Present Day</p>
         <!-- TODO: Figma still has lorem ipsum placeholder copy here -->
         <p class="ee-timeline__desc" style="max-width:55ch;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       </div>
@@ -114,14 +268,14 @@
   </div>
 
   <section class="container" style="display:flex; justify-content:space-around; flex-wrap:wrap; gap: var(--space-lg); padding-block: var(--space-xl); text-align:center;">
-    <div><p class="ee-stat__number">18+</p><p class="ee-stat__label">Years in business</p></div>
-    <div><p class="ee-stat__number">2,400+</p><p class="ee-stat__label">Events Produced</p></div>
-    <div><p class="ee-stat__number">30+</p><p class="ee-stat__label">Signature Themes</p></div>
-    <div><p class="ee-stat__number">∞</p><p class="ee-stat__label">Repeats of party in the usa</p></div>
+    <div class="ee-reveal"><p class="ee-stat__number">18+</p><p class="ee-stat__label">Years in business</p></div>
+    <div class="ee-reveal"><p class="ee-stat__number">2,400+</p><p class="ee-stat__label">Events Produced</p></div>
+    <div class="ee-reveal"><p class="ee-stat__number">30+</p><p class="ee-stat__label">Signature Themes</p></div>
+    <div class="ee-reveal"><p class="ee-stat__number">∞</p><p class="ee-stat__label">Repeats of party in the usa</p></div>
   </section>
 
-  <section class="ee-cta-band ee-cta-band--teal-tint">
-    <div class="container ee-cta-band__inner">
+  <section class="ee-cta-band">
+    <div class="container ee-cta-band__inner ee-reveal">
       <h2 class="ee-cta-band__heading">Want to be part of the story?</h2>
       <p class="ee-cta-band__text">Let's talk about your event and add another chapter.</p>
       <a href="#" class="ee-btn ee-btn--dark ee-cta-band__btn">Request a quote</a>
@@ -131,9 +285,7 @@
   <footer class="ee-footer">
     <div class="container ee-footer__inner">
       <div class="ee-footer__brand">
-        <img src="assets/img/footer-logo.svg" alt="Extravaganza" class="ee-footer__logo">
-        <p class="ee-footer__wordmark">Extravaganza</p>
-        <p class="ee-footer__tagline">Event design &amp; Props</p>
+        <iframe src="assets/css/components/extravaganza-logo-v1.html" class="ee-hero__logo-anim" title="Extravaganza logo animation" scrolling="no" frameborder="0"></iframe>
         <p class="ee-footer__desc">Event decor and prop rentals — delivered and set up — for weddings, corporate events, and social celebrations.</p>
       </div>
       <div class="ee-footer__columns">
@@ -162,5 +314,93 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+
+  <!-- Scroll-progress timeline (see the head <style> block for why this is
+       page-local rather than in main.js/site.css). Grows .ee-timeline__progress
+       to meet each dot, and marks a dot active, as it crosses the viewport's
+       vertical center. -->
+  <script>
+    (function () {
+      var timeline = document.querySelector('.ee-timeline');
+      var track = document.querySelector('.ee-timeline__track');
+      var progress = document.querySelector('.ee-timeline__progress');
+      var dots = document.querySelectorAll('.ee-timeline__dot');
+      if (!timeline || !track || !progress || !dots.length) return;
+
+      var firstDot = dots[0];
+      var lastDot = dots[dots.length - 1];
+      var spanTop = 0;
+      var spanHeight = 0;
+      var ticking = false;
+
+      // Anchors the track/progress line to run exactly from the first dot's
+      // center to the last dot's — not the full .ee-timeline container,
+      // which includes padding-block and would run past the last dot.
+      //
+      // The final dot is the burst svg (see .ee-timeline__dot--final) —
+      // ending the line at ITS center (like every other dot) ran it
+      // straight through the burst shape, showing through the gaps
+      // between spikes. Stopping a bit short of the dot's top edge
+      // instead — near where the burst's own points start — reads as the
+      // line ending right before the burst rather than piercing it.
+      var lastIsBurst = lastDot.classList.contains('ee-timeline__dot--final');
+      var layout = function () {
+        var timelineRect = timeline.getBoundingClientRect();
+        var firstRect = firstDot.getBoundingClientRect();
+        var lastRect = lastDot.getBoundingClientRect();
+        spanTop = (firstRect.top + firstRect.height / 2) - timelineRect.top;
+        spanHeight = lastIsBurst
+          ? (lastRect.top - timelineRect.top) - spanTop + 4
+          : (lastRect.top + lastRect.height / 2) - timelineRect.top - spanTop;
+        track.style.top = spanTop + 'px';
+        track.style.height = spanHeight + 'px';
+        progress.style.top = spanTop + 'px';
+      };
+
+      var update = function () {
+        var vh = window.innerHeight;
+        var timelineRect = timeline.getBoundingClientRect();
+        var scrolledPast = (vh * 0.5 - timelineRect.top) - spanTop;
+        var fraction = Math.min(1, Math.max(0, scrolledPast / spanHeight));
+        // px, not %: .ee-timeline has no explicit height (it's auto,
+        // sized by its content), so a percentage height on this
+        // absolutely-positioned element doesn't resolve against
+        // spanHeight — it was resolving against something taller,
+        // which is why the filled line kept overshooting past the
+        // burst even once the (correctly px-sized) grey track behind
+        // it stopped short of it.
+        progress.style.height = (fraction * spanHeight) + 'px';
+
+        dots.forEach(function (dot) {
+          var dotRect = dot.getBoundingClientRect();
+          dot.classList.toggle('is-active', dotRect.top < vh * 0.5);
+        });
+
+        ticking = false;
+      };
+
+      layout();
+      update();
+      // Re-measure once everything (webfonts especially — Elsie swapping
+      // in for the fallback serif reflows row heights) has actually
+      // settled. Without this, the track/progress line was measured
+      // against the pre-swap layout and ended up overshooting past the
+      // final dot once the real font landed.
+      window.addEventListener('load', function () { layout(); update(); });
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () { layout(); update(); });
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      }, { passive: true });
+      window.addEventListener('resize', function () {
+        layout();
+        update();
+      });
+    })();
+  </script>
 </body>
 </html>

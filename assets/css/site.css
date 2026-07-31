@@ -167,6 +167,35 @@
   transform: scale(1) translateY(0);
 }
 
+/* Staggers repeating grids/steps on the non-homepage pages so items load
+   one after another instead of all at once — same idea as
+   .ee-process__grid's stagger below, reused for each page's own repeating
+   component. :not(.is-visible) keeps the delay out of any later hover
+   transitions the same element has. */
+.ee-howitworks__steps > div:nth-child(1):not(.is-visible) { transition-delay: 0s; }
+.ee-howitworks__steps > div:nth-child(2):not(.is-visible) { transition-delay: 0.3s; }
+.ee-howitworks__steps > div:nth-child(3):not(.is-visible) { transition-delay: 0.6s; }
+
+.ee-info-grid__grid > .ee-info-card:nth-child(1):not(.is-visible) { transition-delay: 0s; }
+.ee-info-grid__grid > .ee-info-card:nth-child(2):not(.is-visible) { transition-delay: 0.15s; }
+.ee-info-grid__grid > .ee-info-card:nth-child(3):not(.is-visible) { transition-delay: 0.3s; }
+.ee-info-grid__grid > .ee-info-card:nth-child(4):not(.is-visible) { transition-delay: 0.45s; }
+
+.ee-blog-grid > .ee-blog-card:nth-child(3n+1):not(.is-visible) { transition-delay: 0s; }
+.ee-blog-grid > .ee-blog-card:nth-child(3n+2):not(.is-visible) { transition-delay: 0.1s; }
+.ee-blog-grid > .ee-blog-card:nth-child(3n+3):not(.is-visible) { transition-delay: 0.2s; }
+
+.ee-gallery__grid > .ee-gallery__item:nth-child(1):not(.is-visible) { transition-delay: 0s; }
+.ee-gallery__grid > .ee-gallery__item:nth-child(2):not(.is-visible) { transition-delay: 0.08s; }
+.ee-gallery__grid > .ee-gallery__item:nth-child(3):not(.is-visible) { transition-delay: 0.16s; }
+.ee-gallery__grid > .ee-gallery__item:nth-child(4):not(.is-visible) { transition-delay: 0.24s; }
+.ee-gallery__grid > .ee-gallery__item:nth-child(5):not(.is-visible) { transition-delay: 0.32s; }
+
+.ee-full-gallery > .ee-gallery__item:nth-child(4n+1):not(.is-visible) { transition-delay: 0s; }
+.ee-full-gallery > .ee-gallery__item:nth-child(4n+2):not(.is-visible) { transition-delay: 0.08s; }
+.ee-full-gallery > .ee-gallery__item:nth-child(4n+3):not(.is-visible) { transition-delay: 0.16s; }
+.ee-full-gallery > .ee-gallery__item:nth-child(4n+4):not(.is-visible) { transition-delay: 0.24s; }
+
 /* Home page: organic squiggle SVGs, drifting slower than the foreground
    content as you scroll (JS applies the translateY parallax), and fading/
    scaling in the first time each one scrolls into view (.ee-reveal). */
@@ -209,7 +238,23 @@
 /* Minimal reset */
 *, *::before, *::after { box-sizing: border-box; }
 body, h1, h2, h3, h4, p, figure { margin: 0; }
-img { max-width: 100%; display: block; }
+/* Very subtle lift so photos don't read as flat against the page
+   background. Sitewide via the base reset rather than per-page, so it
+   automatically covers every photo (hero, timeline, accordion, gallery,
+   team, featured-quote, etc.) without hunting down each one — icons/
+   decorative marks below opt back out since a shadow doesn't make sense
+   on those. Gallery/theme-card images sit inside overflow: hidden crop
+   containers, so their shadow is invisibly clipped rather than doubling
+   up with those components' own box-shadow — harmless, not worth a
+   separate exception. */
+img { max-width: 100%; display: block; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1); }
+
+.ee-blob-img,
+.ee-cta__sparkle,
+.ee-home-topbg__img,
+.ee-nav__logo-img {
+  box-shadow: none;
+}
 a { color: inherit; }
 
 body {
@@ -1391,8 +1436,7 @@ h3 { font-size: var(--fs-h3); }
    translation. Used for "What's Included" / "Where we deliver" style blocks. */
 
 .ee-accordion {
-  border-bottom: 2px solid var(--color-border);
-  box-shadow: 0px 2px 7.2px rgba(0, 0, 0, 0.25);
+  border-bottom: 2px solid rgba(136, 229, 86, 0.45);
 }
 
 .ee-accordion summary {
@@ -1401,7 +1445,8 @@ h3 { font-size: var(--fs-h3); }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-lg) var(--space-md);
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-md);
   font-family: var(--font-display);
   font-weight: 500;
   font-size: 32px;
@@ -1414,21 +1459,48 @@ h3 { font-size: var(--fs-h3); }
 }
 
 .ee-accordion__chevron {
-  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-purple-deep);
+  transition: transform 0.3s ease, color 0.2s ease;
   flex-shrink: 0;
+}
+
+.ee-accordion__chevron svg {
+  display: block;
+  width: 18px;
+  height: auto;
+}
+
+.ee-accordion summary:hover .ee-accordion__chevron {
+  color: var(--color-btn-magenta);
 }
 
 .ee-accordion[open] .ee-accordion__chevron {
   transform: rotate(180deg);
 }
 
+/* Animated open/close: main.js drives an inline height between 0 and
+   scrollHeight on click instead of relying on <details>'s instant native
+   toggle, so opening/closing slides smoothly. Falls back to an instant
+   height: auto if JS doesn't run, since [open] alone still reveals it. */
 .ee-accordion__body {
-  padding: 0 var(--space-md) var(--space-xl);
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  padding: var(--space-md) var(--space-md) var(--space-xl);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-xl);
   flex-wrap: wrap;
+  transition: height 0.35s ease, opacity 0.3s ease;
+}
+
+.ee-accordion[open] .ee-accordion__body {
+  height: auto;
+  opacity: 1;
 }
 
 .ee-accordion__list {
@@ -1442,9 +1514,13 @@ h3 { font-size: var(--fs-h3); }
   align-items: center;
   gap: var(--space-md);
   font-family: var(--font-body);
-  font-size: 24px;
-  letter-spacing: 1.44px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
   color: #000;
+}
+
+.ee-accordion__check {
+  flex-shrink: 0;
 }
 
 .ee-accordion__body img {
@@ -1454,10 +1530,10 @@ h3 { font-size: var(--fs-h3); }
 
 .ee-accordion__text {
   font-family: var(--font-body);
-  font-size: 32px;
-  letter-spacing: 1.92px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
   color: #000;
-  line-height: 1.8;
+  line-height: 1.6;
   max-width: 500px;
 }
 
@@ -1530,6 +1606,7 @@ h3 { font-size: var(--fs-h3); }
 }
 
 .ee-timeline__link {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--space-sm);
@@ -1540,6 +1617,37 @@ h3 { font-size: var(--fs-h3); }
   color: #000;
   text-decoration: none;
   margin-top: var(--space-md);
+  transition: font-weight 0.15s ease;
+}
+
+/* Same hover treatment as .ee-section-link's arrow links: bold text,
+   green underline sliding in, arrow nudges right and turns accent color. */
+.ee-timeline__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--color-green);
+  transition: width 0.15s ease;
+}
+
+.ee-timeline__link span {
+  transition: transform 0.2s ease, color 0.15s ease;
+}
+
+.ee-timeline__link:hover {
+  font-weight: 700;
+}
+
+.ee-timeline__link:hover::after {
+  width: 100%;
+}
+
+.ee-timeline__link:hover span {
+  transform: translateX(4px);
+  color: var(--color-btn-magenta);
 }
 
 /* ===== components/cta-band.css ===== */
@@ -1597,7 +1705,8 @@ h3 { font-size: var(--fs-h3); }
 
 .ee-info-grid__title {
   font-family: var(--font-display);
-  font-size: 48px;
+  font-weight: 500;
+  font-size: 30px;
   letter-spacing: 2.88px;
   color: #000;
   margin-bottom: var(--space-xl);
@@ -1712,7 +1821,11 @@ h3 { font-size: var(--fs-h3); }
 }
 
 .ee-featured-quote__media img {
-  width: 100%;
+  width: 500px;
+  height: 500px;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   display: block;
 }
 

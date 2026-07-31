@@ -5,23 +5,119 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gallery | Extravaganza Events and Props</title>
   <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elsie:wght@400;900&display=swap">
+  <link rel="stylesheet" href="assets/css/pages-timeless.css">
+  <style>
+    /* Toolbar: filter-by-category + sort-by, driven by main.js. */
+    .ee-gallery-toolbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-lg);
+      padding-bottom: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .ee-gallery-toolbar__field {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .ee-gallery-toolbar__select {
+      appearance: none;
+      -webkit-appearance: none;
+      font-family: var(--font-body);
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      color: #000;
+      background: #fff;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-base);
+      padding: 10px 36px 10px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .ee-gallery-toolbar__select:hover,
+    .ee-gallery-toolbar__select:focus {
+      border-color: #B43DB4;
+      color: #B43DB4;
+      outline: none;
+    }
+
+    .ee-gallery-toolbar__field::after {
+      content: '';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: translateY(-65%) rotate(45deg);
+      pointer-events: none;
+      color: inherit;
+    }
+
+    /* Full gallery masonry: a dense grid so different span sizes tile
+       together without gaps, instead of the smaller fixed 6-item preview
+       grid (.ee-gallery__grid) used on the service pages. */
+    .ee-full-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 220px;
+      grid-auto-flow: dense;
+      gap: var(--space-md);
+      padding-bottom: var(--space-xl);
+    }
+
+    .ee-full-gallery .ee-gallery__item--big {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .ee-full-gallery .ee-gallery__item--wide {
+      grid-column: span 2;
+    }
+
+    .ee-full-gallery .ee-gallery__item--tall {
+      grid-row: span 2;
+    }
+
+    .ee-full-gallery .ee-gallery__item.is-hidden {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .ee-full-gallery { grid-template-columns: repeat(2, 1fr); }
+      .ee-full-gallery .ee-gallery__item--big,
+      .ee-full-gallery .ee-gallery__item--wide { grid-column: span 2; }
+    }
+    @media (max-width: 560px) {
+      .ee-full-gallery { grid-template-columns: 1fr; }
+      .ee-full-gallery .ee-gallery__item--big,
+      .ee-full-gallery .ee-gallery__item--wide { grid-column: span 1; }
+      .ee-full-gallery .ee-gallery__item--big { grid-row: span 1; }
+    }
+  </style>
 </head>
 <body>
   <header class="ee-nav">
     <div class="container ee-nav__inner">
-      <a href="index.html" class="ee-nav__logo">
+      <a href="index4.html" class="ee-nav__logo">
         <img src="assets/img/E-icon-black.svg" alt="Extravaganza" class="ee-nav__logo-img">
       </a>
             <button type="button" class="ee-nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="ee-nav-menu">
         <span></span><span></span><span></span>
       </button>
       <nav class="ee-nav__menu" id="ee-nav-menu">
-        <a href="index.html">Home</a>
+        <a href="index4.html">Home</a>
         <div class="ee-nav__dropdown">
           <a href="#">Services</a>
           <div class="ee-nav__dropdown-menu">
-            <span class="ee-nav__dropdown-label">Event Decor</span>
-            <a href="#">Draping</a> <!-- TODO: no Figma page yet -->
+            <a href="draping.html">Draping</a>
             <a href="centerpieces.html">Centerpieces</a>
             <a href="balloons.html">Balloons</a>
             <a href="prop-rentals.html">Prop Rentals</a>
@@ -41,42 +137,166 @@
             <a href="testimonials.html">Testimonials</a>
           </div>
         </div>
-        <a href="#">Blog</a> <!-- TODO: no Figma page yet -->
+        <a href="blog.html">Blog</a>
         <a href="#" class="ee-btn ee-btn--teal ee-nav__menu-cta">Request a Quote</a>
       </nav>
       <a href="#" class="ee-btn ee-btn--teal ee-nav__cta">Request a Quote</a>
     </div>
   </header>
 
-  <section class="container" style="padding-block: var(--space-xl) var(--space-md); text-align:center;">
+  <section class="container ee-reveal" style="padding-block: var(--space-xl) var(--space-md); text-align:center;">
     <h1 class="ee-page-hero__title">Gallery</h1>
   </section>
 
-  <section class="container" style="display:flex; justify-content:center; gap: var(--space-lg); padding-bottom: var(--space-lg); font-family: var(--font-body); text-transform:uppercase; font-size:14px; letter-spacing:2px;">
-    <a href="#" style="color:#000; text-decoration:none; font-weight:700;">All</a>
-    <a href="#" style="color:#000; text-decoration:none;">Themes</a>
-    <a href="#" style="color:#000; text-decoration:none;">Events</a>
-    <span style="margin-left:auto; color: var(--color-text-muted);">Sort By ⌄</span>
+  <section class="container ee-gallery-toolbar">
+    <div class="ee-gallery-toolbar__field">
+      <select id="galleryFilter" class="ee-gallery-toolbar__select" aria-label="Filter by theme or event">
+        <option value="all">All</option>
+        <optgroup label="Themes">
+          <option value="casino">Casino</option>
+          <option value="roaring-20s">Roaring 20s</option>
+          <option value="hollywood">Hollywood</option>
+          <option value="enchanted">Enchanted</option>
+          <option value="christmas">Christmas</option>
+          <option value="tropical">Tropical</option>
+          <option value="halloween">Halloween</option>
+        </optgroup>
+        <optgroup label="Events">
+          <option value="weddings">Weddings</option>
+          <option value="corporate">Corporate Events</option>
+          <option value="galas">Galas</option>
+          <option value="proms">Proms</option>
+          <option value="social">Social Events</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="ee-gallery-toolbar__field">
+      <select id="gallerySort" class="ee-gallery-toolbar__select" aria-label="Sort gallery">
+        <option value="recent">Sort By: Most Recent</option>
+        <option value="oldest">Sort By: Oldest First</option>
+        <option value="az">Sort By: Name (A–Z)</option>
+        <option value="za">Sort By: Name (Z–A)</option>
+      </select>
+    </div>
   </section>
 
-  <!-- TODO: photos — Figma shows a masonry grid of ~12 varied-size event photos -->
-  <section class="container" style="columns: 4 220px; column-gap: var(--space-md); padding-bottom: var(--space-xl);">
-      <img src="assets/img/gallery-full-1.jpg" alt="Event photo" style="width:100%; display:block; margin-bottom: var(--space-md); break-inside: avoid;">
-      <img src="assets/img/gallery-full-2.jpg" alt="Event photo" style="width:100%; display:block; margin-bottom: var(--space-md); break-inside: avoid;">
-      <img src="assets/img/gallery-full-3.jpg" alt="Event photo" style="width:100%; display:block; margin-bottom: var(--space-md); break-inside: avoid;">
-      <img src="assets/img/gallery-full-4.jpg" alt="Event photo" style="width:100%; display:block; margin-bottom: var(--space-md); break-inside: avoid;">
-      <img src="assets/img/gallery-full-5.jpg" alt="Event photo" style="width:100%; display:block; margin-bottom: var(--space-md); break-inside: avoid;">
-      <img src="assets/img/gallery-full-6.jpg" alt="Event photo" style="width:100%; display:block; margin-bottom: var(--space-md); break-inside: avoid;">
-      <img src="assets/img/gallery-full-7.jpg" alt="Event photo" style="width:100%; display:block; margin-bottom: var(--space-md); break-inside: avoid;">
-      <img src="assets/img/gallery-full-8.jpg" alt="Event photo" style="width:100%; display:block; margin-bottom: var(--space-md); break-inside: avoid;">
-      <img src="assets/img/gallery-full-9.jpg" alt="Event photo" style="width:100%; display:block; margin-bottom: var(--space-md); break-inside: avoid;">
-      <img src="assets/img/gallery-full-10.jpg" alt="Event photo" style="width:100%; display:block; margin-bottom: var(--space-md); break-inside: avoid;">
-      <img src="assets/img/gallery-full-11.jpg" alt="Event photo" style="width:100%; display:block; margin-bottom: var(--space-md); break-inside: avoid;">
-      <img src="assets/img/gallery-full-12.jpg" alt="Event photo" style="width:100%; display:block; margin-bottom: var(--space-md); break-inside: avoid;">
+  <section class="container ee-full-gallery" id="galleryGrid">
+    <div class="ee-gallery__item ee-gallery__item--big ee-reveal" data-category="casino" data-date="2026-02-14">
+      <img src="assets/img/western casino 039.jpg" alt="Casino theme table game night">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">High Stakes Night</p>
+        <p class="ee-gallery__caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-gallery__item--wide ee-reveal" data-category="roaring-20s" data-date="2025-11-02">
+      <img src="assets/img/GastonCountryClub-49.jpg" alt="Roaring 20s ballroom">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Roaring Twenties Ballroom</p>
+        <p class="ee-gallery__caption-desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-gallery__item--tall ee-reveal" data-category="hollywood" data-date="2025-09-20">
+      <img src="assets/img/Hollywood clapboard with red drape and Oscar profiles (1).jpg" alt="Hollywood theme prom decor">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Lights, Camera, Glam</p>
+        <p class="ee-gallery__caption-desc">Duis aute irure dolor in reprehenderit in voluptate velit esse.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-reveal" data-category="enchanted" data-date="2025-05-18">
+      <img src="assets/img/enchanted-arch.png" alt="Enchanted floral arch">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Enchanted Garden Arch</p>
+        <p class="ee-gallery__caption-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-reveal" data-category="christmas" data-date="2025-12-19">
+      <img src="assets/img/20251219_224121000_iOS.jpg" alt="Christmas theme decor">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Holiday Sparkle</p>
+        <p class="ee-gallery__caption-desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-gallery__item--wide ee-reveal" data-category="tropical" data-date="2025-07-04">
+      <img src="assets/img/tropical-theme.jpg" alt="Tropical tiki theme">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Tiki Night Escape</p>
+        <p class="ee-gallery__caption-desc">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-gallery__item--tall ee-reveal" data-category="halloween" data-date="2025-10-31">
+      <img src="assets/img/Clown mirror room .JPG" alt="Halloween funhouse room">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Halloween Funhouse</p>
+        <p class="ee-gallery__caption-desc">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-gallery__item--big ee-reveal" data-category="weddings" data-date="2025-06-08">
+      <img src="assets/img/wedding-reception.png" alt="Wedding reception decor">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Reception Elegance</p>
+        <p class="ee-gallery__caption-desc">At vero eos et accusamus et iusto odio dignissimos ducimus.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-reveal" data-category="corporate" data-date="2025-04-11">
+      <img src="assets/img/discount tire room set up (1) .jpg" alt="Corporate event room setup">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Corporate Showcase</p>
+        <p class="ee-gallery__caption-desc">Et harum quidem rerum facilis est et expedita distinctio.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-reveal" data-category="casino" data-date="2024-11-23">
+      <img src="assets/img/busch craps table.jpg" alt="Craps table casino night">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Craps Table Action</p>
+        <p class="ee-gallery__caption-desc">Nam libero tempore, cum soluta nobis est eligendi optio.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-gallery__item--wide ee-reveal" data-category="galas" data-date="2025-03-01">
+      <img src="assets/img/CRC_Gala_2015-2444.jpg" alt="Gala event lighting">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Gala Under Lights</p>
+        <p class="ee-gallery__caption-desc">Itaque earum rerum hic tenetur a sapiente delectus reiciendis.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-reveal" data-category="social" data-date="2024-09-14">
+      <img src="assets/img/50_Shades_of_Kaye-36.jpg" alt="Candlelight social event">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Candlelight Social</p>
+        <p class="ee-gallery__caption-desc">Temporibus autem quibusdam et aut officiis debitis rerum.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-reveal" data-category="weddings" data-date="2025-08-22">
+      <img src="assets/img/Yacht Centerpiece.jpg" alt="Yacht club wedding centerpiece">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Yacht Club Affair</p>
+        <p class="ee-gallery__caption-desc">Sed quia consequuntur magni dolores eos qui ratione voluptatem.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-gallery__item--tall ee-reveal" data-category="social" data-date="2024-06-30">
+      <img src="assets/img/Barbie-Box-with-balloon-display.jpg" alt="Barbie themed balloon display">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Barbie Dream Display</p>
+        <p class="ee-gallery__caption-desc">Ut enim ad minima veniam, quis nostrum exercitationem ullam.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-reveal" data-category="proms" data-date="2025-04-26">
+      <img src="assets/img/Marquee with balloons (2).jpg" alt="Marquee balloon display for prom">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Marquee Balloon Moment</p>
+        <p class="ee-gallery__caption-desc">Quis autem vel eum iure reprehenderit qui in ea voluptate.</p>
+      </div>
+    </div>
+    <div class="ee-gallery__item ee-reveal" data-category="weddings" data-date="2024-05-17">
+      <img src="assets/img/Floral centerpiece with fan .jpg" alt="Floral wedding centerpiece with fan">
+      <div class="ee-gallery__caption">
+        <p class="ee-gallery__caption-title">Floral &amp; Fan Centerpiece</p>
+        <p class="ee-gallery__caption-desc">Velit esse quam nihil molestiae consequatur, vel illum qui.</p>
+      </div>
+    </div>
   </section>
 
-  <section class="ee-cta-band ee-cta-band--purple">
-    <div class="container ee-cta-band__inner">
+  <section class="ee-cta-band">
+    <div class="container ee-cta-band__inner ee-reveal">
       <h2 class="ee-cta-band__heading">Ready to bring your vision to life?</h2>
       <p class="ee-cta-band__text">Schedule a consultation and let's talk through your event, your space, and your style.</p>
       <a href="#" class="ee-btn ee-btn--teal ee-cta-band__btn">Schedule a Consultation</a>
@@ -84,7 +304,7 @@
   </section>
 
   <section class="ee-testimonial">
-    <div class="container ee-testimonial__inner">
+    <div class="container ee-testimonial__inner ee-reveal">
       <div class="ee-testimonial__quote">
         <p class="ee-testimonial__text">
           "Extravaganza transformed our ballroom into something our guests are
@@ -112,9 +332,7 @@
   <footer class="ee-footer">
     <div class="container ee-footer__inner">
       <div class="ee-footer__brand">
-        <img src="assets/img/footer-logo.svg" alt="Extravaganza" class="ee-footer__logo">
-        <p class="ee-footer__wordmark">Extravaganza</p>
-        <p class="ee-footer__tagline">Event design &amp; Props</p>
+        <iframe src="assets/css/components/extravaganza-logo-v1.html" class="ee-hero__logo-anim" title="Extravaganza logo animation" scrolling="no" frameborder="0"></iframe>
         <p class="ee-footer__desc">Event decor and prop rentals — delivered and set up — for weddings, corporate events, and social celebrations.</p>
       </div>
       <div class="ee-footer__columns">
