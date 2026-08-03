@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700;800;900&family=Boldonse&family=Instrument+Serif:ital@1&family=Meie+Script&family=Petit+Formal+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700;800;900&family=Boldonse&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&family=Meie+Script&family=Petit+Formal+Script&display=swap');
 
 /* ===== tokens.css ===== */
 /**
@@ -428,6 +428,8 @@ h3 { font-size: var(--fs-h3); }
 .ee-nav__menu {
   display: flex;
   align-items: stretch;
+  justify-content: center;
+  gap: 8px;
   flex: 1;
 }
 
@@ -461,9 +463,14 @@ h3 { font-size: var(--fs-h3); }
   color: var(--color-green);
 }
 
+/* padding-inline in em (not the fixed var(--space-lg) .ee-btn normally
+   uses) so the padding scales together with font-size below — as the
+   button's text shrinks at narrower widths, the padding shrinks with it
+   in proportion instead of staying fixed and looking oversized/cramped. */
 .ee-nav__cta {
   margin: 0;
   flex-shrink: 0;
+  padding-inline: 1.5em;
 }
 
 /* Logo must never shrink — without this, flexbox starts crushing it down
@@ -524,11 +531,67 @@ h3 { font-size: var(--fs-h3); }
   display: none;
 }
 
-/* Below 1100px the desktop link row no longer fits alongside the logo and
-   CTA button without crushing the logo (see responsiveness audit) — swap
-   to a hamburger that opens a full-panel drawer instead of trying to
-   squeeze everything into one row. */
+/* Between the hamburger breakpoint (768px, below) and full desktop width,
+   the link row starts running out of room — instead of jumping straight
+   to a hamburger on tablets/small laptops, shrink the nav font/spacing
+   progressively so the full row of links keeps fitting. */
 @media (max-width: 1300px) {
+  .ee-nav__inner {
+    gap: 16px;
+  }
+
+  .ee-nav__menu {
+    gap: 4px;
+  }
+
+  .ee-nav__menu a {
+    font-size: 16px;
+    letter-spacing: 1.8px;
+    padding: 12px 14px;
+  }
+
+  .ee-nav__cta {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .ee-nav__menu a {
+    font-size: 15px;
+    letter-spacing: 1.4px;
+    padding: 12px 10px;
+  }
+
+  .ee-nav__cta {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 940px) {
+  .ee-nav__inner {
+    gap: 10px;
+  }
+
+  .ee-nav__menu {
+    gap: 0;
+  }
+
+  .ee-nav__menu a {
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 12px 7px;
+  }
+
+  .ee-nav__cta {
+    font-size: 13px;
+  }
+}
+
+/* Below 768px (real mobile widths) even the shrunk link row no longer fits
+   alongside the logo and CTA button without crushing the logo (see
+   responsiveness audit) — swap to a hamburger that opens a full-panel
+   drawer instead of trying to squeeze everything into one row. */
+@media (max-width: 768px) {
   .ee-nav__inner {
     gap: 20px;
   }
@@ -572,6 +635,7 @@ h3 { font-size: var(--fs-h3); }
   .ee-nav__menu a {
     padding: 16px 4px;
     font-size: 18px;
+    letter-spacing: var(--tracking-nav);
     border-bottom: 1px solid var(--color-border);
   }
 
@@ -651,7 +715,7 @@ h3 { font-size: var(--fs-h3); }
 
 /* Inside the mobile drawer, submenus can't rely on :hover — show them
    inline, always expanded, in the natural document flow instead. */
-@media (max-width: 1300px) {
+@media (max-width: 768px) {
   .ee-nav__dropdown {
     display: block;
   }
@@ -824,13 +888,16 @@ h3 { font-size: var(--fs-h3); }
   font-weight: 400;
   font-size: 32px;
   text-align: center;
-  color: #000;
+  color: #1e1b26;
   letter-spacing: 1.9px;
   padding: 20px;
   /* Fluid cap, not just a fixed 900px — keeps the text clear of
      .ee-intro__balloons/.ee-intro__photobooth (also fluid-width, above) as
      the viewport narrows, instead of the two colliding. */
   max-width: min(900px, 56vw);
+}
+.ee-intro__text b {
+  color:#861986;
 }
 
 /* Below this width there's no longer room for text + both side images

@@ -30,17 +30,39 @@
   left: 0;
   width: 100%;
   height: 115vh;
-  background:
-    linear-gradient(180deg, rgba(36, 26, 71, 0.8) 0%, rgba(46, 35, 96, 0.8) 55%, rgba(58, 43, 115, 0.8) 100%),
-    url('../img/GastonCountryClub-49.jpg') center / cover no-repeat;
+  background: url('../img/hero-background-chandelier.png') top center / contain no-repeat;
+}
+
+@media (max-width: 1430px) {
+  .ee-home-topbg__panel {
+    background: url('../img/hero-background-chandelier-1430.png') top center / contain no-repeat;
+  }
+}
+
+@media (max-width: 1250px) {
+  .ee-home-topbg__panel {
+    background: url('../img/hero-background-chandelier-1250.png') top center / contain no-repeat;
+  }
+}
+
+@media (max-width: 1100px) {
+  .ee-home-topbg__panel {
+    background: url('../img/hero-background-chandelier-1100.png') top center / contain no-repeat;
+  }
+}
+
+@media (max-width: 915px) {
+  .ee-home-topbg__panel {
+    background: url('../img/hero-background-chandelier-915.png') top center / contain no-repeat;
+  }
 }
 
 /* Paper-grain texture across the whole page — a heavy whitish wash on top
    so only a faint hint of it shows through. */
 body {
   background-image:
-    linear-gradient(rgba(245, 243, 250, 0.7), rgba(245, 243, 250, 0.5)),
-    url('../img/paper-texture-background.jpg');
+    linear-gradient(rgba(245, 243, 250, 0.5), rgba(245, 243, 250, 0.25)),
+    url('../img/white-fabric.jpg');
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -118,7 +140,17 @@ body {
 /* Elsie renders noticeably smaller than Boldonse at the same font-size, so
    every element set in --font-display needs a bump to read at its original
    visual weight. */
-.ee-hero__heading { font-size: 40px; }
+.ee-hero__heading {
+  font-size: 40px;
+  font-family: 'Instrument Serif', serif;
+}
+
+.ee-hero__heading .ee-hero__accent {
+  font-family: 'Instrument Serif', serif;
+  font-size: 40px;
+  font-style: italic;
+  color:#9f94c8;
+}
 
 /* Wider than the site default (800px) so the heading wraps to 2 lines
    instead of 3 — a 3rd line was pushing the "Explore Themes" button below
@@ -186,26 +218,36 @@ body {
   padding-top: 8px;
 }
 
-/* Logo burst animation at rest in the hero — sized down further (see
-   extravaganza-logo-v3.html's max-width: 610px) so the full stack —
+/* Logo burst animation at rest in the hero — sized down (see
+   extravaganza-logo-final.html's max-width: 610px) so the full stack —
    logo, heading, button — clears one viewport height without the button
    running past the bottom edge.
 
    Sized to match the svg's own actual rendered size at that 610px
-   max-width — 610 x (610 * 248/345) — not inflated further. A bigger box
-   than the svg actually fills would just center the svg inside it with
-   dead padding above/below, wasting vertical space in a stack that's
-   already tight against the viewport.
+   max-width — 610 x (610 * 248/364), this file's viewBox ratio — not
+   inflated further. A bigger box than the svg actually fills would just
+   center the svg inside it with dead padding above/below, wasting
+   vertical space in a stack that's already tight against the viewport.
 
    Stays invisible until main.js reveals it (.is-visible) in lockstep with
    .ee-hero__content — both this and the full-screen intro overlay are
    separate instances of the same animation, started together on load, so
    without this it would otherwise show through as a second, smaller copy
    playing simultaneously underneath/beside the full-screen one. */
+/* transform: the box itself is already centered on the page, but the
+   artwork inside it isn't centered within its own viewBox — the burst
+   rays cluster on the left half (x: 0-203 of 364) and overlap the start
+   of the wordmark, while the wordmark's tail ("...GANZA") trails off
+   alone on the right with nothing to balance it, so the graphic's visual
+   weight sits well left of the box's geometric center. Nudging the box
+   right by that same ~7.6% (the measured offset between the artwork's
+   area-weighted centroid and the viewBox center) makes the logo *look*
+   centered on the page instead of just being centered as an empty box. */
 .ee-hero .ee-hero__logo-anim {
   width: 610px;
-  height: 438px;
+  height: 416px;
   opacity: 0;
+  transform: translateX(7.6%);
   transition: opacity 0.8s ease;
 }
 
@@ -221,22 +263,46 @@ body {
    pointer-events: none since it's purely decorative — nothing under it
    should be blocked from clicks while it plays.
    Fades out via main.js (.is-done) once the burst animation's ~4.4s
-   runtime has elapsed. */
+   runtime has elapsed.
+
+   align-items: flex-start, with the actual vertical placement done via
+   margin-top on .ee-hero-intro__anim below (see that rule for why a
+   simple padding-top here isn't enough — this box is much taller than
+   the resting logo, so top-aligning the BOX doesn't line up the burst
+   itself, which sits partway down it). */
+/* position: absolute (anchored to the top of the document), not fixed
+   (anchored to the viewport) — fixed meant this stayed glued on screen,
+   in front of everything, for its whole ~4.4s runtime even if you started
+   scrolling right away; you couldn't get past it until the timer below
+   removed it. Absolute covers the same initial-viewport-sized area at
+   load (scrollY is 0 then, so the two look identical), but scrolls away
+   with the rest of the page immediately once you actually scroll, same as
+   any other in-flow content. */
 .ee-hero-intro {
-  position: fixed;
-  inset: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
   z-index: 20;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   pointer-events: none;
   transition: opacity 0.8s ease;
 }
 
+/* Pulls the whole graphic up so the burst itself (roughly 55% of the way
+   down the svg's own viewBox, not the top of this box) lands near where
+   the much-smaller resting logo sits — negative margin instead of
+   padding-top on the parent, since padding can't go negative. Tuned
+   against a ~1260px rendered width (90vw at a ~1400px viewport); adjust
+   if it drifts noticeably at very different viewport widths. */
 .ee-hero-intro__anim {
   width: min(90vw, 1350px);
-  aspect-ratio: 345 / 248;
+  aspect-ratio: 364 / 248;
   height: auto;
+  margin-top: -120px;
   border: 0;
 }
 
@@ -250,7 +316,42 @@ body {
   .ee-hero__content { opacity: 1; transform: none; transition: none; }
 }
 
-.ee-section-title { font-size: 46px; }
+/* Below 1150px the burst was landing right at (almost under) the nav bar,
+   with no breathing room above it — shrink both logo instances a bit and
+   nudge them down so they clear the nav with some space, instead of
+   scaling only by viewport width via the intro's min(90vw, 1350px). */
+@media (max-width: 1150px) {
+  .ee-hero {
+    padding-top: 32px;
+  }
+
+  .ee-hero .ee-hero__logo-anim {
+    width: 520px;
+    height: 354px;
+  }
+
+  .ee-hero-intro__anim {
+    width: min(65vw, 900px);
+    margin-top: 100px;
+  }
+}
+
+.ee-section-title { font-size: 36px; }
 .ee-process__title { font-size: 26px; }
 .ee-stat__number { font-size: 52px; }
-.ee-cta__heading { font-size: 56px; }
+.ee-cta__heading { font-size: 46px; }
+
+.ee-section-title {
+  font-family: 'Boldonse', serif;
+  color:#241A42;
+}
+
+.ee-cta__heading {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  color: #241A42;
+}
+
+.ee-process__title {
+  font-family: 'Instrument Serif', serif;
+}

@@ -30,12 +30,12 @@
   --cta-bg: rgba(46, 35, 96, 0.28);
 }
 
-/* Paper-grain texture across the whole page, same treatment as
+/* White fabric texture across the whole page, same treatment as
    index4.html's body background. */
 body {
   background-image:
-    linear-gradient(rgba(245, 243, 250, 0.7), rgba(245, 243, 250, 0.5)),
-    url('../img/paper-texture-background.jpg');
+    linear-gradient(rgba(245, 243, 250, 0.5), rgba(245, 243, 250, 0.25)),
+    url('../img/white-fabric.jpg');
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -130,3 +130,40 @@ body {
 .ee-quote-card__text { font-size: 27px; }
 .ee-featured-quote__client { font-size: 46px; }
 .ee-featured-quote__text { font-size: 27px; }
+
+/* Every h1 on these pages (site.css's page-hero title) in Boldonse, every
+   h2 (section headers, timeline/howitworks/info-grid titles) in Instrument
+   Serif — both override the var(--font-display)/Elsie set above, since
+   these are element-level type choices rather than this theme's display
+   font. The bottom-of-page CTA heading ("Ready to..." etc.) is the one h2
+   that gets Instrument Serif *italic* instead of the plain weight, so it
+   reads as a distinct closing/invitation line rather than another section
+   title. */
+.ee-page-hero__title {
+  font-family: 'Boldonse', serif;
+  font-size: 36px;
+  color: #241A42;
+}
+
+/* "How it works" step titles (the text after the "01"/"02"/"03" numbers):
+   bold Albert Sans instead of the Elsie/Boldonse display font used
+   elsewhere, to read as a plain, punchy label rather than another
+   headline. */
+.ee-howitworks__step-title {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 700;
+  color: #241A42;
+}
+
+.ee-section-title,
+.ee-blog-featured__title,
+.ee-timeline__title,
+.ee-howitworks__title,
+.ee-info-grid__title {
+  font-family: 'Instrument Serif', serif;
+}
+
+.ee-cta-band__heading {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+}
