@@ -30,7 +30,7 @@
   left: 0;
   width: 100%;
   height: 115vh;
-  background: url('../img/hero-background-chandelier.png') top center / contain no-repeat;
+  background: url('../img/hero-background-chandelier-v2.png') top center / contain no-repeat;
 }
 
 @media (max-width: 1430px) {
@@ -234,20 +234,10 @@ body {
    separate instances of the same animation, started together on load, so
    without this it would otherwise show through as a second, smaller copy
    playing simultaneously underneath/beside the full-screen one. */
-/* transform: the box itself is already centered on the page, but the
-   artwork inside it isn't centered within its own viewBox — the burst
-   rays cluster on the left half (x: 0-203 of 364) and overlap the start
-   of the wordmark, while the wordmark's tail ("...GANZA") trails off
-   alone on the right with nothing to balance it, so the graphic's visual
-   weight sits well left of the box's geometric center. Nudging the box
-   right by that same ~7.6% (the measured offset between the artwork's
-   area-weighted centroid and the viewBox center) makes the logo *look*
-   centered on the page instead of just being centered as an empty box. */
 .ee-hero .ee-hero__logo-anim {
   width: 610px;
   height: 416px;
   opacity: 0;
-  transform: translateX(7.6%);
   transition: opacity 0.8s ease;
 }
 
@@ -314,6 +304,35 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .ee-hero-intro { display: none; }
   .ee-hero__content { opacity: 1; transform: none; transition: none; }
+}
+
+/* Drop shadow on the nav's own logo/links and the hero's logo/animation/
+   heading, but only while the nav is still in its transparent/dark state
+   (over the indigo topbg panel) — .ee-nav--light ~ .ee-hero-stage and
+   .ee-nav--light .ee-nav__* below clear it back to none the moment
+   main.js's scroll listener (see the inline script at the bottom of this
+   file) switches the nav to its opaque white state, where a shadow would
+   just read as clutter against a plain background instead of lifting the
+   text/graphics off the dark photo behind them. */
+.ee-nav__logo-img,
+.ee-nav__menu > a,
+.ee-nav__dropdown > a {
+  filter: drop-shadow(0 2px 5px #352967);
+}
+
+.ee-hero__logo-anim,
+.ee-hero-intro__anim,
+.ee-hero__heading {
+  filter: drop-shadow(0 4px 12px #352967);
+}
+
+.ee-nav--light .ee-nav__logo-img,
+.ee-nav--light .ee-nav__menu > a,
+.ee-nav--light .ee-nav__dropdown > a,
+.ee-nav--light ~ .ee-hero-stage .ee-hero__logo-anim,
+.ee-nav--light ~ .ee-hero-stage .ee-hero-intro__anim,
+.ee-nav--light ~ .ee-hero-stage .ee-hero__heading {
+  filter: none;
 }
 
 /* Below 1150px the burst was landing right at (almost under) the nav bar,
