@@ -1,0 +1,127 @@
+/* Scroll-progress timeline: a track line down the center with a dot per
+   step, and a filled line that grows to meet each dot as you scroll
+   past it. .ee-timeline is shared with events.html/meet-the-team.html/
+   prop-rentals.html, so this file is only loaded by the two pages that
+   need the scroll-progress version — our-process.html and our-story.html. */
+.ee-timeline {
+  position: relative;
+}
+
+.ee-timeline__track,
+.ee-timeline__progress {
+  position: absolute;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* top/height are set inline by timeline-progress.js, spanning exactly from
+   the first dot's center to the last dot's — not the full container,
+   which includes .ee-timeline's padding-block and would overshoot past
+   the last dot. */
+.ee-timeline__track {
+  background: var(--color-border);
+  z-index: 0;
+}
+
+.ee-timeline__progress {
+  background: #B43DB4;
+  z-index: 1;
+}
+
+.ee-timeline__row {
+  position: relative;
+  z-index: 2;
+}
+
+.ee-timeline__dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 3px solid var(--color-border);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  z-index: 3;
+}
+
+.ee-timeline__dot.is-active {
+  background: #B43DB4;
+  border-color: #B43DB4;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Final dot: a "ka-pow" burst graphic (originally exported as
+   assets/img/burst.svg, inlined here so its animation can be driven by
+   CSS) instead of a plain circle — marks the end of the timeline. Sits
+   dim/small until .is-active, then pops. Overrides the plain-dot
+   background/border/scale above (same specificity, defined after, so it
+   wins). */
+.ee-timeline__dot--final {
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+}
+
+/* .is-active here beats the plain .ee-timeline__dot.is-active rule
+   above on specificity (two classes vs. one) — needed so its
+   background/border reset don't get reinstated once active, which
+   was hiding the burst svg behind a solid magenta circle the same
+   color as the svg itself. */
+.ee-timeline__dot--final.is-active {
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+}
+
+.ee-timeline__burst {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scale(0.35);
+  opacity: 0.5;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.ee-timeline__dot--final.is-active .ee-timeline__burst {
+  animation: ee-timeline-burst 0.6s cubic-bezier(0.25, 0.8, 0.4, 1.4) forwards;
+}
+
+@keyframes ee-timeline-burst {
+  0%   { transform: scale(0.35); opacity: 0.5; }
+  55%  { transform: scale(1.35); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* .ee-timeline__media is shared with events.html/themes.html/etc, so
+   this square crop is scoped to this file (only loaded by
+   our-process.html/our-story.html). */
+.ee-timeline__media img {
+  width: 400px;
+  height: 400px;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  /* .ee-timeline__media's flex-basis (450px, site.css) is wider than
+     the image itself, so without this the image just hugged the
+     left edge of its own flex cell — on rows where that cell sits on
+     the right (next to the center dot/line), it read as too close to
+     the timeline instead of centered in its half of the row. */
+  margin-inline: auto;
+}
+
+/* Below this width .ee-timeline__row's two halves stack instead of
+   sitting side by side (flex-wrap), so a center line no longer lines
+   up with anything meaningful — hide the whole apparatus. */
+@media (max-width: 700px) {
+  .ee-timeline__track,
+  .ee-timeline__progress,
+  .ee-timeline__dot {
+    display: none;
+  }
+}

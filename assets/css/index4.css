@@ -9,13 +9,11 @@
   --color-bg: #F5F3FA;
   --color-text: #1C1533;
   --color-text-muted: #665F80;
-  --color-accent: #E7E2F5;
   --color-btn-dark: #1E1740;
   --color-btn-magenta: #4B3384;
   --color-purple: #7C63A8;
   --color-purple-deep: #3B2A67;
   --color-purple-dark: #241A42;
-  --color-bg-alt: #EFECF8;
   /* --color-green intentionally left as-is — lime stays a sparing accent */
   --font-display: 'Elsie', serif;
 }

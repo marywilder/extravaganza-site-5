@@ -12,7 +12,6 @@
   --color-bg: #EDEAFF;          /* page background, cream */
   --color-text: #101111;        /* primary text, near-black */
   --color-text-muted: #5b5b5b;  /* eyebrow / secondary text */
-  --color-accent: #ECEBEF;      /* very light purple tint (was dusty tan) — "effortlessly" highlight */
   --color-btn-dark: #29272a;    /* "Request a Quote" button */
   --color-btn-magenta: #983C98; /* "Explore Collections" + nav CTA button (was teal) */
   --color-btn-text: #ffffff;
@@ -22,7 +21,6 @@
   --color-green: #88E556;       /* pop accent — use sparingly, hover states only */
   --testimonial-bg: rgba(106, 49, 106, 0.35); /* translucent wash over page bg photo */
   --cta-bg: rgba(111, 51, 111, 0.29);         /* translucent wash, CTA section */
-  --color-bg-alt: #F7F7F9;      /* very light purple tint (was warm-cream) — used on some service pages */
   --color-purple-dark: #433663; /* "Pickup" button on service pages */
 
   /* Type — all on Google Fonts, imported in base.css */
@@ -65,69 +63,30 @@
 
 /* ===== base.css ===== */
 
-/* Home page only: wavy background photo behind the nav + hero, full width,
-   starting at the very top of the page. Positioned as an <img> rather than
-   a CSS background so it can overflow past the bottom of the wrapper
-   instead of being clipped to it. */
+/* Home page only: positioning context for the nav + hero backdrop
+   (.ee-home-topbg__panel, index4.css). */
 .ee-home-topbg {
   position: relative;
 }
 
-/* Everything below the nav. overflow:hidden here clips the parallax
-   squiggle layer (.ee-blobs) to this box's real content height, so the
-   scroll-linked transform can never push it — or inflate the page's
-   scrollable area — past the footer. Must stay OFF .ee-home-topbg itself,
-   since .ee-nav (position: sticky) lives there and any overflow value
-   other than visible on an ancestor disables sticky positioning. */
+/* Everything below the nav. Must stay OFF .ee-home-topbg itself, since
+   .ee-nav (position: sticky) lives there and any overflow value other
+   than visible on an ancestor disables sticky positioning. */
 .ee-home-body {
   position: relative;
   overflow: hidden;
 }
 
-/* Clips the photo below (which overflows horizontally once it switches to
-   a height-driven "zoom" crop under 1100px — see .ee-home-topbg__img) to
-   the page's actual width. Must be a sibling of .ee-nav, not an ancestor
-   of it — overflow: hidden on .ee-home-topbg itself would disable the
-   nav's position: sticky. */
+/* Clips its content to the page's actual width. Wraps .ee-home-topbg__panel
+   (index4.css) — the solid indigo panel behind the nav/hero. Must be a
+   sibling of .ee-nav, not an ancestor of it — overflow: hidden on
+   .ee-home-topbg itself would disable the nav's position: sticky. */
 .ee-home-topbg__img-clip {
   position: absolute;
   inset: 0;
   overflow: hidden;
   z-index: -1;
   pointer-events: none;
-}
-
-.ee-home-topbg__img {
-  position: absolute;
-  top: -100px;
-  left: 0;
-  width: 100%;
-  height: auto;
-  pointer-events: none;
-}
-
-/* Below "small laptop" width, sizing the photo off its own width (above)
-   makes it shrink vertically too — the dark top portion runs out before
-   the bottom of the pinned hero/intro viewport, so the white heading text
-   ends up sitting on the plain page background instead of the photo (see
-   responsiveness audit). Switch to sizing off viewport height instead and
-   let object-fit: cover crop the sides — effectively zooming in just
-   enough to keep the same dark backdrop behind the nav/hero/intro text at
-   every width down to the smallest phones. */
-@media (max-width: 1300px) {
-  .ee-home-topbg__img {
-    top: 0;
-    left: 50%;
-    width: auto;
-    max-width: none;
-    height: 115vh;
-    /* transform (translateX to re-center + the scroll parallax translateY)
-       is applied together by main.js, since the parallax effect sets this
-       element's transform inline and would otherwise wipe out the
-       centering. */
-    object-fit: cover;
-    object-position: top center;
-  }
 }
 
 .ee-home-topbg .ee-hero {
@@ -196,45 +155,6 @@
 .ee-full-gallery > .ee-gallery__item:nth-child(4n+3):not(.is-visible) { transition-delay: 0.16s; }
 .ee-full-gallery > .ee-gallery__item:nth-child(4n+4):not(.is-visible) { transition-delay: 0.24s; }
 
-/* Home page: organic squiggle SVGs, drifting slower than the foreground
-   content as you scroll (JS applies the translateY parallax), and fading/
-   scaling in the first time each one scrolls into view (.ee-reveal). */
-.ee-blobs {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.ee-blob-img {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: auto;
-}
-
-/* Overrides .ee-reveal.is-visible's opacity:1 — squiggles should settle at
-   a soft background opacity, not full color, once they've faded in. */
-.ee-blob-img.ee-reveal.is-visible {
-  opacity: 0.25;
-}
-
-/* Fixed px (not %) so they land in the page's actual open background
-   areas — between/around sections — rather than being hidden behind the
-   opaque hero photo at the top or the footer near the bottom. */
-.ee-blob-img--1 { top: 550px; }
-
-/* Smaller and anchored off the right edge (not stacked full-width like
-   squiggle--1, which avoids the two mirroring each other); bottom edge
-   sinks behind the footer's opaque background so it ends above/within the
-   footer rather than the footer ending above it. */
-.ee-blob-img--4 {
-  top: 150px;
-  left: 0;
-  width: 100%;
-}
-
 /* Minimal reset */
 *, *::before, *::after { box-sizing: border-box; }
 body, h1, h2, h3, h4, p, figure { margin: 0; }
@@ -249,9 +169,7 @@ body, h1, h2, h3, h4, p, figure { margin: 0; }
    separate exception. */
 img { max-width: 100%; display: block; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1); }
 
-.ee-blob-img,
 .ee-cta__sparkle,
-.ee-home-topbg__img,
 .ee-nav__logo-img {
   box-shadow: none;
 }
@@ -291,10 +209,6 @@ h3 { font-size: var(--fs-h3); }
   .ee-reveal {
     opacity: 1;
     transform: none;
-  }
-
-  .ee-blobs {
-    transform: none !important;
   }
 }
 
@@ -345,6 +259,12 @@ h3 { font-size: var(--fs-h3); }
   font-size: 30px;
   letter-spacing: 2.88px;
   color: #000;
+}
+
+/* Several pages repeated this as an inline style="display:block" — folded
+   in here since it's the same value everywhere it was used. */
+.ee-section-title.ee-reveal {
+  display: block;
 }
 
 .ee-section-link {

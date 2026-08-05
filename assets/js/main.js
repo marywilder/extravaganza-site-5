@@ -6,8 +6,8 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Mobile nav: hamburger opens the .ee-nav__menu drawer (see nav.css,
-  // max-width: 1300px). Closes on link click, Escape, or resizing back
+  // Mobile nav: hamburger opens the .ee-nav__menu drawer (see site.css,
+  // max-width: 768px). Closes on link click, Escape, or resizing back
   // past the breakpoint so it can't get stuck open if you rotate a tablet.
   const navToggle = document.querySelector('.ee-nav__toggle');
   const navMenu = document.querySelector('.ee-nav__menu');
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 1300) closeMenu();
+      if (window.innerWidth > 768) closeMenu();
     });
   }
 
@@ -79,8 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Home page: full-screen logo intro on load. After ~4.4s — the burst
-  // animation's own runtime (see extravaganza-logo-v3.html) plus a small
-  // buffer — fade the overlay out and reveal the hero content AND the
+  // animation's own runtime (see assets/img/extravaganza-logo-final.html)
+  // plus a small buffer — fade the overlay out and reveal the hero content AND the
   // in-page hero logo together. The in-page logo is a separate instance
   // of the same animation that started at the same moment on load, so
   // it's already resting at its own finished frame once revealed — it
@@ -119,47 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach((el) => revealObserver.observe(el));
   } else {
     revealEls.forEach((el) => el.classList.add('is-visible'));
-  }
-
-  // Home page: soft background blobs drift at a fraction of scroll speed
-  // (classic parallax — background moves slower than the foreground).
-  const blobs = document.querySelector('.ee-blobs');
-  const topbgImg = document.querySelector('.ee-home-topbg__img');
-
-  if ((blobs || topbgImg) && !reduceMotion) {
-    let parallaxTicking = false;
-    const updateParallax = () => {
-      if (blobs) {
-        blobs.style.transform = `translateY(${window.scrollY * 0.15}px)`;
-      }
-      if (topbgImg) {
-        // Capped scroll input: this image sits inside .ee-home-topbg, which
-        // (unlike .ee-blobs/.ee-home-body) has no overflow:hidden to clip
-        // it — .ee-nav's position:sticky needs that ancestor left alone.
-        // Capping keeps the lag effect near the top of the page instead of
-        // letting the offset (and the risk of it overflowing the footer)
-        // grow unbounded the further down the page you scroll. Kept a lot
-        // slower than the blobs (small factor, same cap).
-        const cappedScroll = Math.min(window.scrollY, 800);
-        // Below 1300px (nav.css) the image switches to a height-driven
-        // "zoom" crop, centered horizontally with left: 50% — this inline
-        // transform overwrites that entirely, so the -50% X has to be
-        // re-applied here alongside the parallax Y or the photo snaps to
-        // one side (it isn't wide enough at the transform's basis to still
-        // cover the viewport once translateX drops out).
-        const isZoomed = window.innerWidth <= 1300;
-        const x = isZoomed ? '-50%' : '0';
-        topbgImg.style.transform = `translate(${x}, ${cappedScroll * 0.05}px)`;
-      }
-      parallaxTicking = false;
-    };
-    updateParallax();
-    window.addEventListener('scroll', () => {
-      if (!parallaxTicking) {
-        window.requestAnimationFrame(updateParallax);
-        parallaxTicking = true;
-      }
-    }, { passive: true });
   }
 
   // Home page: the hero and intro text occupy the exact same spot inside

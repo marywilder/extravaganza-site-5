@@ -13,13 +13,11 @@
   --color-bg: #F5F3FA;
   --color-text: #1C1533;
   --color-text-muted: #665F80;
-  --color-accent: #E7E2F5;
   --color-btn-dark: #1E1740;
   --color-btn-magenta: #4B3384;
   --color-purple: #7C63A8;
   --color-purple-deep: #3B2A67;
   --color-purple-dark: #241A42;
-  --color-bg-alt: #EFECF8;
   /* --color-green intentionally left as-is — lime stays a sparing accent */
   --font-display: 'Elsie', serif;
 
@@ -116,7 +114,6 @@ body {
 /* Elsie renders noticeably smaller than Boldonse at the same font-size —
    bumped every --font-display element used on these pages, at the same
    ratio applied to the homepage variants. */
-.ee-page-hero__title { font-size: 72px; }
 .ee-section-title { font-size: 46px; }
 .ee-howitworks__title { font-size: 72px; }
 .ee-howitworks__number { font-size: 34px; }
