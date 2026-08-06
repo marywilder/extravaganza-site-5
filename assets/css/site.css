@@ -1562,7 +1562,6 @@ h3 { font-size: var(--fs-h3); }
 
 .ee-timeline__kicker {
   font-family: var(--font-script-alt);
-  font-style: italic;
   font-size: 24px;
   color: var(--color-purple-deep);
   margin-bottom: var(--space-sm);
