@@ -3,7 +3,7 @@
    delivery-setup, events, gallery, meet-the-team, our-process, our-story,
    pickup, prop-rentals, testimonials, themes) — brings them in line with
    index4.html's "Timeless" look: deep indigo + magenta accent palette,
-   Elsie display font (with matching size bumps), paper-texture body
+   Instrument Serif display font (with matching size bumps), paper-texture body
    background, recolored testimonial/CTA bands. No hero photo banner here
    — these pages only ever had the small text page-hero, not the
    homepage's big image, so there's nothing to strip.
@@ -19,7 +19,7 @@
   --color-purple-deep: #3B2A67;
   --color-purple-dark: #241A42;
   /* --color-green intentionally left as-is — lime stays a sparing accent */
-  --font-display: 'Elsie', serif;
+  --font-display: 'Instrument Serif', serif;
 
   /* .ee-howitworks and .ee-cta-band--purple both wash over the page bg in
      translucent purple by default — shifted to indigo to match the
@@ -111,7 +111,7 @@ body {
   color: #B7A9E0;
 }
 
-/* Elsie renders noticeably smaller than Boldonse at the same font-size —
+/* Instrument Serif renders noticeably smaller than Boldonse at the same font-size —
    bumped every --font-display element used on these pages, at the same
    ratio applied to the homepage variants. */
 .ee-section-title { font-size: 46px; }
@@ -130,7 +130,7 @@ body {
 
 /* Every h1 on these pages (site.css's page-hero title) in Boldonse, every
    h2 (section headers, timeline/howitworks/info-grid titles) in Instrument
-   Serif — both override the var(--font-display)/Elsie set above, since
+   Serif — both override the var(--font-display)/Instrument Serif set above, since
    these are element-level type choices rather than this theme's display
    font. The bottom-of-page CTA heading ("Ready to..." etc.) is the one h2
    that gets Instrument Serif *italic* instead of the plain weight, so it
@@ -143,7 +143,7 @@ body {
 }
 
 /* "How it works" step titles (the text after the "01"/"02"/"03" numbers):
-   bold Albert Sans instead of the Elsie/Boldonse display font used
+   bold Albert Sans instead of the Instrument Serif/Boldonse display font used
    elsewhere, to read as a plain, punchy label rather than another
    headline. */
 .ee-howitworks__step-title {

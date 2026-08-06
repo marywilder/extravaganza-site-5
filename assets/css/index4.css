@@ -1,7 +1,7 @@
 /* ============================================================
    index4.html ONLY — forked from index3-timeless.css so future edits to
    one page don't silently affect the other. Same "Timeless" look: deep
-   indigo backdrop, magenta buttons, Elsie display font, paper-texture
+   indigo backdrop, magenta buttons, Instrument Serif display font, paper-texture
    body background.
    ============================================================ */
 
@@ -15,7 +15,7 @@
   --color-purple-deep: #3B2A67;
   --color-purple-dark: #241A42;
   /* --color-green intentionally left as-is — lime stays a sparing accent */
-  --font-display: 'Elsie', serif;
+  --font-display: 'Instrument Serif', serif;
 }
 
 /* Backdrop behind the nav + hero, replacing the wavy photo: the
@@ -135,7 +135,7 @@ body {
   font-weight: 400;
 }
 
-/* Elsie renders noticeably smaller than Boldonse at the same font-size, so
+/* Instrument Serif renders noticeably smaller than Boldonse at the same font-size, so
    every element set in --font-display needs a bump to read at its original
    visual weight. */
 .ee-hero__heading {

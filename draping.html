@@ -17,6 +17,17 @@
     .ee-theme-card:hover .ee-theme-card__img {
       filter: brightness(0.75);
     }
+
+    /* site.css's .ee-cta-band gets padding-block: var(--space-2xl) (96px)
+       top and bottom by default. The Linens section right above it here
+       has no bottom padding of its own, so that 96px of top padding was
+       the entire gap — read as a lot of dead space with nothing else
+       separating the two sections (no background tint on this page's
+       band). Trimmed to just the CTA band's own bottom-padding value so
+       the two sections sit close together instead. */
+    .ee-cta-band {
+      padding-top: var(--space-sm);
+    }
   </style>
 </head>
 <body>
@@ -33,7 +44,7 @@
         <div class="ee-nav__dropdown">
           <a href="#">Services</a>
           <div class="ee-nav__dropdown-menu">
-            <a href="draping.html">Draping</a>
+            <a href="draping.html">Draping & Linens</a>
             <a href="centerpieces.html">Centerpieces</a>
             <a href="balloons.html">Balloons</a>
             <a href="prop-rentals.html">Prop Rentals</a>
@@ -60,76 +71,82 @@
     </div>
   </header>
 
-  <section class="container ee-reveal" style="padding-block: var(--space-xl) var(--space-2xl); text-align:center;">
+  <section class="container ee-reveal" style="padding-block: var(--space-xl) var(--space-lg); text-align:center;">
     <h1 class="ee-page-hero__title" style="margin-bottom: var(--space-lg);">Draping & Linens</h1>
+  
+  </section>
+
+  <section class="container ee-reveal" style="padding-bottom: var(--space-lg);">
+    <h2 class="ee-section-title" style="margin-bottom: var(--space-md); ">Draping</h2>
     <!-- TODO: Figma still has lorem ipsum placeholder copy here -->
-    <p class="ee-page-hero__text" style="max-width: 800px; margin-inline:auto;"><i>Draping</i> has the power to completely transform a space.  From elegant ceiling draping and dramatic stage backdrops to pipe and drape, wall coverings, and grand entrances, our custom draping solutions add depth, texture, and sophistication to any venue. Every installation is thoughtfully designed to complement your event and create a stunning, unforgettable atmosphere.</p>
-    <p class="ee-page-hero__text" style="max-width: 800px; margin-inline:auto;"><i>Linens</i> Elevate your event with premium table linens that bring texture and style to every setting. Extravaganza Events offers a large selection of beautiful tablecloths, runners, and specialty fabrics. Available in a wide range of colors, textures, and patterns, our linens are carefully selected to complement your event décor and create a polished, cohesive design from table to table.</p>
-  </section>
-
-  <section class="container ee-gallery__grid" style="margin-bottom: var(--space-lg);">
-    <div class="ee-gallery__item ee-gallery__item--tall ee-reveal">
-      <img src="assets/img/Barn wedding draping with lights (1).jpg" alt="Barn wedding draping with lights">
-      <div class="ee-gallery__caption">
-        <p class="ee-gallery__caption-title">Barn Wedding Draping</p>
-        <p class="ee-gallery__caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+    <p class="ee-page-hero__text" style="max-width: 100%; margin-inline:auto;  margin-bottom: var(--space-lg);">Draping has the power to completely transform a space. From elegant ceiling draping and dramatic stage backdrops to pipe and drape, wall coverings, and grand entrances, our custom draping solutions add depth, texture, and sophistication to any venue. Every installation is thoughtfully designed to complement your event and create a stunning, unforgettable atmosphere. As our signature service, draping is where we go all-in — full-room transformations built around whatever look you're chasing.</p>
+    <div class="ee-gallery__grid">
+      <div class="ee-gallery__item ee-gallery__item--tall ee-reveal">
+        <img src="assets/img/Barn wedding draping with lights (1).jpg" alt="Barn wedding draping with lights">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Barn Wedding Draping</p>
+          <p class="ee-gallery__caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+        </div>
       </div>
-    </div>
-    <div class="ee-gallery__item ee-reveal">
-      <img src="assets/img/Austrian Curtain Cox Mill 2019.jpg" alt="Austrian curtain draping at Cox Mill">
-      <div class="ee-gallery__caption">
-        <p class="ee-gallery__caption-title">Austrian Curtain Drape</p>
-        <p class="ee-gallery__caption-desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+      <div class="ee-gallery__item ee-reveal">
+        <img src="assets/img/Austrian Curtain Cox Mill 2019.jpg" alt="Austrian curtain draping at Cox Mill">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Austrian Curtain Drape</p>
+          <p class="ee-gallery__caption-desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
       </div>
-    </div>
-    <div class="ee-gallery__item ee-reveal">
-      <img src="assets/img/Blue Swags Gold Draping Giant Jester Masks.jpeg" alt="Blue swags and gold draping with giant jester masks">
-      <div class="ee-gallery__caption">
-        <p class="ee-gallery__caption-title">Blue &amp; Gold Swags</p>
-        <p class="ee-gallery__caption-desc">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+      <div class="ee-gallery__item ee-reveal">
+        <img src="assets/img/Blue Swags Gold Draping Giant Jester Masks.jpeg" alt="Blue swags and gold draping with giant jester masks">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Blue &amp; Gold Swags</p>
+          <p class="ee-gallery__caption-desc">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+        </div>
       </div>
-    </div>
-    <div class="ee-gallery__item ee-reveal">
-      <img src="assets/img/draping6.jpg" alt="Event draping">
-      <div class="ee-gallery__caption">
-        <p class="ee-gallery__caption-title">Ceiling Draping</p>
-        <p class="ee-gallery__caption-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui.</p>
+      <div class="ee-gallery__item ee-reveal">
+        <img src="assets/img/draping6.jpg" alt="Event draping">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Ceiling Draping</p>
+          <p class="ee-gallery__caption-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui.</p>
+        </div>
       </div>
-    </div>
-    <div class="ee-gallery__item ee-reveal">
-      <img src="assets/img/LL5A5111 (1).jpg" alt="Event draping detail">
-      <div class="ee-gallery__caption">
-        <p class="ee-gallery__caption-title">Draping Detail</p>
-        <p class="ee-gallery__caption-desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
+      <div class="ee-gallery__item ee-reveal">
+        <img src="assets/img/LL5A5111 (1).jpg" alt="Event draping detail">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Draping Detail</p>
+          <p class="ee-gallery__caption-desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
+        </div>
       </div>
-    </div>
-  </section>
-  <div class="container" style="display:flex; justify-content:flex-end; padding-bottom: var(--space-xl);">
-    <a href="gallery.html" class="ee-section-link">View Gallery <span class="ee-section-link__arrow" aria-hidden="true">→</span></a>
-  </div>
-
-  <section class="container" style="padding-bottom: var(--space-xl);">
-    <h2 class="ee-section-title ee-reveal" style="margin-bottom: var(--space-lg);">Featured Draping</h2>
-    <div class="ee-themes__grid" style="grid-template-columns: repeat(4, 1fr);">
-      <a href="#" class="ee-theme-card ee-reveal">
-        <img src="assets/img/photo-placeholder.png" alt="Draping style 1" class="ee-theme-card__img">
-        <span class="ee-theme-card__label"></span>
-      </a>
-      <a href="#" class="ee-theme-card ee-reveal">
-        <img src="assets/img/photo-placeholder.png" alt="Draping style 2" class="ee-theme-card__img">
-        <span class="ee-theme-card__label"></span>
-      </a>
-      <a href="#" class="ee-theme-card ee-reveal">
-        <img src="assets/img/photo-placeholder.png" alt="Draping style 3" class="ee-theme-card__img">
-        <span class="ee-theme-card__label"></span>
-      </a>
-      <a href="#" class="ee-theme-card ee-reveal">
-        <img src="assets/img/photo-placeholder.png" alt="Draping style 4" class="ee-theme-card__img">
-        <span class="ee-theme-card__label"></span>
-      </a>
     </div>
     <div style="display:flex; justify-content:flex-end; margin-top: var(--space-lg);">
-      <a href="prop-rentals.html" class="ee-section-link">View Full Prop Catalog <span class="ee-section-link__arrow" aria-hidden="true">→</span></a>
+      <a href="gallery.html" class="ee-section-link">View Gallery <span class="ee-section-link__arrow" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="container ee-reveal">
+    <h2 class="ee-section-title" style="margin-bottom: var(--space-md); ">Linens</h2>
+    <p class="ee-page-hero__text" style="max-width: 100%; margin-inline:auto;  margin-bottom: var(--space-lg);">Elevate your event with premium table linens that bring texture and style to every setting. Extravaganza Events offers a large selection of beautiful tablecloths, runners, and specialty fabrics. Available in a wide range of colors, textures, and patterns, our linens are carefully selected to complement your event décor and create a polished, cohesive design from table to table.</p>
+    <div class="ee-gallery__grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="ee-gallery__item ee-reveal">
+        <img src="assets/img/white-fabric.jpg" alt="Premium linen fabric detail">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Fine Fabric Detail</p>
+          <p class="ee-gallery__caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+        </div>
+      </div>
+      <div class="ee-gallery__item ee-reveal">
+        <img src="assets/img/photo-placeholder.png" alt="Table linens and runners">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Table Runners</p>
+          <p class="ee-gallery__caption-desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+      </div>
+      <div class="ee-gallery__item ee-reveal">
+        <img src="assets/img/photo-placeholder.png" alt="Specialty tablecloth styling">
+        <div class="ee-gallery__caption">
+          <p class="ee-gallery__caption-title">Specialty Tablecloths</p>
+          <p class="ee-gallery__caption-desc">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+        </div>
+      </div>
     </div>
   </section>
 
